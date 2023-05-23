@@ -37,6 +37,8 @@
 	src: url('../font/NotoSans-Thin.woff2') format('woff2');
 }
 
+
+
 .offscreen {
 	position: absolute;
 	clip: rect(1px 1px 1px 1px);
@@ -310,6 +312,7 @@ input[type='checkbox']:checked+label {
 	font-weight: 700;
 	color: #757575;
 	text-decoration: none;
+	user-select: none;
 }
 
 .flex_link {
@@ -755,7 +758,7 @@ main {
 	text-decoration: none;
 }
 
-.tab_round li.on a {
+.tab_round li.on a , .tab_round .router-link-active {
 	opacity: 1;
 	font-size: 30px;
 	color: #5b5b5b;
@@ -1496,7 +1499,7 @@ h5 {
 /* 이 클래스들이 무엇을 하는지 다음에 설명하겠습니다. */
 .v-enter-active,
 .v-leave-active {
-	transition: opacity .8s ease;
+	transition: opacity 1s ease;
 }
 
 .v-enter-from,

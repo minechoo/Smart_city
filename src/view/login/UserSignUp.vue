@@ -1,5 +1,4 @@
 <template >
-    
     <div class="ab_membership">
         <div class="header">
             <h1>회원가입</h1>

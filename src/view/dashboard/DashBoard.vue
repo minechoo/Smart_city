@@ -1,8 +1,7 @@
 <template>
-   
     <main class="system_wrap">
         <section>
-            <h2><a href="stop_main.html">스마트 정류장</a></h2>
+            <h2><a href="#" @click="() => goDevicePage('/device/stop')">스마트 정류장</a></h2>
             <ul>
                 <li><a href="#">ㅇㅇ역 버스정류장1</a></li>
                 <li class="on"><a href="#">ㅇㅇ역 버스정류장2</a></li>
@@ -58,20 +57,23 @@
 </template>
 
 <script>
-import { mapGetters , mapActions } from 'vuex';
-import addBtn from  '../../style/images/ico_add.png';
+import { mapGetters, mapActions } from 'vuex';
+import addBtn from '../../style/images/ico_add.png';
 export default {
-    data (){
+    data() {
         return {
-            addBtn 
+            addBtn
         }
-    }, 
+    },
     computed: {
         ...mapGetters(['isLogin'])
-    }, methods:{
+    }, methods: {
         ...mapActions(['doLogout'])
-        , fnLogout(){
+        , fnLogout() {
             this.doLogout();
+        }
+        , goDevicePage(url) {
+            this.$router.push(url);
         }
     }
 }

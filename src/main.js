@@ -7,6 +7,7 @@ import './style/css/common.css';
 
 import { createWebHistory, createRouter } from 'vue-router';
 
+import BasicLayout from './layout/BasicLayout.vue';
 import LoginPage from './view/login/LoginPage.vue';
 import MainPage from './view/MainPage.vue';
 import NotFound from './layout/NotFound.vue';
@@ -14,6 +15,7 @@ import DashBoard from './view/dashboard/DashBoard.vue';
 import messageStore from './state/ComMessageStore.js';
 import ComMessage from './components/ComMessage.vue';
 import userStore from './state/UserInfoStore';
+import DeviceMain from './view/device/DeviceMain.vue';
 import { createStore } from 'vuex';
 
 const app = createApp(App);
@@ -32,7 +34,14 @@ const router = createRouter({
         { path: '/', component: MainPage }
         , { path: '/dash', component: DashBoard }
         , { path: '/login', component: LoginPage }
-        , { path: '/:pathMatch(.*)*', component:NotFound }
+        , {
+            path: '/device', component: BasicLayout
+            , children: [{
+                path: 'stop', component: DeviceMain
+            }]
+        }
+        , { path: '/:pathMatch(.*)*', component: NotFound }
+
 
     ]
 });

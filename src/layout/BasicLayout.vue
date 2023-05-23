@@ -1,11 +1,19 @@
 <template>
-    <div>
-        HELLO
+  <main>
+    <div class="stop_wrap">
+      <BasicHeader />
+      <router-view></router-view>
     </div>
-    <slot></slot>
+  </main>
 </template>
 <script>
+import BasicHeader from "./BasicHeader.vue";
 export default {
-    data() { return {} }
-}
+  components: {
+    BasicHeader,
+  },
+  data() {
+    return {};
+  },
+};
 </script>

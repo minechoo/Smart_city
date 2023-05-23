@@ -13,7 +13,7 @@
     </Transition>
 
     <Transition>
-        <div v-if="showDialog" class="dialog-dim" @click="fnHideMyPage">
+        <div v-if="showDialog" class="dialog-dim">
             <UserInfo @onClose="fnHideMyPage"/>
         </div>
     </Transition>

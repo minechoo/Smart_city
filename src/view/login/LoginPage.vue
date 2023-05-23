@@ -1,5 +1,5 @@
 <template>
-    <div class="login_wrap" v-if="!showFindMe">
+    <div class="login_wrap">
         <div class="login_area">
             <div class="al_center">
                 <a href="#">
@@ -14,10 +14,9 @@
                 <label for="pw" class="offscreen">비밀번호</label>
 
                 <button type="submit" class="btn_login" @click="fnDoLogin">로그인</button>
-
-                <input type="checkbox" name="" id="remember">
-                <label for="remember">아이디 기억하기</label>
-                <div class="flex_link">
+                <input type="checkbox" name="" id="remember" v-model="rememberMe">
+                <label for="remember" >아이디 기억하기</label>
+                <div class="flex_link"> 
                     <a href="#" @click="() => fnSetFindMe(true)">아이디/비밀번호 찾기</a>
                     <a href="#" @click="() => fnShowSignUp(true)">회원가입하기</a>
                 </div>
@@ -26,12 +25,14 @@
         </div>
     </div>
     <Transition>
-        <UserSearch v-if="showFindMe" @onCloseDialog="() => fnSetFindMe(false)" />
-
+        <div class="dialog-dim" v-if="showFindMe" >
+            <UserSearch @onCloseDialog="() => fnSetFindMe(false)" />
+        </div>
     </Transition>
-
     <Transition>
-        <UserSignUp v-if="showSignUp" @onClose="() => fnShowSignUp(false)" />
+        <div class="dialog-dim" v-if="showSignUp">
+            <UserSignUp v-if="showSignUp" @onClose="() => fnShowSignUp(false)" />
+        </div>
     </Transition>
 </template>
 <script>
@@ -43,6 +44,7 @@ export default {
     data() {
         return {
             userId: '', userPassword: ''
+            , rememberMe: false
             , showFindMe: false
             , showSignUp: false
         }

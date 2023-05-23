@@ -256,10 +256,15 @@ input[type='checkbox']:checked + label {
 }
 .login_box label,
 .login_box .flex_link a {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-use-select: none;
+	user-select: none;
 	font-size: 16px;
 	font-weight: 700;
 	color: #757575;
 	text-decoration: none;
+
 }
 .flex_link {
 	display: flex;
@@ -1246,7 +1251,6 @@ h4 {
 	top: 200px;
 }
 .dim {
-	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
