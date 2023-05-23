@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전동어닝</title>
+  <link rel="stylesheet" href="css/common.css">
+  <script defer src="js/jquery-3.4.1.min.js"></script>
+  <script defer src="js/common.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1><a href="index.html">스마트 시설물 통합 운영 관리 시스템</a></h1>
+    <div class="right_section">
+      <div class="logo">업체명 또는 이름</div>
+      <div class="info">내정보 변경</div>
+      <div class="login">로그아웃</div>
+    </div>
+  </header>
+  <main>
+    <div class="stop_wrap">
+      <ul class="tab_round">
+        <li><a href="shelter_main.html">스마트 쉘터</a></li>
+        <li><a href="library_main.html">스마트 도서관</a></li>
+        <li><a href="pull_main.html">스마트 폴</a></li>
+        <li class="on"><a href="stop_main.html">스마트 정류장</a></li>
+      </ul>
+      <section class="ab_spot">
+        <div class="img_wrap">
+          <img src="images/ico_stop_map.png" alt="지도">
+        </div>
+        <h2>스마트 정류장</h2>
+        <ul>
+          <li><a href="#">ㅇㅇ역 버스정류장1</a></li>
+          <li class="on"><a href="#">ㅇㅇ역 버스정류장2</a></li>
+          <li><a href="#">ㅇㅇ역 버스정류장3</a></li>
+          <li><a href="#">ㅇㅇ역 버스정류장4</a></li>
+          <li><a href="#">ㅇㅇ역 버스정류장5</a></li>
+          <li><a href="#">ㅇㅇ역 버스정류장6</a></li>
+          <li><a href="#">ㅇㅇ역 버스정류장7</a></li>
+        </ul>
+        <span class="arrow on"></span>
+      </section>
+      <div class="menu_box p_40_140">
+        <div class="group">
+          <h3>통합제어</h3>
+          <h3>개별제어</h3>
+        </div>
+        <div class="sub_wrap">
+          <nav>
+            <ul>
+              <li><a href="#">출입개폐</a></li>
+              <li><a href="#">냉난방</a></li>
+              <li><a href="#">공기정화</a></li>
+              <li><a href="#">DID</a></li>
+              <li><a href="#">조명</a></li>
+              <li><a href="#">CCTV</a></li>
+              <li><a href="#">온열의자</a></li>
+              <li class="on"><a href="#">전동어닝</a></li>
+              <li><a href="#">비상벨</a></li>
+              <li><a href="#">미세먼지<br>표출기</a></li>
+            </ul>
+            <button class="arrow"></button>
+          </nav>
+          <div class="content" id="electric">
+            <div class="power">
+              <h4>전원</h4>
+              <div class="power_line">
+                <div class="on_green">
+                  <input type="radio" name="power" id="on_green" value="green" checked />
+                  <label for="on_green">ON</label>
+                </div>
+                <div class="off_grey">
+                  <input type="radio" name="power" id="off_grey" value="grey" />
+                  <label for="off_grey">OFF</label>
+                </div>
+              </div>
+            </div>
+            <div class="img_box mt_250">
+              <img src="images/img_electric_on.png" alt="" id="el">
+            </div>
+            <div class="ab_info">
+              전동어닝이 펼쳐집니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

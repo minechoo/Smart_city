@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트 정류장</title>
+    <link rel="stylesheet" href="css/common.css">
+    <script defer src="js/jquery-3.4.1.min.js"></script>
+    <script defer src="js/common.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1><a href="index.html">스마트 시설물 통합 운영 관리 시스템</a></h1>
+        <div class="right_section">
+            <div class="logo">업체명 또는 이름</div>
+            <div class="info">내정보 변경</div>
+            <div class="login">로그아웃</div>
+        </div>
+    </header>
+    <main>
+        <div class="stop_wrap">
+            <ul class="tab_round">
+                <li><a href="shelter_main.html">스마트 쉘터</a></li>
+                <li><a href="library_main.html">스마트 도서관</a></li>
+                <li><a href="pull_main.html">스마트 폴</a></li>
+                <li class="on"><a href="stop_main.html">스마트 정류장</a></li>
+            </ul>
+            <section class="ab_spot">
+                <div class="img_wrap">
+                    <img src="images/ico_stop_map.png" alt="지도">
+                </div>
+                <h2>스마트 정류장</h2>
+                <ul>
+                    <li><a href="#">ㅇㅇ역 버스정류장1</a></li>
+                    <li class="on"><a href="#">ㅇㅇ역 버스정류장2</a></li>
+                    <li><a href="#">ㅇㅇ역 버스정류장3</a></li>
+                    <li><a href="#">ㅇㅇ역 버스정류장4</a></li>
+                    <li><a href="#">ㅇㅇ역 버스정류장5</a></li>
+                    <li><a href="#">ㅇㅇ역 버스정류장6</a></li>
+                    <li><a href="#">ㅇㅇ역 버스정류장7</a></li>
+                </ul>
+                <span class="arrow on"></span>
+            </section>
+            <div class="menu_box">
+                <div class="menu_box_inner">
+                    <!-- 
+                        정상작동시 클래스: go
+                        점검필요시 클래스: go에 caution 추가
+                        사용안할시 클래스: go에 off 추가
+                     -->
+                    <div class="go">
+                        <div class="flex_col">
+                            <a href="stop_09.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_01.svg" alt="출입개폐" class="svg_color">
+                                <h2>출입개폐</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <p>자동설정<br>06:00 - 22:00</p>
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go caution">
+                        <div class="flex_col">
+                            <a href="stop_11.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">점검필요</span>
+                                </div>
+                                <img src="images/svg/ico_menu_02.svg" alt="냉난방" class="svg_color">
+                                <h2>냉난방</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go">
+                        <div class="flex_col">
+                            <a href="stop_12.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_03.svg" alt="공기정화" class="svg_color">
+                                <h2>공기정화</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go">
+                        <div class="flex_col">
+                            <a href="stop_13.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_04.svg" alt="DID" class="svg_color">
+                                <h2>DID</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go">
+                        <div class="flex_col">
+                            <a href="stop_14.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_05.svg" alt="조명" class="svg_color">
+                                <h2>조명</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go">
+                        <div class="flex_col">
+                            <a href="stop_15.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_06.svg" alt="CCTV" class="svg_color">
+                                <h2>CCTV</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go off">
+                        <div class="flex_col">
+                            <a href="stop_16.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_07.svg" alt="온열의자" class="svg_color">
+                                <h2>온열의자</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go off">
+                        <div class="flex_col">
+                            <a href="stop_18.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_08.svg" alt="전동어닝" class="svg_color">
+                                <h2>전동어닝</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go">
+                        <div class="flex_col">
+                            <a href="stop_19.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_09.svg" alt="비상벨" class="svg_color">
+                                <h2>비상벨</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go">
+                        <div class="flex_col a_left">
+                            <a href="stop_20.html">
+                                <div class="operation">
+                                    <span class="status"></span>
+                                    <span class="sign">정상작동</span>
+                                </div>
+                                <img src="images/svg/ico_menu_10.svg" alt="미세먼지표출기" class="svg_color">
+                                <h2>미세먼지표출기</h2>
+                            </a>
+                        </div>
+                        <div class="flex_col_bet">
+                            <div>
+                                <img src="images/svg/ico_menu_top.svg" alt="버튼" class="svg_top">
+                            </div>
+                            <!-- <p>자동설정<br>06:00 - 22:00</p> -->
+                            <div>
+                                <img src="images/svg/ico_menu_bottom.svg" alt="버튼" class="svg_bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="go add">
+                        <button>추가하기</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>
