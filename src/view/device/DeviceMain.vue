@@ -1,20 +1,5 @@
 <template lang="">
-  <section class="ab_spot">
-    <div class="img_wrap">
-      <img src="@/style/images/ico_stop_map.png" alt="지도" />
-    </div>
-    <h2>스마트 정류장</h2>
-    <ul>
-      <li><a href="#">ㅇㅇ역 버스정류장1</a></li>
-      <li class="on"><a href="#">ㅇㅇ역 버스정류장2</a></li>
-      <li><a href="#">ㅇㅇ역 버스정류장3</a></li>
-      <li><a href="#">ㅇㅇ역 버스정류장4</a></li>
-      <li><a href="#">ㅇㅇ역 버스정류장5</a></li>
-      <li><a href="#">ㅇㅇ역 버스정류장6</a></li>
-      <li><a href="#">ㅇㅇ역 버스정류장7</a></li>
-    </ul>
-    <span class="arrow on"></span>
-  </section>
+ 
   <div class="menu_box">
     <div class="menu_box_inner">
       <DeviceMainItem

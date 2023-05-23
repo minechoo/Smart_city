@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      #clock {
+        width: 560px;
+        height: 560px;
+      }
+
+      .arc {
+        fill: rgba(8, 182, 8, 0.356);
+        stroke-width: 2px;
+      }
+
+      .outline {
+        fill: rgba(255, 0, 0, 0.185);
+      }
+
+      .label {
+        font-size: 12px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="clock"></div>
+
+    <script>
+      const width = 500;
+      const height = 500;
+      const radius = Math.min(width, height) / 2;
+
+      const start = 9;
+      const end = 12;
+
+      const arcGenerator = d3
+        .arc()
+        .innerRadius(radius - 20)
+        .outerRadius(radius)
+        .startAngle((d) => (d / 24) * 2 * Math.PI)
+        .endAngle((d) => ((d + 1) / 24) * 2 * Math.PI);
+
+      const outlineGenerator = d3
+        .arc()
+        .innerRadius(radius - 20)
+        .outerRadius(radius)
+        .startAngle((d) => (d / 24) * 2 * Math.PI)
+        .endAngle((d) => ((d + 1) / 24) * 2 * Math.PI);
+
+      const svg = d3
+        .select("#clock")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${(width / 2)+20}, ${(height / 2)+20})`)
+        .style('scale' , '.9');
+
+      const arcs = svg
+        .selectAll(".arc")
+        .data(d3.range(24))
+        .enter()
+        .append("path")
+        .attr("class", "arc")
+        .attr("d", arcGenerator);
+
+      const outlines = svg
+        .selectAll(".outline")
+        .data(d3.range(24))
+        .enter()
+        .append("path")
+        .attr("class", "outline")
+        .attr("d", outlineGenerator);
+
+      const labels = svg
+        .selectAll(".label")
+        .data(d3.range(24))
+        .enter()
+        .append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .attr("transform", (d) => {
+          const angle = (d / 24) * 2 * Math.PI;
+          const x = (radius + 10) * Math.sin(angle);
+          const y = -(radius + 10) * Math.cos(angle);
+          return `translate(${x}, ${y})`;
+        })
+        .text((d) => d);
+      arcs.style("display", (d, i) =>
+        i >= start && i < end ? "initial" : "none"
+      );
+      outlines.style("display", (d, i) =>
+        i >= start && i < end ? "initial" : "none"
+      );
+      labels.style("display", (d, i) =>
+      (i === start || i === end) ? "initial" : "none"
+      );
+    </script>
+  </body>
+</html>

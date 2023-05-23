@@ -6,9 +6,9 @@
             <div class="info" @click="fnShowMyPage">내정보 변경</div>
             <div class="login" @click="fnLogout">로그아웃</div>
         </div>
-
     </header>
     <Transition>
+
         <router-view></router-view>
     </Transition>
 
