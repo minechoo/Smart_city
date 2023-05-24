@@ -12,6 +12,7 @@ export default {
   },
   methods: {
     fnGoDetail: function () {
+      console.log('on clicked : ' , this.areaId);
       this.$router.push(`/device/${this.areaType}/${this.areaId}`);
     },
   },

@@ -1,80 +1,67 @@
 <template>
     <main class="system_wrap">
-        <section>
-            <h2><a href="#" @click="() => goDevicePage('/device/stop')">스마트 정류장</a></h2>
+
+        <section v-for="(type, idx) in deviceType" v-bind:key="idx">
+            <h2><a href="#" @click="() => goDevicePage('/device/stop')">{{ type }}</a></h2>
             <ul>
-                <li><a href="#">ㅇㅇ역 버스정류장1</a></li>
-                <li class="on"><a href="#">ㅇㅇ역 버스정류장2</a></li>
-                <li><a href="#">ㅇㅇ역 버스정류장3</a></li>
-                <li><a href="#">ㅇㅇ역 버스정류장4</a></li>
-                <li><a href="#">ㅇㅇ역 버스정류장5</a></li>
-                <li><a href="#">ㅇㅇ역 버스정류장6</a></li>
-                <li><a href="#">ㅇㅇ역 버스정류장7</a></li>
+                <AreaItem v-for="item in mergedList[type]" v-bind:key="item.deviceId" :areaName="item.deviceName" :areaType="type" :areaId="item.deviceId"/>
             </ul>
             <span class="arrow on"></span>
         </section>
-        <section>
-            <h2><a href="shelter_main.html">스마트 쉘터</a></h2>
-            <ul>
-                <li><a href="#">ㅇㅇ우체국 스마트쉘터</a></li>
-                <li><a href="#">ㅇㅇ우체국 스마트쉘터</a></li>
-                <li><a href="#">ㅇㅇ우체국 스마트쉘터</a></li>
-                <li><a href="#">ㅇㅇ우체국 스마트쉘터</a></li>
-                <li><button>+ 추가하기</button></li>
-            </ul>
-            <span class="arrow"></span>
-        </section>
-        <section>
-            <h2><a href="library_main.html">스마트 도서관</a></h2>
-            <ul>
-                <li><a href="#">ㅇㅇ 스마트도서관</a></li>
-                <li><a href="#">ㅇㅇ 스마트도서관</a></li>
-                <li><a href="#">ㅇㅇ 스마트도서관</a> </li>
-                <li><a href="#">ㅇㅇ 스마트도서관</a></li>
-                <li><button>+ 추가하기</button></li>
-            </ul>
-            <span class="arrow"></span>
-        </section>
-        <section>
-            <h2><a href="pull_main.html">스마트 폴</a></h2>
-            <ul>
-                <li><a href="#">ㅇㅇ거리 스마트 폴 1</a></li>
-                <li><a href="#">ㅇㅇ거리 스마트 폴 2</a></li>
-                <li><a href="#">ㅇㅇ거리 스마트 폴 3</a></li>
-                <li><a href="#">ㅇㅇ거리 스마트 폴 4</a></li>
-                <li><a href="#">ㅇㅇ거리 스마트 폴 5</a></li>
-                <li><a href="#">ㅇㅇ거리 스마트 폴 6</a></li>
-                <li><a href="#">ㅇㅇ거리 스마트 폴 7</a></li>
-                <li><a href="#">ㅇㅇ거리 스마트 폴 8</a></li>
-            </ul>
-            <span class="arrow on"></span>
-        </section>
+
         <div class="add">
-            <img :src="addBtn" alt="추가하기">
+            <img src="@/style/images/ico_add.png" alt="추가하기">
             <p>추가하기</p>
         </div>
     </main>
 </template>
 
 <script>
+import AreaItem from '@/components/area/AreaItem.vue';
 import { mapGetters, mapActions } from 'vuex';
-import addBtn from '../../style/images/ico_add.png';
+
 export default {
     data() {
         return {
-            addBtn
-        }
+            areaList: [{ areaId: "area001", deviceName: "강남역 4번 출구 정류장", deviceId: "device001", deviceType: "SHELTER" }, { areaId: "area002", deviceName: "강남역 4번 출구 쉘터", deviceId: "device002", deviceType: "POLL" }, { areaId: "area003", deviceName: "강남역 4번 출구 스마트도서관", deviceId: "device003", deviceType: "LIBRARY" }, { areaId: "area004", deviceName: "역삼역 1번 출구 스마트폴", deviceId: "device004", deviceType: "STATION" }, { areaId: "area002", deviceName: "삼성역 2번 출구 스마트폴", deviceId: "device002", deviceType: "POLL" }, { areaId: "area003", deviceName: "도봉역 3번 출구 스마트폴", deviceId: "device003", deviceType: "LIBRARY" }, { areaId: "area004", deviceName: "금정역 4번 출구 스마트폴", deviceId: "device004", deviceType: "STATION" }
+            ]
+        };
     },
     computed: {
-        ...mapGetters(['isLogin'])
-    }, methods: {
-        ...mapActions(['doLogout'])
-        , fnLogout() {
+        mergedList() {
+            const mergedList = this.areaList.reduce((prev, curr) => {
+                const type = curr.deviceType;
+                console.log(prev, curr);
+                if (!prev[type]) {
+                    prev[type] = [];
+                }
+                prev[type].push(curr);
+                return prev;
+            }, {});
+            return mergedList;
+        },
+        deviceType() {
+            const mergedList = this.areaList.reduce((prev, curr) => {
+                const type = curr.deviceType;
+                console.log(type, prev.indexOf(type), prev);
+                if (prev.indexOf(type) < 0) {
+                    prev.push(type);
+                }
+                return prev;
+            }, []);
+            return mergedList;
+        },
+        ...mapGetters(["isLogin"])
+    },
+    methods: {
+        ...mapActions(["doLogout"]),
+        fnLogout() {
             this.doLogout();
-        }
-        , goDevicePage(url) {
+        },
+        goDevicePage(url) {
             this.$router.push(url);
         }
-    }
+    },
+    components: { AreaItem }
 }
 </script>

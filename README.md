@@ -1,5 +1,10 @@
 # confirm-project-vue
 
+## Ignore yarn engine check
+```
+yarn config set ignore-engines true
+```
+
 ## Project setup
 ```
 yarn install

@@ -37,7 +37,9 @@ const router = createRouter({
         , {
             path: '/device', component: BasicLayout
             , children: [{
-                path: 'stop', component: DeviceMain
+                path: ':areaId', component: DeviceMain
+            }, {
+                path: ':areaId/:deviceId', component: DeviceMain
             }]
         }
         , { path: '/:pathMatch(.*)*', component: NotFound }
