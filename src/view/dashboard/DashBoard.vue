@@ -2,7 +2,7 @@
     <main class="system_wrap">
 
         <section v-for="(type, idx) in deviceType" v-bind:key="idx">
-            <h2><a href="#" @click="() => goDevicePage('/device/stop')">{{ type }}</a></h2>
+            <h2><a href="#" @click="() => goDevicePage(`/device/${type.toLowerCase()}`)">{{ type }}</a></h2>
             <ul>
                 <AreaItem v-for="item in mergedList[type]" v-bind:key="item.deviceId" :areaName="item.deviceName" :areaType="type" :areaId="item.deviceId"/>
             </ul>
