@@ -11,18 +11,24 @@ import BasicLayout from './layout/BasicLayout.vue';
 import LoginPage from './view/login/LoginPage.vue';
 import MainPage from './view/MainPage.vue';
 import NotFound from './layout/NotFound.vue';
-import DashBoard from './view/dashboard/DashBoard.vue';
-import messageStore from './state/ComMessageStore.js';
-import ComMessage from './components/ComMessage.vue';
-import userStore from './state/UserInfoStore';
 import DeviceMain from './view/device/DeviceMain.vue';
+import DashBoard from './view/dashboard/DashBoard.vue';
+
+import ComMessage from './components/ComMessage.vue';
+
+
+//store 
+import messageStore from './state/ComMessageStore.js';
+import userStore from './state/UserInfoStore';
+import deviceStore from './state/DeviceStore';
+
 import { createStore } from 'vuex';
 
 const app = createApp(App);
 
 app.use(createStore({
     modules: {
-        userStore, messageStore
+        userStore, messageStore , deviceStore
     }
 }));
 
@@ -40,6 +46,8 @@ const router = createRouter({
                 path: ':areaId', component: DeviceMain
             }, {
                 path: ':areaId/:deviceId', component: DeviceMain
+            }, {
+                path: 'detail/:areaId/:deviceId', component: DeviceMain
             }]
         }
         , { path: '/:pathMatch(.*)*', component: NotFound }

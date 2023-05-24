@@ -6,35 +6,46 @@
     <h2>스마트 정류장</h2>
     <ul>
       <AreaItem class="area-item-pointer"
-        v-for="item in areaList"
-        v-bind:key="item.areaId"
-        :areaName="item.areaName"
-        :areaId="item.areaId"
-        :areaType="item.areaType"
+        v-for="item in filteredAreaList()"
+        v-bind:key="item.deviceId"
+        :areaName="item.deviceName"
+        :areaId="item.deviceId"
+        :areaType="item.deviceType"
       />
     </ul>
     <span class="arrow on"></span>
   </section>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import AreaItem from "@/components/area/AreaItem.vue";
 export default {
   components: { AreaItem },
   data() {
-    return {
-      areaList: [
-        { areaId: "111", areaName: "00역 버스정류장1", areaType: "Spot" },
-        { areaId: "112", areaName: "00역 버스정류장2", areaType: "Spot" },
-        { areaId: "113", areaName: "00역 버스정류장3", areaType: "Spot" },
-        { areaId: "114", areaName: "00역 버스정류장4", areaType: "Spot" },
-        { areaId: "115", areaName: "00역 버스정류장5", areaType: "Spot" },
-      ],
-    };
+    return { deviceType: '', areaList: [] }
   },
+  mounted() {
+    this.deviceType = this.$route.params.areaId;
+  },
+  computed: {
+   
+  }, methods: {
+    ...mapGetters(['getDeviceList'])
+    ,
+
+    filteredAreaList() {
+      const paramDeviceType = this.$route.params.areaId;
+      console.log(paramDeviceType);
+      return this.getDeviceList().filter(v => {
+        return v.deviceType.toLowerCase() === paramDeviceType
+      });
+    }
+  }
+
 };
 </script>
 <style scoped>
 .area-item-pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 </style>

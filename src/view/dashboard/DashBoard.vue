@@ -4,7 +4,8 @@
         <section v-for="(type, idx) in deviceType" v-bind:key="idx">
             <h2><a href="#" @click="() => goDevicePage(`/device/${type.toLowerCase()}`)">{{ type }}</a></h2>
             <ul>
-                <AreaItem v-for="item in mergedList[type]" v-bind:key="item.deviceId" :areaName="item.deviceName" :areaType="type" :areaId="item.deviceId"/>
+                <AreaItem v-for="item in mergedList[type]" v-bind:key="item.deviceId" :areaName="item.deviceName"
+                    :areaType="type" :areaId="item.deviceId" />
             </ul>
             <span class="arrow on"></span>
         </section>
@@ -23,9 +24,22 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
     data() {
         return {
-            areaList: [{ areaId: "area001", deviceName: "강남역 4번 출구 정류장", deviceId: "device001", deviceType: "SHELTER" }, { areaId: "area002", deviceName: "강남역 4번 출구 쉘터", deviceId: "device002", deviceType: "POLL" }, { areaId: "area003", deviceName: "강남역 4번 출구 스마트도서관", deviceId: "device003", deviceType: "LIBRARY" }, { areaId: "area004", deviceName: "역삼역 1번 출구 스마트폴", deviceId: "device004", deviceType: "STATION" }, { areaId: "area002", deviceName: "삼성역 2번 출구 스마트폴", deviceId: "device002", deviceType: "POLL" }, { areaId: "area003", deviceName: "도봉역 3번 출구 스마트폴", deviceId: "device003", deviceType: "LIBRARY" }, { areaId: "area004", deviceName: "금정역 4번 출구 스마트폴", deviceId: "device004", deviceType: "STATION" }
-            ]
+            areaList: []
         };
+    },
+    mounted() {
+
+        const sampleDeviceList = [{ areaId: "area001", deviceName: "강남역 4번 출구 정류장", deviceId: "device001", deviceType: "SHELTER" }
+            , { areaId: "area002", deviceName: "강남역 4번 출구 쉘터", deviceId: "device002", deviceType: "POLL" }
+            , { areaId: "area003", deviceName: "강남역 4번 출구 스마트도서관", deviceId: "device003", deviceType: "LIBRARY" }
+            , { areaId: "area004", deviceName: "역삼역 1번 출구 스마트폴", deviceId: "device004", deviceType: "STATION" }
+            , { areaId: "area002", deviceName: "삼성역 2번 출구 스마트폴", deviceId: "device002", deviceType: "POLL" }
+            , { areaId: "area003", deviceName: "도봉역 3번 출구 스마트폴", deviceId: "device003", deviceType: "LIBRARY" }
+            , { areaId: "area004", deviceName: "금정역 4번 출구 스마트폴", deviceId: "device004", deviceType: "STATION" }]
+
+        this.setDeviceList({ deviceList: sampleDeviceList });
+
+        this.areaList = sampleDeviceList;
     },
     computed: {
         mergedList() {
@@ -54,7 +68,7 @@ export default {
         ...mapGetters(["isLogin"])
     },
     methods: {
-        ...mapActions(["doLogout"]),
+        ...mapActions(["doLogout", "setDeviceList"]),
         fnLogout() {
             this.doLogout();
         },
