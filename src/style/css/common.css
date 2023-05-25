@@ -39,6 +39,21 @@
 
 
 
+:root {
+    --com-padd: .4rem;
+    --text-color: #fff;
+    --com-bg-color: #fff;
+    --primary: #007bff;
+    --warning: #ffc61c;
+    --danger: #de4251;
+    --button-radius: .4rem;
+    --default: #6b757d;
+    --nav-backgroud: #e2edf3;
+    --nav-text: #222;
+}
+
+
+
 .offscreen {
 	position: absolute;
 	clip: rect(1px 1px 1px 1px);
@@ -1506,3 +1521,76 @@ h5 {
 .v-leave-to {
 	opacity: 0;
 }
+
+
+
+
+.msg-box {
+    margin: .4rem;
+    border-radius: var(--com-padd);
+    min-width: 30vw;
+    background-color: var(--com-bg-color);
+}
+
+
+
+.msg-box header {
+    padding: .4rem;
+    border-radius: .4rem .4rem 0 0;
+    color: white;
+}
+
+.bg-primary {
+    background: var(--primary);
+}
+
+.bg-danger {
+    background: var(--danger);
+}
+
+.bg-default {
+    background: var(--default);
+}
+
+
+.bg-warning {
+    background: var(--warning);
+}
+
+.msg-box section {
+    padding: var(--com-padd);
+	margin: var(--com-padd);
+    color : var(--default)
+}
+
+.msg-box header {
+    height: 2.9rem;
+}
+
+.msg-box footer {
+    display: flex;
+    justify-content: center;
+    padding: var(--com-padd);
+    background-color: var(--com-bg-color);
+    color: white;
+    border-radius: 0 0 var(--com-padd) var(--com-padd);
+}
+
+
+.msg-box button {
+    border-radius: var(--button-radius);
+    padding: var(--com-padd);
+    margin-left: var(--com-padd);
+    border: 0;
+    background: var(--primary);
+    color: var(--text-color);
+}
+
+.msg-box button:hover {
+    opacity: .9;
+}
+
+.msg-box  button:active {
+    transform: scale(.9);
+}
+

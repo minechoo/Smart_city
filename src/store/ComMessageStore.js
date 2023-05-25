@@ -14,10 +14,10 @@ const messageStore = {
         }
     }, actions: {
 
-        showAlert(context, { msg }) {
+        showAlert(context, { msg, cb }) {
             context.commit('addMessage', {
                 type: 'Alert',
-                title: 'Alert', msg, cb: () => { }
+                title: 'Alert', msg, cb
             });
         },
 
@@ -29,7 +29,6 @@ const messageStore = {
         },
 
         showError(context, { msg , cb} , ) {
-            console.log('add errorMessages! ' , msg);
             context.commit('addMessage', {
                 type: 'Error',
                 title: 'Error', msg, cb
