@@ -1,41 +1,30 @@
-import axios from "axios";
+import comApi from "../service/ComApi";
 
-const instance = axios.create({
-    baseURL: 'http://localhost:8080/api',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
 
 const userStore = {
     state() {
         return { userInfo: {isLogin:false} }
     }, mutations: {
         loginSuccess(state, payload) {
-            
             const newUserInfo =  {...payload , isLogin : true};
             state.userInfo = newUserInfo;
-
-            console.log(newUserInfo);
-           // state.userInfo = payload;
         }, 
         logout(state) {
             state.userInfo.isLogin = false;
         }
     }, actions: {
 
-        async doLogin(context, { userId, password }) {
-            const reqCredencial = { userId, password };
-            console.log(reqCredencial);
+        async doLogin(context, { userId, userPwd }) {
+            const reqCredencial = { userId, userPwd };
             
             try {
-                const { data } = await instance.post('/login', reqCredencial);
-                if(data.state === 200){
+                
+                const { data } = await comApi.post('/user/signIn', reqCredencial);
+                if(data){
                     context.commit('loginSuccess', data);
                 }
             } catch (err) {
-                console.log(err);
-                context.commit('logout');
+              //  context.commit('logout');
             }
         },
 

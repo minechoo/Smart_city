@@ -1,4 +1,4 @@
-import axios from 'axios';
+import comApi from './service/ComApi';
 import { createApp } from 'vue'
 import App from './App.vue'
 
@@ -26,11 +26,13 @@ import { createStore } from 'vuex';
 
 const app = createApp(App);
 
-app.use(createStore({
+const comStore = createStore({
     modules: {
         userStore, messageStore , deviceStore
     }
-}));
+});
+
+app.use(comStore);
 
 
 const router = createRouter({
@@ -57,21 +59,16 @@ const router = createRouter({
 });
 
 
-axios.create({
-    baseURL: "http://localhost:8080/api",
-    headers: {
-        "Content-type": "application/json"
-    }
-});
 
-axios.interceptors.response.use(response => { return response }, error => {
 
-    messageStore.dispatch('showError', { msg: error.message });
+comApi.interceptors.response.use(response => { return response }, error => {
+    console.log('on error>>>>>>>>>>>>>>>>>>>>' , error);
+    comStore.dispatch('showError', { msg: error?.response?.data?.message , cb : ()=>{} });
     return Promise.reject(error);
 });
 
 
-app.config.globalProperties.$axios = axios;
+app.config.globalProperties.$axios = comApi;
 app.use(router);
 app.component('ComMessage', ComMessage);
 

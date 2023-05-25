@@ -2,7 +2,7 @@
     
     <div class="ab_membership">
         <div class="header">
-            <h1>회원가입</h1>
+            <h1>내 정보 변경</h1>
             <p>스마트 시설물 통합 운영 관리 시스템에 오신것을 환영합니다.</p>
         </div>
         <div class="input_box">

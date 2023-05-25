@@ -1,55 +1,59 @@
 <template>
-  <Transition>
-    <div>
-
-      <LoginPage v-if="!isLogin" />
-      <MainPage v-if="isLogin" />
+  <div>
+    <LoginPage v-if="!isLogin" />
+    <MainPage v-if="isLogin" />
+    <Transition>
       <ComMessage></ComMessage>
-
-    </div>
-  </Transition>
+    </Transition>
+  </div>
 </template>
 <script>
-
-import { mapGetters, mapActions } from 'vuex';
-import LoginPage from './view/login/LoginPage.vue';
-import MainPage from './view/MainPage.vue';
+import { mapGetters, mapActions } from "vuex";
+import LoginPage from "./view/login/LoginPage.vue";
+import MainPage from "./view/MainPage.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    LoginPage, MainPage
+    LoginPage,
+    MainPage,
   },
   data() {
     return {
-      showDialog: false
-    }
+      showDialog: false,
+    };
+  },
+  watch: {
+    isLogin() {
+      if (this.isLogin) {
+        this.$router.push("/dash");
+      }
+    },
   },
   computed: {
-    ...mapGetters(['isLogin'])
+    ...mapGetters(["isLogin"]),
   },
   methods: {
-    ...mapActions(['doLogin', 'doLogout']),
+    ...mapActions(["doLogin", "doLogout"]),
     fnLogout() {
-
-      this.$store.dispatch('showConfirm', {
-        msg: 'Logout?', cb: (rtn) => {
+      this.$store.dispatch("showConfirm", {
+        msg: "Logout?",
+        cb: (rtn) => {
           if (rtn) {
             this.doLogout();
           }
-        }
+        },
       });
     },
     fnAddMessage() {
-      this.$store.dispatch('showAlert', { msg: 'Server is Error' });
-    }
-    , fnAddWarning() {
-      this.$store.dispatch('showWarning', { msg: 'name is mandantory' });
-    }
-    , async fnLogin() {
-
-      this.doLogin({ userId: 'chu', password: '1234' });
-    }
-  }
-}
+      this.$store.dispatch("showAlert", { msg: "Server is Error" });
+    },
+    fnAddWarning() {
+      this.$store.dispatch("showWarning", { msg: "name is mandantory" });
+    },
+    async fnLogin() {
+      this.doLogin({ userId: "chu", password: "1234" });
+    },
+  },
+};
 </script>

@@ -45,7 +45,7 @@ export default {
         mergedList() {
             const mergedList = this.areaList.reduce((prev, curr) => {
                 const type = curr.deviceType;
-                console.log(prev, curr);
+              
                 if (!prev[type]) {
                     prev[type] = [];
                 }
@@ -57,7 +57,7 @@ export default {
         deviceType() {
             const mergedList = this.areaList.reduce((prev, curr) => {
                 const type = curr.deviceType;
-                console.log(type, prev.indexOf(type), prev);
+              
                 if (prev.indexOf(type) < 0) {
                     prev.push(type);
                 }

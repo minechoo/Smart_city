@@ -29,6 +29,7 @@ const messageStore = {
         },
 
         showError(context, { msg , cb} , ) {
+            console.log('add errorMessages! ' , msg);
             context.commit('addMessage', {
                 type: 'Error',
                 title: 'Error', msg, cb

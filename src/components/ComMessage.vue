@@ -1,5 +1,5 @@
 <template>
-    <div v-if="messages.length > 0" class="dim">
+    <div v-if="messages.length > 0" class="dialog-dim">
         <div class="msg-box" v-for=" (row, index)  in messages" :key="index">
             <div>
                 <header :class="getHeaderClass(row.type)">
