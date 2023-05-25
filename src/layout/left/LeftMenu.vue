@@ -35,7 +35,6 @@ export default {
 
     filteredAreaList() {
       const paramDeviceType = this.$route.params.areaId;
-      console.log(paramDeviceType);
       return this.getDeviceList().filter(v => {
         return v.deviceType.toLowerCase() === paramDeviceType
       });

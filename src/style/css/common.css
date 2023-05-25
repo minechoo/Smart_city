@@ -41,7 +41,7 @@
 
 :root {
     --com-padd: .4rem;
-    --text-color: #fff;
+    --text-color: #c9c9c9;
     --com-bg-color: #fff;
     --primary: #007bff;
     --warning: #ffc61c;
@@ -295,7 +295,7 @@ input[type='checkbox']:checked+label {
 }
 
 .login_box .input_login::placeholder {
-	color: #4f4f4f;
+	color: #c9c9c9;
 	font-weight: 700;
 	font-size: 16px;
 }
@@ -1511,10 +1511,9 @@ h5 {
 	}
 }
 
-/* 이 클래스들이 무엇을 하는지 다음에 설명하겠습니다. */
 .v-enter-active,
 .v-leave-active {
-	transition: opacity 1s ease;
+	transition: opacity .6s ;
 }
 
 .v-enter-from,
@@ -1522,17 +1521,12 @@ h5 {
 	opacity: 0;
 }
 
-
-
-
 .msg-box {
     margin: .4rem;
     border-radius: var(--com-padd);
     min-width: 30vw;
     background-color: var(--com-bg-color);
 }
-
-
 
 .msg-box header {
     padding: .4rem;
@@ -1544,8 +1538,17 @@ h5 {
     background: var(--primary);
 }
 
+.ab_membership.bg-danger{
+	color: var(--com-bg-color) ;
+}
+
+.ab_membership.bg-danger h1{
+	color: var(--com-bg-color) !important;
+}
+
 .bg-danger {
     background: var(--danger);
+	
 }
 
 .bg-default {

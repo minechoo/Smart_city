@@ -7,9 +7,13 @@
       <div class="login" @click="fnLogout">로그아웃</div>
     </div>
   </header>
-  <Transition>
-    <router-view></router-view>
-  </Transition>
+
+  <router-view v-slot="{ Component }">
+    <transition >
+      <component :is="Component" />
+    </transition>
+  </router-view>
+  <!--  -->
 
   <Transition>
     <div v-if="showDialog" class="dialog-dim">
