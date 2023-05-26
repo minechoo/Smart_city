@@ -1,6 +1,6 @@
 <template>
   <li>
-    <a @click="fnGoDetail" :class="{'ellipsis-padding': shouldShowPadding}">{{ areaName }}</a>
+    <a @click="fnGoDetail" :class="{'ellipsis-padding': shouldShowPadding, 'on' : areaId === $route.params.deviceId }">{{ areaName }}</a>
   </li>
 </template>
 
