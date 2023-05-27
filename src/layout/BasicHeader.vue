@@ -1,7 +1,7 @@
 <template lang="">
   <ul class="tab_round">
     <li v-for="v in tabMenu" v-bind:key="v.id">
-      <router-link :to="v.url" :class="getUrlClass(v.url)">{{
+      <router-link :to="v.url" :class="getUrlClass(v.type)">{{
         v.name
       }}</router-link>
     </li>
@@ -39,14 +39,15 @@ export default {
         id: idx,
         url: `/device/${v.deviceType.toLowerCase()}/${v.deviceId}`,
         name: v.deviceType,
+        type: v.deviceType.toLowerCase()
       };
       return tab;
     });
     this.tabMenu = tabMenu;
   },
   methods: {
-    getUrlClass(url) {
-      return { "router-link-active": this.$route.fullPath.indexOf(url) === 0 };
+    getUrlClass(type) {
+      return { "router-link-active": this.$route.params.areaId === type };
     },
   },
 };

@@ -27,14 +27,17 @@ export default {
     isLogin() {
       if (this.isLogin) {
         this.$router.push("/dash");
+        this.getCodeList();
+        this.getDeviceList();
+        
       }
     },
   },
   computed: {
-    ...mapGetters(["isLogin"]),
+    ...mapGetters(["isLogin" ]),
   },
   methods: {
-    ...mapActions(["doLogin", "doLogout"]),
+    ...mapActions(["doLogin", "doLogout" , "getCodeList" , 'getDeviceList']),
     fnLogout() {
       this.$store.dispatch("showConfirm", {
         msg: "Logout?",

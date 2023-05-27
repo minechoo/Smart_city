@@ -1,3 +1,4 @@
+import comApi from "../service/ComApi";
 const deviceStore = {
   state() {
     return { deviceList: [] };
@@ -11,6 +12,12 @@ const deviceStore = {
     setDeviceList(context, { deviceList }) {
       context.commit("setDeviceList", deviceList);
     },
+    async getDeviceList(context){
+      
+      const {data}  = await comApi.post('/device/list');
+
+      context.commit('setDeviceList', data);
+    }
   },
   getters: {
     getDeviceList(state) {

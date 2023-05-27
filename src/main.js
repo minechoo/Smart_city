@@ -19,6 +19,7 @@ import ComMessage from "./components/ComMessage.vue";
 import messageStore from "./store/ComMessageStore.js";
 import userStore from "./store/UserInfoStore";
 import deviceStore from "./store/DeviceStore";
+import codeStore from "./store/ComCodeStore";
 
 import { createStore } from "vuex";
 
@@ -29,6 +30,7 @@ const comStore = createStore({
     userStore,
     messageStore,
     deviceStore,
+    codeStore,
   },
 });
 
