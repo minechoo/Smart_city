@@ -43,7 +43,6 @@ export default {
 
     fnShowMyPage() {
       this.showDialog = true;
-      console.log("show dialog", this.showDialog);
     },
     fnHideMyPage() {
       this.showDialog = false;
@@ -72,5 +71,6 @@ export default {
   align-content: center;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 </style>

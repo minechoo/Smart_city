@@ -1254,6 +1254,7 @@ h4 {
 	top: 200px;
 }
 .dim {
+	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;

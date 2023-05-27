@@ -26,9 +26,9 @@ export default {
   mounted() {
     console.log(this.getDeviceList);
     const convertedList = this.getDeviceList.reduce((prev, curr) => {
-      const type = curr.deviceType;
+      const type = curr.deviceCd;
 
-      if (prev.filter((v) => v.deviceType === type).length === 0) {
+      if (prev.filter((v) => v.deviceCd === type).length === 0) {
         prev.push(curr);
       }
       return prev;
@@ -37,9 +37,9 @@ export default {
     const tabMenu = convertedList.map((v, idx) => {
       const tab = {
         id: idx,
-        url: `/device/${v.deviceType.toLowerCase()}/${v.deviceId}`,
-        name: v.deviceType,
-        type: v.deviceType.toLowerCase()
+        url: `/device/${v.deviceCd.toLowerCase()}/${v.deviceId}`,
+        name: v.deviceCd,
+        type: v.deviceCd.toLowerCase()
       };
       return tab;
     });
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     getUrlClass(type) {
-      return { "router-link-active": this.$route.params.areaId === type };
+      return { "router-link-active": this.$route.params.deviceCd === type };
     },
   },
 };

@@ -12,11 +12,12 @@ const deviceStore = {
     setDeviceList(context, { deviceList }) {
       context.commit("setDeviceList", deviceList);
     },
-    async getDeviceList(context){
-      
+    async getServDeviceList(context){
+
       const {data}  = await comApi.post('/device/list');
 
       context.commit('setDeviceList', data);
+      return true;
     }
   },
   getters: {

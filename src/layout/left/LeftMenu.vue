@@ -1,16 +1,26 @@
 <template lang="">
+  <div class="dialog-dim" v-if="isModify">
+    <DeviceModify @onClose="() => (isModify = false)" :deviceId="deviceId" />
+  </div>
   <section class="ab_spot">
     <div class="img_wrap">
-      <img src="@/style/images/ico_stop_map.png" alt="지도" />
+      <img
+        :src="deviceImg"
+        alt="지도"
+        class="left-preview"
+        @click="() => (isModify = true)"
+      />
     </div>
     <h2>스마트 정류장</h2>
     <ul>
-      <AreaItem class="area-item-pointer"
+      <AreaItem
+        class="area-item-pointer"
         v-for="item in filteredAreaList()"
         v-bind:key="item.deviceId"
-        :areaName="item.deviceName"
+        :areaName="item.deviceNm"
         :areaId="item.deviceId"
-        :areaType="item.deviceType"
+        :areaType="item.deviceCd"
+        @click="getImages"
       />
     </ul>
     <span class="arrow on"></span>
@@ -19,32 +29,57 @@
 <script>
 import { mapGetters } from "vuex";
 import AreaItem from "@/components/area/AreaItem.vue";
+import DeviceModify from "@/view/device/DeviceModify.vue";
+import ComApi from "@/service/ComApi";
 export default {
-  components: { AreaItem },
+  components: { AreaItem, DeviceModify },
   data() {
-    return { deviceType: '', areaList: [] }
+    return {
+      deviceType: "",
+      areaList: [],
+      deviceId: this.$route.params.deviceId,
+      deviceImg: "",
+      isModify: false,
+    };
   },
+
   mounted() {
-    this.deviceType = this.$route.params.areaId;
+    this.deviceType = this.$route.params.deviceCd;
+    this.deviceId = this.$route.params.deviceId;
+    this.deviceImg = require("@/style/images/ico_stop_map.png");
+    this.getImages();
   },
-  computed: {
-   
-  }, methods: {
-    ...mapGetters(['getDeviceList'])
-    ,
 
+  methods: {
+    ...mapGetters(["getDeviceList"]),
+    async getImages() {
+      console.log("/device/images/" + this.$route.params.deviceId);
+      const { data } = await ComApi.get(
+        "/device/images/" + this.$route.params.deviceId
+      );
+
+      this.deviceImg = data;
+
+      if (!this.deviceImg) {
+        this.deviceImg = require("@/style/images/ico_stop_map.png");
+      }
+    },
     filteredAreaList() {
-      const paramDeviceType = this.$route.params.areaId;
-      return this.getDeviceList().filter(v => {
-        return v.deviceType.toLowerCase() === paramDeviceType
+      const paramDeviceType = this.$route.params.deviceCd;
+      return this.getDeviceList().filter((v) => {
+        return v.deviceCd.toLowerCase() === paramDeviceType;
       });
-    }
-  }
-
+    },
+  },
 };
 </script>
 <style scoped>
 .area-item-pointer {
   cursor: pointer;
+}
+.left-preview {
+  border-radius: 15px;
+  width: 100%;
+  height: inherit;
 }
 </style>

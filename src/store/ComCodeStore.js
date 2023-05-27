@@ -5,22 +5,28 @@ const codeStore = {
     return { codeList: [] };
   },
   mutations: {
-    setCodeList(state, codeList) {
-      state.deviceList = codeList;
+    setCodeList(state, codeList) {  
+      console.log('save codes : ' , codeList);
+      state.codeList = codeList;
     },
   },
   actions: {
     async getCodeList(context) {
       const { data } = await comApi.post("/code/list");
+      console.log(data);
       context.commit("setCodeList", data);
+      return true
     },
   },
   getters: {
     getComCode(state) {
       return state.codeList;
     },
-    getDeviceList(state) {
-      return state.codeList.filter((v) => v.comGrpCd === "DEVICE_TYPE");
+    getComDeviceType(state) {
+      console.log(state.codeList);
+      const deviceTypeList = state.codeList.filter((v) => v.comGrpCd === "DEVICE_TYPE_CD");
+      console.log(deviceTypeList);
+      return state.codeList.filter((v) => v.comGrpCd === "DEVICE_TYPE_CD");
     },
   },
 };
