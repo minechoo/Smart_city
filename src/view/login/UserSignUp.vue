@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="btn_area">
-      <button class="btn grey_line mr_17" @click="$emit('onClose')">
+      <button class="btn grey_line mr_17" @click="fnClose">
         취소하기
       </button>
       <button class="btn bg_grren" @click="fnSignUp">회원가입</button>
@@ -77,12 +77,23 @@ export default {
       },
     };
   },
+  mounted(){
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        this.fnClose();
+      }
+    });
+  },
   methods: {
+    fnClose() {
+      console.log("click btn");
+      this.$emit("onClose");
+    },
     async fnSignUp() {
       const param = { ...this.userInfo };
-      console.log(param);
       const { data } = await this.$axios.post("/user/signUp", param);
       console.log(data);
+      this.fnClose();
     },
   },
 };

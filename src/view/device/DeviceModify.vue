@@ -31,18 +31,20 @@
           />
         </div>
 
-        <div class="input_area">
+        <div class="input_area"  v-if="!device.deviceImg">
           <label for="pw_d">첨부파일</label>
           <input
-            v-if="!device.deviceImg"
             type="file"
             id="pw_d"
             class="input_style"
             @change="imageChanged"
             placeholder="첨부 파일을 선택해주세요"
           />
-          <img :src="device.deviceImg" class="device-preview" />
         </div>
+      </div>
+
+      <div class="input_area"  v-if="device.deviceImg">
+        <img :src="device.deviceImg" class="device-preview" />
       </div>
 
       <div class="btn_area">
@@ -76,8 +78,17 @@ export default {
   },
   mounted() {
     this.searchDeviceInfo();
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        this.fnClose();
+      }
+    });
   },
   methods: {
+
+    fnClose(){
+      this.$emit('onClose');
+    },
     async searchDeviceInfo() {
       const image = await this.getImages();
 

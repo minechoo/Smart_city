@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="ab_membership">
+  <div class="ab_membership" @keyup.esc="fnClose">
     <div class="header">
       <h1>신규 장비 등록</h1>
       <p>스마트 시설물을 등록해주세요.</p>
@@ -67,10 +67,20 @@ export default {
       return this.getComCode.filter((v) => v.comGrpCd === "DEVICE_TYPE_CD");
     },
   },
+  mounted(){
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        this.fnClose();
+      }
+    });
+  },
   methods: {
+    fnClose(){
+      this.$emit('onClose');
+    },
     imageChanged(e) {
-      console.log(e);
-      var input = event.target;
+     
+      var input = e.target;
       if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = (e) => {
@@ -80,14 +90,15 @@ export default {
       }
     },
     async fnSave() {
-      const param = { ...this.device };
+      const param = { ...this.device, datFlag: "I" };
       const { data } = await comApi.post("/device/save", param);
       console.log(data);
+      this.$emit('onClose');
     },
   },
 };
 </script>
-<style  scoped>
+<style scoped>
 .device-preview {
   height: 200px;
 }

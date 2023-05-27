@@ -1,48 +1,69 @@
 <template lang="">
- 
   <div class="menu_box">
     <div class="menu_box_inner">
       <DeviceMainItem
         v-for="device in list"
         v-bind:key="device.id"
         :stat="device.stat"
-        :name="device.name"
-        :type="''+device.type"
+        :name="device.moduleNm"
+        :type="device.moduleCd"
         :deviceId="device.deviceId"
       />
-      <div class="go add">
+      <div class="go add" @click="showAddDialog">
         <button>추가하기</button>
       </div>
     </div>
   </div>
+  <transition>
+    <div class="dialog-dim" v-if="showDeviceAdd">
+      <DeviceModuleAdd @onClose="fnAddClosed" :deviceId="deviceId" />
+    </div>
+  </transition>
 </template>
 <script>
 import DeviceMainItem from "@/components/device/DeviceMainItem.vue";
+import DeviceModuleAdd from "@/view/device/DeviceModuleAdd.vue";
+import ComApi from "@/service/ComApi";
 export default {
   components: {
     DeviceMainItem,
+    DeviceModuleAdd,
   },
   data() {
     return {
-      list: [
-        { id: "1", deviceId: "101010", stat: true, name: "개폐장치", type: 1 },
-        { id: "2", deviceId: "101010", stat: false, name: "냉난방", type: 2 },
-        { id: "3", deviceId: "101010", stat: true, name: "공기정화", type: 3 },
-        { id: "4", deviceId: "101010", stat: true, name: "DID", type: 4 },
-        { id: "5", deviceId: "101010", stat: false, name: "조명", type: 5 },
-        { id: "6", deviceId: "101010", stat: false, name: "CCTV", type: 6 },
-        { id: "7", deviceId: "101010", stat: true, name: "온열의자", type: 7 },
-        { id: "8", deviceId: "101010", stat: true, name: "전동어닝", type: 8 },
-        { id: "9", deviceId: "101010", stat: true, name: "비상벨", type: 9 },
-        {
-          id: "9",
-          deviceId: "101010",
-          stat: true,
-          name: "미세먼지표출기",
-          type: 10,
-        },
-      ],
+      showDeviceAdd: false,
+      list: [],
     };
+  },
+  watch: {
+    $route(to, form) {
+      if (to.path !== form.path) {
+        this.fnSearchModuleList();
+      }
+    },
+  },
+  computed: {
+    deviceId() {
+      return this.$route.params.deviceId;
+    },
+  },
+  mounted() {
+    this.fnSearchModuleList();
+  },
+  methods: {
+    fnAddClosed() {
+      this.showDeviceAdd = false;
+      this.fnSearchModuleList();
+    },
+    showAddDialog() {
+      this.showDeviceAdd = true;
+    },
+    async fnSearchModuleList() {
+      const { data } = await ComApi.post("/device/module/list", {
+        deviceId: this.$route.params.deviceId,
+      });
+      this.list = data;
+    },
   },
 };
 </script>

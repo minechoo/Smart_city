@@ -1,8 +1,9 @@
 <template>
-  <div class="dialog-dim" v-if="showAddVisible">
-    <DeviceAdd @onClose="() => (showAddDialog = false)" />
-  </div>
-
+  <Transition>
+    <div class="dialog-dim" v-if="showAddVisible">
+      <DeviceAdd @onClose="onAddDialogClose" />
+    </div>
+  </Transition>
   <main class="system_wrap" v-if="!showAddVisible">
     <section v-for="(type, idx) in usedDeviceType" v-bind:key="idx">
       <h2>
@@ -26,7 +27,7 @@
           :areaId="item.deviceId"
         />
       </ul>
-      <span class="arrow on"></span>
+      <span :class="{arrow: true , on : mergedList[type].length > 5}" ></span>
     </section>
 
     <div class="add" @click="() => (this.showAddDialog = true)">
@@ -88,6 +89,10 @@ export default {
     },
     goDevicePage(url) {
       this.$router.push(url);
+    },
+    onAddDialogClose() {
+      this.showAddDialog = false;
+      this.getServDeviceList();
     },
   },
   components: { AreaItem, DeviceAdd },

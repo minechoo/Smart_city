@@ -23,7 +23,7 @@
         @click="getImages"
       />
     </ul>
-    <span class="arrow on"></span>
+    <span :class="{arrow:true , on : filteredAreaList().length > 5}"></span>
   </section>
 </template>
 <script>
@@ -37,7 +37,7 @@ export default {
     return {
       deviceType: "",
       areaList: [],
-      deviceId: this.$route.params.deviceId,
+   
       deviceImg: "",
       isModify: false,
     };
@@ -45,15 +45,18 @@ export default {
 
   mounted() {
     this.deviceType = this.$route.params.deviceCd;
-    this.deviceId = this.$route.params.deviceId;
     this.deviceImg = require("@/style/images/ico_stop_map.png");
     this.getImages();
   },
-
+  computed:{
+    deviceId(){
+      return this.$route.params.deviceId;
+    }
+  },
   methods: {
     ...mapGetters(["getDeviceList"]),
     async getImages() {
-      console.log("/device/images/" + this.$route.params.deviceId);
+      
       const { data } = await ComApi.get(
         "/device/images/" + this.$route.params.deviceId
       );
