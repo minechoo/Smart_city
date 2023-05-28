@@ -100,6 +100,34 @@ $(document).ready(function () {
 		$('.pop_time').show();
 		$('.dim').show();
 	});
+
+	$('.pop_show').hide();
+	$('.same').on('click', function () {
+		$('.pop_show').show();
+		$('.dim').show();
+	});
+
+	$('.pop_choice').hide();
+	$('.btn_add').on('click', function () {
+		$('.pop_choice').show();
+		$('.dim').show();
+	});
+
+	$('.set_del').hide();
+	$('.svg_top').on('click', function () {
+		$('.set_del').show();
+		$('.dim').show();
+	});
+
+	$('.btn_close').on('click', function () {
+		$(this).closest('.stop_wrap').hide();
+		$('.dim').hide();
+	});
+
+	$('.btn_close_pop').on('click', function () {
+		$(this).parent().parent().hide();
+		$('.dim').hide();
+	});
 });
 
 //시간 셋팅
