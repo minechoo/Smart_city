@@ -1,7 +1,7 @@
 <template lang="">
   <ul class="tab_round">
     <li v-for="v in tabMenu" v-bind:key="v.id">
-      <router-link :to="v.url" :class="getUrlClass(v.type)">{{
+      <router-link :to="v.url" :class="{ 'router-link-active' : deviceCd === v.type }">{{
         v.name
       }}</router-link>
     </li>
@@ -21,6 +21,9 @@ export default {
     };
   },
   computed: {
+    deviceCd(){
+      return this.$route.params.deviceCd;
+    },
     ...mapGetters(["getDeviceList"]),
   },
   mounted() {
@@ -43,12 +46,23 @@ export default {
       };
       return tab;
     });
+    console.log(tabMenu);
     this.tabMenu = tabMenu;
   },
   methods: {
     getUrlClass(type) {
-      return { "router-link-active": this.$route.params.deviceCd === type };
+      console.log(type, this.$route.params.deviceCd === type);
+      return ;
     },
   },
 };
 </script>
+
+<style scoped>
+.router-link-active{
+  opacity: 1;
+    font-size: 30px;
+    color: #5b5b5b;
+    font-weight: 500;
+}
+</style>

@@ -2,8 +2,7 @@
   <Transition>
     <div class="ab_membership" v-if="device.deviceId">
       <div class="header">
-        <h1>신규 장비 등록</h1>
-        <p>스마트 시설물을 등록해주세요.</p>
+        <h1> 장비 변경 </h1>       
       </div>
 
       <div class="input_box">
@@ -48,6 +47,11 @@
       </div>
 
       <div class="btn_area">
+
+        <button class="btn grey_line mr_17" @click="$emit('onClose')">
+          삭제하기
+        </button>
+
         <button class="btn grey_line mr_17" @click="$emit('onClose')">
           취소하기
         </button>

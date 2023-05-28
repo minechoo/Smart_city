@@ -4,8 +4,19 @@
       <DeviceAdd @onClose="onAddDialogClose" />
     </div>
   </Transition>
-  <main class="system_wrap" v-if="!showAddVisible">
+  <main class="system_wrap">
     <section v-for="(type, idx) in usedDeviceType" v-bind:key="idx">
+      <button class="same">이 제품설정 동일하게 적용하기</button>
+      <img
+        :src="fnGetDeviceCdImg(type)"
+        @click="
+          () =>
+            goDevicePage(
+              `/device/${type.toLowerCase()}/${mergedList[type][0].deviceId}`
+            )
+        "
+        alt="스마트 정류장"
+      />
       <h2>
         <a
           href="#"
@@ -27,12 +38,14 @@
           :areaId="item.deviceId"
         />
       </ul>
-      <span :class="{arrow: true , on : mergedList[type].length > 5}" ></span>
+      <span :class="{ arrow: true, on: mergedList[type].length > 5 }"></span>
     </section>
 
     <div class="add" @click="() => (this.showAddDialog = true)">
-      <img src="@/style/images/ico_add.png" alt="추가하기" />
-      <p>추가하기</p>
+      <a href="#">
+        <img src="@/style/images/ico_add.png" alt="추가하기" />
+        <p>추가하기</p>
+      </a>
     </div>
   </main>
 </template>
@@ -79,11 +92,18 @@ export default {
     showAddVisible() {
       return this.usedDeviceType.length === 0 || this.showAddDialog;
     },
-    ...mapGetters(["isLogin", "getDeviceList"]),
+    ...mapGetters(["isLogin", "getDeviceList", "getComDeviceType"]),
   },
   methods: {
     ...mapActions(["doLogout", "setDeviceList", "getServDeviceList"]),
 
+    fnGetDeviceCdImg(type) {
+      const deviceTypeCodes = this.getComDeviceType;
+      const typeObj = deviceTypeCodes.find((v) => v.comCd === type);
+      const imgPath = typeObj.refVal01;
+
+      return require(`@/style/images/${imgPath}.png`);
+    },
     fnLogout() {
       this.doLogout();
     },
