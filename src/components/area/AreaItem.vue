@@ -18,7 +18,6 @@ export default {
   },
   methods: {
     fnGoDetail() {
-      console.log('on clicked:', this.areaId);
       this.$router.push(`/device/${this.areaType.toLowerCase()}/${this.areaId}`);
     },
   },

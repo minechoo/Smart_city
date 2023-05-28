@@ -46,7 +46,6 @@ export default {
       };
       return tab;
     });
-    console.log(tabMenu);
     this.tabMenu = tabMenu;
   },
   methods: {

@@ -1,7 +1,7 @@
 <template lang="">
   <div :class="{ go: true, caution: !stat }">
     <div class="flex_col">
-      <a href="#" @click="goDetail">
+      <a href="#">
         <div class="operation">
           <span class="status"></span>
           <span class="sign">{{ statNm }}</span>

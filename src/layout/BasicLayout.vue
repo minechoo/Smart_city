@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="stop_wrap">
+    <div class="stop_wrap w_1764">
       <BasicHeader />
       <LeftMenu />
       <router-view></router-view>
