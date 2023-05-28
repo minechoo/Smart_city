@@ -26,7 +26,9 @@ export default {
   watch: {
     isLogin() {
       if (this.isLogin) {
-        this.$router.push("/dash");
+        Promise.all([this.getCodeList()]).then(
+          this.$router.push("/dash")
+        );
       }
     },
   },
@@ -34,7 +36,7 @@ export default {
     ...mapGetters(["isLogin"]),
   },
   methods: {
-    ...mapActions(["doLogin", "doLogout"]),
+    ...mapActions(["doLogin", "doLogout", "getCodeList"]),
     fnLogout() {
       this.$store.dispatch("showConfirm", {
         msg: "Logout?",

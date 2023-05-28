@@ -1,7 +1,6 @@
 <template>
   <main>
     <div class="stop_wrap">
-     {{ areaId }} {{ deviceId }}
       <BasicHeader />
       <LeftMenu />
       <router-view></router-view>
@@ -14,21 +13,11 @@ import LeftMenu from "./left/LeftMenu.vue";
 export default {
   components: {
     BasicHeader,
-    LeftMenu
+    LeftMenu,
   },
   data() {
-    return { };
+    return {};
   },
-  computed: {
-
-    areaId() {
-      return this.$route.params.areaId;
-    },
-
-    deviceId() {
-      return this.$route.params.deviceId;
-    }
-  }
-
+  computed: {},
 };
 </script>

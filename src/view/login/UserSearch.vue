@@ -22,8 +22,8 @@
           비밀번호 찾기
         </li>
       </ul>
-      <FindID v-if="selectedTab === 'ID'" @onCloseDialog="fnCancel" />
-      <FindPwd v-if="selectedTab === 'PASSWORD'" @onCloseDialog="fnCancel" />
+      <FindID v-if="selectedTab === 'ID'" @onCloseDialog="fnClose" />
+      <FindPwd v-if="selectedTab === 'PASSWORD'" @onCloseDialog="fnClose" />
     </div>
   </div>
 </template>
@@ -40,6 +40,13 @@ export default {
       selectedTab: "ID"
     };
   },
+  mounted(){
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        this.fnClose();
+      }
+    });
+  },
   methods: {
     setSearched() {
       this.searched = true;
@@ -47,7 +54,7 @@ export default {
     setSelectedTag(tagId) {
       this.selectedTab = tagId;
     },
-    fnCancel() {
+    fnClose() {
       console.log("click btn");
       this.$emit("onCloseDialog");
     },

@@ -11,14 +11,17 @@ import LoginPage from "./view/login/LoginPage.vue";
 import MainPage from "./view/MainPage.vue";
 import NotFound from "./layout/NotFound.vue";
 import DeviceMain from "./view/device/DeviceMain.vue";
+import ModuleMain from "./view/device/ModuleMain.vue";
 import DashBoard from "./view/dashboard/DashBoard.vue";
 
 import ComMessage from "./components/ComMessage.vue";
+import createPersistedState from "vuex-persistedstate";
 
 //store
 import messageStore from "./store/ComMessageStore.js";
 import userStore from "./store/UserInfoStore";
 import deviceStore from "./store/DeviceStore";
+import codeStore from "./store/ComCodeStore";
 
 import { createStore } from "vuex";
 
@@ -29,13 +32,19 @@ const comStore = createStore({
     userStore,
     messageStore,
     deviceStore,
+    codeStore,
   },
+  plugins: [
+    createPersistedState({
+      paths: ["userStore", "codeStore", "deviceStore"],
+    }),
+  ],
 });
 
 app.use(comStore);
 
 const router = createRouter({
-  history: createWebHistory("/sample/"),
+  history: createWebHistory("/sample"),
   routes: [
     { path: "/", component: MainPage },
     { path: "/dash", component: DashBoard },
@@ -45,16 +54,20 @@ const router = createRouter({
       component: BasicLayout,
       children: [
         {
-          path: ":areaId",
+          path: ":deviceCd",
           component: DeviceMain,
         },
         {
-          path: ":areaId/:deviceId",
+          path: ":deviceCd/:deviceId",
           component: DeviceMain,
         },
         {
-          path: "detail/:areaId/:deviceId",
+          path: "detail/:deviceCd/:deviceId",
           component: DeviceMain,
+        },
+        {
+          path: "module/:deviceCd/:deviceId/:moduleId",
+          component: ModuleMain,
         },
       ],
     },

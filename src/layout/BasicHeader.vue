@@ -1,7 +1,7 @@
 <template lang="">
   <ul class="tab_round">
     <li v-for="v in tabMenu" v-bind:key="v.id">
-      <router-link :to="v.url" :class="getUrlClass(v.url)">{{
+      <router-link :to="v.url" :class="getUrlClass(v.type)">{{
         v.name
       }}</router-link>
     </li>
@@ -24,11 +24,11 @@ export default {
     ...mapGetters(["getDeviceList"]),
   },
   mounted() {
-    console.log(this.getDeviceList);
+  
     const convertedList = this.getDeviceList.reduce((prev, curr) => {
-      const type = curr.deviceType;
+      const type = curr.deviceCd;
 
-      if (prev.filter((v) => v.deviceType === type).length === 0) {
+      if (prev.filter((v) => v.deviceCd === type).length === 0) {
         prev.push(curr);
       }
       return prev;
@@ -37,16 +37,17 @@ export default {
     const tabMenu = convertedList.map((v, idx) => {
       const tab = {
         id: idx,
-        url: `/device/${v.deviceType.toLowerCase()}/${v.deviceId}`,
-        name: v.deviceType,
+        url: `/device/${v.deviceCd.toLowerCase()}/${v.deviceId}`,
+        name: v.deviceCd,
+        type: v.deviceCd.toLowerCase()
       };
       return tab;
     });
     this.tabMenu = tabMenu;
   },
   methods: {
-    getUrlClass(url) {
-      return { "router-link-active": this.$route.fullPath.indexOf(url) === 0 };
+    getUrlClass(type) {
+      return { "router-link-active": this.$route.params.deviceCd === type };
     },
   },
 };
