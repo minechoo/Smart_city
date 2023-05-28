@@ -24,7 +24,7 @@ export default {
     ...mapGetters(["getDeviceList"]),
   },
   mounted() {
-    console.log(this.getDeviceList);
+  
     const convertedList = this.getDeviceList.reduce((prev, curr) => {
       const type = curr.deviceCd;
 

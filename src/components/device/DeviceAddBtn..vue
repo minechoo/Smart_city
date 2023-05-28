@@ -40,9 +40,10 @@ export default {
   width: 80px;
   scale: 0.7;
 }
-.btnArea:hover {
-  background-color: rgba(124, 126, 126, 0.253);
-}
+ .btnArea:hover {
+  scale: 0.97;
+
+} 
 
 .btnArea:active {
   scale: 0.9;

@@ -11,7 +11,7 @@
         @click="() => (isModify = true)"
       />
     </div>
-    <h2>스마트 정류장</h2>
+    <h2>{{ deviceTypeNm }}</h2>
     <ul>
       <AreaItem
         class="area-item-pointer"
@@ -23,7 +23,7 @@
         @click="getImages"
       />
     </ul>
-    <span :class="{arrow:true , on : filteredAreaList().length > 5}"></span>
+    <span :class="{ arrow: true, on: filteredAreaList().length > 5 }"></span>
   </section>
 </template>
 <script>
@@ -37,26 +37,38 @@ export default {
     return {
       deviceType: "",
       areaList: [],
-   
       deviceImg: "",
       isModify: false,
     };
   },
-
+  watch: {
+    deviceId() {
+      this.getImages();
+    },
+  },
   mounted() {
     this.deviceType = this.$route.params.deviceCd;
     this.deviceImg = require("@/style/images/ico_stop_map.png");
     this.getImages();
   },
-  computed:{
-    deviceId(){
+  computed: {
+    deviceId() {
       return this.$route.params.deviceId;
-    }
+    },
+    deviceCd() {
+      return this.$route.params.deviceCd;
+    },
+    deviceTypeNm() {
+      const codes = this.getComDeviceType();
+      const currlist = codes.filter(
+        (v) => v.comCd.toLowerCase() === this.deviceCd
+      );
+      return currlist.length > 0 ? currlist[0].comCdNm : "";
+    },
   },
   methods: {
-    ...mapGetters(["getDeviceList"]),
+    ...mapGetters(["getDeviceList", "getComDeviceType"]),
     async getImages() {
-      
       const { data } = await ComApi.get(
         "/device/images/" + this.$route.params.deviceId
       );
@@ -67,6 +79,7 @@ export default {
         this.deviceImg = require("@/style/images/ico_stop_map.png");
       }
     },
+
     filteredAreaList() {
       const paramDeviceType = this.$route.params.deviceCd;
       return this.getDeviceList().filter((v) => {

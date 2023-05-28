@@ -60,7 +60,7 @@
 </template>
 <script>
 import ComApi from "@/service/ComApi";
-import { mapGetters } from "vuex";
+import { mapGetters , mapActions} from "vuex";
 import comApi from "@/service/ComApi";
 import msgConf from "@/message/msgConf";
 export default {
@@ -70,8 +70,10 @@ export default {
     device: { deviceNm: "", deviceCd: "POLL", deviceImg: "" },
   }),
   props: { deviceId: { type: String } },
+
   computed: {
-    ...mapGetters(["getComCode", "getDeviceList"]),
+    ...mapGetters(["getComCode", "getDeviceList" ]),
+    
     deviceTypeList() {
       return this.getComCode.filter((v) => v.comGrpCd === "DEVICE_TYPE_CD");
     },
@@ -85,15 +87,14 @@ export default {
     });
   },
   methods: {
-
+    ...mapActions(['getServDeviceList']),
     fnClose(){
       this.$emit('onClose');
     },
+    // 서버에 저장 된 Device 정보 조회 
     async searchDeviceInfo() {
       const image = await this.getImages();
-
       const { data } = await await ComApi.post("/device/list", {});
-      console.log(data);
       const recvDevice = data.filter((v) => v.deviceId === this.deviceId)[0];
       
       this.device = { ...recvDevice, deviceImg: image };
@@ -120,9 +121,13 @@ export default {
     },
 
     async fnSave() {
-      const param = { ...this.device };
+      const param = { ...this.device , datFlag :'U' };
+
+      console.log(param);
       const { data } = await comApi.post("/device/save", param);
       console.log(data);
+      await this.getServDeviceList();
+      this.fnClose();
     },
   },
 };
