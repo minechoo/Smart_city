@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>시설물정보</title>
+  <link rel="stylesheet" href="css/common.css">
+  <script defer src="js/jquery-3.4.1.min.js"></script>
+  <script defer src="js/common.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1><a href="index.html">스마트 시설물 통합 운영 관리 시스템</a></h1>
+    <div class="right_section">
+      <div class="logo">업체명 또는 이름</div>
+      <div class="info">내정보 변경</div>
+      <div class="login">로그아웃</div>
+    </div>
+  </header>
+  <main>
+    <div class="stop_wrap">
+      <button class="btn_close"></button>
+      <section class="ab_spot top_10">
+        <button class="btn_menu"></button>
+        <h2>스마트 시설물</h2>
+        <div class="facility_add">
+          <img src="images/img_main_01.png" alt="지도">
+        </div>
+        <ul>
+          <li><a href="#">추가하기 +</a></li>
+          <li><a href="#">추가하기 +</a></li>
+          <li><a href="#">추가하기 +</a></li>
+          <li><a href="#">추가하기 +</a></li>
+        </ul>
+        <span class="arrow"></span>
+      </section>
+
+      <div class="menu_box bg_gray flex_between">
+        <div class="map_area"></div>
+        <div class="right_write">
+          <div class="write">
+            <label for="f_name">스마트 시설물 이름(설치위치를 알아보기 쉽도록)을 입력하세요</label>
+            <input type="text" id="f_name" placeholder="ex) ㅇㅇ우체국 스마트 정류장">
+
+            <div class="file_input mt_70">
+              <label for="file_route">스마트 시설물이 설치된 지도 이미지를 업로드 하세요</label>
+              <input type="text" readonly="readonly" title="File Route" id="file_route">
+              <label for="upload" class="btn_up">화일업로드</label>
+              <input type="file" id="upload"
+                onchange="javascript:document.getElementById('file_route').value=this.value">
+            </div>
+          </div>
+          <div class="btn_area bd_none">
+            <button class="btn grey_line mr_17">취소하기</button>
+            <button class="btn bg_grren">등록하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

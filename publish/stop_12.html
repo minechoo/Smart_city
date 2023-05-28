@@ -116,12 +116,13 @@
                 <div class="power_3col mt_20">
                   <h4>대기질</h4>
                   <div class="power_line w_427">
-                    <span class="bg_green"></span>
-                    <span class="bg_green"></span>
-                    <span class="bg_green"></span>
-                    <span class="bg_yellow"></span>
-                    <span class="bg_yellow"></span>
-                    <span class="bg_yellow"></span>
+                    <dl class="quality">
+                      <dt>상태</dt>
+                      <dd class="bar c_01"><span>좋음</span></dd>
+                      <dd class="bar c_02 on"><span>보통</span></dd>
+                      <dd class="bar c_03"><span>나쁨</span></dd>
+                      <dd class="bar c_04"><span>매우나쁨</span></dd>
+                    </dl>
                   </div>
                 </div>
               </div>
@@ -130,7 +131,7 @@
               <div class="setting">
                 <h4>간편 예약시간 설정</h4>
                 <ul class="setting_list">
-                  <li>
+                  <li class="on">
                     <span class="square"></span>
                     06:00 ~ 22:00
                     <img src="images/ico_setting.png" alt="" id="settingTime">
@@ -142,7 +143,7 @@
                   </li>
                   <li>
                     <span class="square"></span>
-                    06:00 ~ 22:00
+                    06:00 ~ 24:00
                     <span class="space"></span>
                   </li>
                 </ul>

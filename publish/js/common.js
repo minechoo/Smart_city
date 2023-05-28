@@ -85,7 +85,7 @@ $(document).ready(function () {
 	$('#inside .off_grey').on('click', function () {
 		$('.info_c').text('inside 작동중지');
 	});
-
+	/*
 	$('#bell .on_green').on('click', function () {
 		$('#bell_img').attr('src', 'images/img_bell_on.png');
 		$('.wrap').html('<div class="ab_caution">비상벨이 울리고 있습니다.</div>');
@@ -94,7 +94,7 @@ $(document).ready(function () {
 		$('#bell_img').attr('src', 'images/img_bell_off.png');
 		$('.wrap').html('<div class="ab_info">비상벨 작동중</div>');
 	});
-
+*/
 	//팝업창
 	$('#settingTime').on('click', function () {
 		$('.pop_time').show();
@@ -102,16 +102,22 @@ $(document).ready(function () {
 	});
 });
 
-const $tem = document.getElementById('temperature');
-const $plus = document.getElementById('up');
-const $minus = document.getElementById('down');
-$plus.addEventListener('click', function () {
-	let ex = parseInt($tem.innerText);
-	ex++;
-	$tem.innerText = ex;
+//시간 셋팅
+const $setting = document.querySelectorAll('.setting_list li');
+
+$setting.forEach((set, idx) => {
+	set.addEventListener('click', () => {
+		for (const el of $setting) el.classList.remove('on');
+		$setting[idx].classList.add('on');
+	});
 });
-$minus.addEventListener('click', function () {
-	let ex = parseInt($tem.innerText);
-	ex--;
-	$tem.innerText = ex;
+
+//대기질
+const $quality = document.querySelectorAll('.power_line .quality dd');
+
+$quality.forEach((q, idx) => {
+	q.addEventListener('click', () => {
+		for (const el of $quality) el.classList.remove('on');
+		$quality[idx].classList.add('on');
+	});
 });
