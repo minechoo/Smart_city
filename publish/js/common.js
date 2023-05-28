@@ -120,7 +120,7 @@ $(document).ready(function () {
 	});
 
 	$('.btn_close').on('click', function () {
-		$(this).closest('.stop_wrap').hide();
+		$(this).parent().parent().hide();
 		$('.dim').hide();
 	});
 
