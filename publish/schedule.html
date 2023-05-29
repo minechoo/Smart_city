@@ -1,0 +1,108 @@
+<style>
+  .left_time .svg .circle {
+    fill: #fff;
+    stroke: #a3a3a3;
+    stroke-width: 1;
+  }
+  .left_time .svg_02 {
+    position: absolute;
+    width: 600px;
+    height: 550px;
+  }
+  .left_time .svg_02 .circle_green {
+    fill: #fff;
+    stroke: #7dc183;
+    stroke-width: 13;
+    stroke-linecap: round;
+    stroke-dasharray: 1030;
+    stroke-dashoffset: 2400;
+  }
+</style>
+<script>
+  function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+    var angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+
+    return {
+      x: centerX + radius * Math.cos(angleInRadians),
+      y: centerY + radius * Math.sin(angleInRadians),
+    };
+  }
+
+  function describeArc(x, y, radius, startAngle, endAngle) {
+    var start = polarToCartesian(x, y, radius, endAngle);
+    var end = polarToCartesian(x, y, radius, startAngle);
+
+    var arcSweep = endAngle - startAngle <= 180 ? "0" : "1";
+
+    var d = [
+      "M",
+      start.x,
+      start.y,
+      "A",
+      radius,
+      radius,
+      0,
+      arcSweep,
+      0,
+      end.x,
+      end.y,
+      "L",
+      x,
+      y,
+      "L",
+      start.x,
+      start.y,
+    ].join(" ");
+
+    console.log(d);
+
+    return d;
+  }
+  var perHour = Math.floor(360 / 24);
+  var startHour = 8 * perHour;
+  var endHour = 12 * perHour;
+  console.log("hour", perHour, startHour, endHour);
+  var arc = describeArc(100, 100, 100, startHour, endHour);
+</script>
+<div class="left_time">
+  <svg class="svg">
+    <circle cx="300" cy="275" r="170" class="circle"></circle>
+  </svg>
+  <svg class="svg_02">
+    <!-- Placeholder circle elements -->
+    <circle
+      cx="300"
+      cy="275"
+      r="170"
+      class="circle_green"
+      style="display: none"
+    ></circle>
+    <circle
+      cx="300"
+      cy="275"
+      r="170"
+      class="circle_green"
+      style="display: none"
+    ></circle>
+    <circle
+      cx="300"
+      cy="275"
+      r="170"
+      class="circle_green"
+      style="display: none"
+    ></circle>
+    <!-- Add more circles for each hour as needed -->
+  </svg>
+</div>
+
+<script>
+  // Get the current time
+  var now = new Date();
+  var currentHour = now.getHours();
+
+  // Show the circle_green element corresponding to the current hour
+  var circles = document.querySelectorAll(".svg_02 .circle_green");
+  if (circles.length > currentHour) {
+    circles[currentHour].style.display = "block";
+  }
+</script>

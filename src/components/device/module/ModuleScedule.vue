@@ -1,24 +1,69 @@
 <template lang="">
-  <div class="left_time">
-    <svg class="svg">
-      <circle cx="300" cy="275" r="170" class="circle"></circle>
-    </svg>
-    <svg class="svg_02">
-      <circle cx="300" cy="275" r="170" class="circle_green"></circle>
-    </svg>
-    <div class="circle_inner">
-      <p>06:00 ~ 22:00</p>
+  <div>
+    <div class="left_time">
+      <svg class="svg">
+        <circle cx="300" cy="275" r="170" class="circle"></circle>
+      </svg>
+      <svg class="svg_02">
+        <path :d="getPath" fill="#7dc183" />
+        <circle cx="300" cy="275" r="158" fill="white"></circle>
+        <!-- <circle cx="300" cy="275" r="170" class="circle_green"></circle> -->
+      </svg>
+      <div class="circle_inner">
+        <p>{{ starDtm }} ~ {{ endDtm }}</p>
+      </div>
+      <span class="time q_0">0</span>
+      <span class="time q_6">6</span>
+      <span class="time q_12">12</span>
+      <span class="time q_18">18</span>
     </div>
-    <span class="time q_0">0</span>
-    <span class="time q_6">6</span>
-    <span class="time q_12">12</span>
-    <span class="time q_18">18</span>
-    <span class="time q_end">22</span>
   </div>
 </template>
 <script>
+import pathUtils from "./CirclePathCalc";
 export default {
-  props: { module: { type: Object } },
+  data: () => ({ currentStart: "0000", currEnd: "0000" }),
+  props: {
+    module: { type: Object },
+  },
+  watch: {
+    module() {
+      const { start, end } = this.module;
+      console.log(start, end);
+    },
+  },
+  mounted(){
+    console.log(this.module);
+  },
+  computed: {
+    starDtm() {
+      return this.currentStart.replace(/^(\d{2})(\d{2})$/, "$1:$2");
+    },
+    endDtm() {
+      return this.currEnd.replace(/^(\d{2})(\d{2})$/, "$1:$2");
+    },
+    getPath() {
+      const convertHHMMToNumber = (hhmm) => {
+        var hours = parseInt(hhmm.substring(0, 2), 10);
+        var minutes = parseInt(hhmm.substring(2), 10);
+        var decimalHours = hours + minutes / 60;
+        return decimalHours;
+      };
+
+      const perHourAxis = Math.floor(360 / 24);
+      return pathUtils(
+        300,
+        275,
+        178,
+        perHourAxis * convertHHMMToNumber(this.currentStart),
+        perHourAxis * convertHHMMToNumber(this.currEnd)
+      );
+    },
+  },
 };
 </script>
-<style lang=""></style>
+<style scoped>
+input {
+  z-index: 1;
+}
+</style>

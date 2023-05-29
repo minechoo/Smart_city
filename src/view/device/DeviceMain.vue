@@ -8,7 +8,7 @@
         :name="device.moduleNm"
         :type="device.moduleCd"
         :deviceId="device.deviceId"
-        @click="fnShowDetail"
+        @click="()=>fnShowDetail(device.moduleId)"
       />
       <div class="go add" @click="showAddDialog">
         <button>추가하기</button>
@@ -22,14 +22,14 @@
   </transition>
   <transition>
     <div class="dialog-dim" v-if="isShowDetail">
-      <DeviceDetailDialog @onClose="()=>isShowDetail = false" :deviceId="deviceId" />
+      <DeviceDetailDialog @onClose="()=>isShowDetail = false" :deviceId="deviceId" :moduleId="selectedModuleId" />
     </div>
   </transition>
 </template>
 <script>
 import DeviceMainItem from "@/components/device/DeviceMainItem.vue";
 import DeviceModuleAdd from "@/view/device/DeviceModuleAdd.vue";
-import DeviceDetailDialog from '@/view/device/DeviceDetailDialog.vue';
+import DeviceDetailDialog from '@/view/device/module/DeviceDetailDialog.vue';
 import ComApi from "@/service/ComApi";
 export default {
   components: {
@@ -41,6 +41,7 @@ export default {
     return {
       showDeviceAdd: false,
       isShowDetail: false,
+      selectedModuleId : '',
       list: [],
     };
   },
@@ -67,7 +68,9 @@ export default {
     showAddDialog() {
       this.showDeviceAdd = true;
     },
-    fnShowDetail(){
+    fnShowDetail(moduleId){
+      console.log(moduleId);
+      this.selectedModuleId = moduleId; 
       this.isShowDetail = true;
     },
     async fnSearchModuleList() {

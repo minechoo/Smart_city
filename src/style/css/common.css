@@ -120,6 +120,9 @@ select::-ms-expand {
 } /* 화살표 없애기 for IE10, 11*/
 
 /*flex*/
+.flex {
+	display: flex;
+}
 .flex_between {
 	display: flex;
 	justify-content: space-between;
@@ -202,6 +205,15 @@ select::-ms-expand {
 .bg_gray {
 	background: #f6f6f6 !important;
 }
+.bg_pink {
+	background: #ff8383 !important;
+}
+.bg_red {
+	background: #fff1ea !important;
+}
+.bg_normal {
+	background: #edffea !important;
+}
 .bg_f2 {
 	background: #f2f2f2;
 }
@@ -255,6 +267,9 @@ select::-ms-expand {
 .mb_0 {
 	margin-bottom: 0 !important;
 }
+.m_none {
+	margin: 0 !important;
+}
 
 .pl_20 {
 	padding-left: 20px;
@@ -264,6 +279,15 @@ select::-ms-expand {
 }
 .p_none {
 	padding: 0 !important;
+}
+
+.alert_box {
+	border-top: 1px solid #aaa;
+	padding: 32px 0;
+	font-weight: 300;
+	font-size: 28px;
+	line-height: 1.3;
+	color: #606060;
 }
 
 /* login 회원가입*/
@@ -382,7 +406,7 @@ select::-ms-expand {
 	height: 45px;
 }
 .ab_membership .header h1 {
-	font-size: 25px !important;
+	font-size: 32px !important;
 	color: #383a36 !important;
 	font-weight: 500 !important;
 	padding-left: 0;
@@ -402,12 +426,14 @@ select::-ms-expand {
 	flex-wrap: wrap;
 	gap: 0 57px;
 	padding-bottom: 52px;
+	margin-top: 9px;
 	border-top: 1px solid #aaa;
 }
 .ab_membership .input_box .input_area {
 	width: 47%;
 }
-.ab_membership .input_box .input_area label {
+.ab_membership .input_box .input_area label,
+.input_box p {
 	display: inline-block;
 	margin: 35px 0 15px;
 	font-size: 22px;
@@ -440,11 +466,13 @@ select::-ms-expand {
 	border-top: 1px solid #aaa;
 }
 .btn_area .btn {
-	padding: 0 18px;
-	line-height: 50px;
+	padding: 16px 18px 12px;
 	font-size: 22px;
+	line-height: 1;
 	font-weight: 200;
 	border-radius: 5px;
+	border: none;
+	box-sizing: border-box;
 }
 .btn_area .grey_line {
 	border: 1px solid #d6d6d6;
@@ -455,6 +483,10 @@ select::-ms-expand {
 	background: #6a9a77;
 	color: #fff;
 	border: none;
+}
+.btn_area .bg_pink {
+	background: #ff8383;
+	color: #fff;
 }
 .btn_a_02 {
 	justify-content: center;
@@ -1100,6 +1132,16 @@ main {
 	right: auto;
 	top: auto;
 }
+.power_wrap {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.wrap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 .wrap .ab_caution {
 	position: relative;
 	right: auto;
@@ -1121,10 +1163,11 @@ main {
 	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 	overflow: hidden;
+	gap: 10px;
 }
 .btnArea {
 	display: flex;
-	min-width: 170px;
+	min-width: 185px;
 	height: 200px;
 	border: 1px solid rgb(218, 217, 217);
 	border-radius: 10px;
@@ -1134,7 +1177,6 @@ main {
 	align-content: center;
 	justify-content: center;
 	align-items: center;
-	margin: 5px;
 }
 .btnArea.on {
 	background: #6a9a77;
@@ -1182,7 +1224,7 @@ main {
 	height: 40px;
 	line-height: 40px;
 }
-.set_del .btn_close_pop {
+.set_del .btn_close {
 	position: absolute;
 	top: 20px;
 	right: 20px;
@@ -1418,8 +1460,8 @@ h4 {
 	justify-content: center;
 	align-items: center;
 	width: calc(100% - 60px);
-	height: 500px;
-	margin: 30px 40px;
+	height: 480px;
+	margin: 10px 40px 0;
 	background: #f1f1f1;
 	box-sizing: border-box;
 	clear: both;
@@ -1452,8 +1494,8 @@ h4 {
 }
 #sun .area {
 	width: 92%;
-	height: 450px;
-	margin: 40px 20px 0 60px;
+	height: 470px;
+	margin: 30px 20px 0 60px;
 	background: #eee;
 }
 #did .area {

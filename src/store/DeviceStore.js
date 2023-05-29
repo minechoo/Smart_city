@@ -7,6 +7,9 @@ const deviceStore = {
     setDeviceList(state, deviceList) {
       state.deviceList = deviceList;
     },
+    clear(state){
+      state.deviceList = [];
+    }
   },
   actions: {
     setDeviceList(context, { deviceList }) {
@@ -16,8 +19,15 @@ const deviceStore = {
 
       const {data}  = await comApi.post('/device/list');
 
-      context.commit('setDeviceList', data);
+      if(!data.code){
+        context.commit('setDeviceList', data);
+      }else{
+        context.commit('clear');
+      }
+      
       return true;
+    }, clearDeviceList(context){
+      context.commit('clear');
     }
   },
   getters: {
