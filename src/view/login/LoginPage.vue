@@ -68,10 +68,11 @@ export default {
       this.rememberMe = true;
       this.userId = localStorage.getItem("SYS_USER_ID");
     }
+    this.clearDeviceList();
 
   },
   methods: {
-    ...mapActions(["doLogin", "setLogin"]),
+    ...mapActions(["doLogin", "setLogin", "clearDeviceList"]),
 
     fnShowSignUp(flag) {
       this.showSignUp = flag;
