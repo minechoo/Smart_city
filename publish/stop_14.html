@@ -95,12 +95,15 @@
               </div>
 
               <div class="setting">
-                <h4>간편 예약시간 설정</h4>
+                <div class="flex">
+                  <h4 class="mr_10">간편 예약시간 설정</h4>
+                  <button class="btn_add_time"></button>
+                </div>
                 <ul class="setting_list">
                   <li class="on">
                     <span class="square"></span>
                     06:00 ~ 22:00
-                    <img src="images/ico_setting.png" alt="" id="settingTime">
+                    <img src="images/ico_setting.png" alt="" class="settingTime">
                   </li>
                   <li>
                     <span class="square"></span>
@@ -118,19 +121,58 @@
           </div>
         </div>
       </div>
+      <div class="pop_time">
+        <div class="login_box bg_white radius_15 mt_0">
+          <header class="p_none h_auto">
+            <h5 class="mb_0">간편 예약시간 설정</h5>
+            <button class="btn_close small"></button>
+          </header>
+          <div class="pop_area">
+            <div>
+              <label for="h_end">시작 시간</label>
+              <select name="" id="h_start" class="pop_sel">
+                <option value="">00</option>
+                <option value="">01</option>
+                <option value="">02</option>
+                <option value="">03</option>
+                <option value="">04</option>
+              </select>
+            </div>
+            <div>
+              <label for="m_start">분</label>
+              <select name="" id="m_start" class="pop_sel">
+                <option value="">00</option>
+                <option value="">30</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex_between">
+            <div>
+              <label for="h_end">종료 시간</label>
+              <select name="" id="h_end" class="pop_sel">
+                <option value="">00</option>
+                <option value="">01</option>
+                <option value="">02</option>
+                <option value="">03</option>
+                <option value="">04</option>
+              </select>
+            </div>
+            <div>
+              <label for="m_end">분</label>
+              <select name="" id="m_end" class="pop_sel">
+                <option value="">00</option>
+                <option value="">30</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn_login bg_green mb_0 mt_20">저장</button>
+        </div>
+      </div>
+    </div>
   </main>
   <div class="dim"></div>
-  <div class="pop_time">
-    <div class="login_box bg_white radius_15">
-      <h5>간편 예약시간 설정</h5>
-      <input type="text" placeholder="시작시간" id="start" class="input_login">
-      <label for="start" class="offscreen">시작시간</label>
-      <input type="text" placeholder="종료시간" id="end" class="input_login">
-      <label for="end" class="offscreen">종료시간</label>
 
-      <button type="submit" class="btn_login bg_green">저장</button>
-    </div>
-  </div>
 </body>
 
 </html>

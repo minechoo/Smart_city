@@ -96,8 +96,8 @@ $(document).ready(function () {
 	});
 */
 	//팝업창
-	$('#settingTime').on('click', function () {
-		$('.pop_time').show();
+	$('.settingTime').on('click', function () {
+		$('.pop_time').toggle();
 		$('.dim').show();
 	});
 
