@@ -5,7 +5,7 @@
         <circle cx="300" cy="275" r="170" class="circle"></circle>
       </svg>
       <svg class="svg_02">
-        <path :d="getPath" fill="#7dc183" />
+        <path :d="getPath" fill="#7dc183"  />
         <circle cx="300" cy="275" r="158" fill="white"></circle>
         <!-- <circle cx="300" cy="275" r="170" class="circle_green"></circle> -->
       </svg>
@@ -22,28 +22,30 @@
 <script>
 import pathUtils from "./CirclePathCalc";
 export default {
-  data: () => ({ currentStart: "0000", currEnd: "0000" }),
   props: {
-    module: { type: Object },
+    module: { type: Object, default: () => ({ start: "0000", end: "2300" }) },
   },
-  watch: {
-    module() {
-      const { start, end } = this.module;
-      console.log(start, end);
-    },
-  },
-  mounted(){
-    console.log(this.module);
-  },
+  watch: {},
+  mounted() {},
   computed: {
     starDtm() {
-      return this.currentStart.replace(/^(\d{2})(\d{2})$/, "$1:$2");
+      console.log(this.module);
+      return this.module.start
+        ? this.module.start.replace(/^(\d{2})(\d{2})$/, "$1:$2")
+        : "";
     },
     endDtm() {
-      return this.currEnd.replace(/^(\d{2})(\d{2})$/, "$1:$2");
+      return this.module.end
+        ? this.module.end.replace(/^(\d{2})(\d{2})$/, "$1:$2")
+        : "";
     },
     getPath() {
+
+       
       const convertHHMMToNumber = (hhmm) => {
+        if (!hhmm) {
+          return 0;
+        }
         var hours = parseInt(hhmm.substring(0, 2), 10);
         var minutes = parseInt(hhmm.substring(2), 10);
         var decimalHours = hours + minutes / 60;
@@ -51,13 +53,15 @@ export default {
       };
 
       const perHourAxis = Math.floor(360 / 24);
-      return pathUtils(
-        300,
-        275,
-        178,
-        perHourAxis * convertHHMMToNumber(this.currentStart),
-        perHourAxis * convertHHMMToNumber(this.currEnd)
-      );
+      return this.module.start
+        ? pathUtils(
+            300,
+            275,
+            178,
+            perHourAxis * convertHHMMToNumber(this.module.start),
+            perHourAxis * convertHHMMToNumber(this.module.end)
+          )
+        : "";
     },
   },
 };

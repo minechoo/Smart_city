@@ -115,6 +115,24 @@ select.f_sel {
 	-o-appearance: none;
 	appearance: none;
 }
+select.pop_sel {
+	width: 130px;
+	height: 30px;
+	padding: 0 10px;
+	margin: 10px 0;
+	line-height: 30px;
+	font-weight: 300;
+	font-size: 22px;
+	color: #606060;
+	border: 1px solid #e5e5e5;
+	background: url(../images/btn_select.png) no-repeat right 1px center;
+	background-size: 31px 26px;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+}
 select::-ms-expand {
 	display: none;
 } /* 화살표 없애기 for IE10, 11*/
@@ -187,6 +205,9 @@ select::-ms-expand {
 .bd_none {
 	border: none !important;
 }
+.bd_top {
+	border-top: 1px solid #aaa;
+}
 .cl_both {
 	clear: both;
 }
@@ -223,6 +244,9 @@ select::-ms-expand {
 	line-height: 34px;
 	color: #6a9a77;
 }
+.txt_red {
+	color: #ff7878 !important;
+}
 .radius_15 {
 	border-radius: 15px !important;
 }
@@ -230,6 +254,9 @@ select::-ms-expand {
 /* margin, padding */
 .mr_0 {
 	margin-right: 0 !important;
+}
+.mr_10 {
+	margin-right: 10px !important;
 }
 .mr_17 {
 	margin-right: 17px !important;
@@ -244,25 +271,28 @@ select::-ms-expand {
 	margin-right: 25px !important;
 }
 .ml_30 {
-	margin-left: 30px;
+	margin-left: 30px !important;
+}
+.mt_0 {
+	margin-top: 0 !important;
 }
 .mt_20 {
-	margin-top: 20px;
+	margin-top: 20px !important;
 }
 .mt_42 {
-	margin-top: 42px;
+	margin-top: 42px !important;
 }
 .mt_50 {
-	margin-top: 50px;
+	margin-top: 50px !important;
 }
 .mt_70 {
 	margin-top: 70px !important;
 }
 .mt_200 {
-	margin-top: 200px;
+	margin-top: 200px !important;
 }
 .mt_250 {
-	margin-top: 250px;
+	margin-top: 250px !important;
 }
 .mb_0 {
 	margin-bottom: 0 !important;
@@ -272,10 +302,10 @@ select::-ms-expand {
 }
 
 .pl_20 {
-	padding-left: 20px;
+	padding-left: 20px !important;
 }
 .px_40_20 {
-	padding: 0 40px 0 20px;
+	padding: 0 40px 0 20px !important;
 }
 .p_none {
 	padding: 0 !important;
@@ -495,6 +525,13 @@ select::-ms-expand {
 .btn_a_02 .btn {
 	line-height: 40px;
 	font-size: 20px;
+}
+.btn_add_time {
+	width: 24px;
+	height: 24px;
+	background: url(../images/ico_add.png) no-repeat center;
+	background-size: 100% 100%;
+	border: none;
 }
 /* tab */
 .tabs ul {
@@ -1224,7 +1261,8 @@ main {
 	height: 40px;
 	line-height: 40px;
 }
-.set_del .btn_close {
+.set_del .btn_close,
+.btn_close.small {
 	position: absolute;
 	top: 20px;
 	right: 20px;
@@ -1611,13 +1649,28 @@ h4 {
 	right: 0;
 	bottom: 25px;
 	width: 100%;
+	height: 204px;
+}
+.setting_list {
+	height: 174px;
+	overflow-y: scroll;
+	display: block;
+}
+.setting_list::-webkit-scrollbar {
+	width: 10px;
+}
+.setting_list::-webkit-scrollbar-thumb {
+	background-color: #bbb;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 .setting_list li.on {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	height: 66px;
+	height: 60px;
 	padding: 0 20px;
 	color: #353535;
 	font-size: 22px;
@@ -1674,8 +1727,17 @@ h4 {
 .pop_time {
 	display: none;
 	position: absolute;
-	right: 158px;
-	top: 200px;
+	right: 0;
+	top: 0;
+	z-index: 10;
+}
+.pop_area {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10px;
+	padding-top: 30px;
+	border-top: 1px solid #aaa;
 }
 .dim {
 	display: none;

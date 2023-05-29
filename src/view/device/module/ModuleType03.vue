@@ -1,7 +1,6 @@
 <template lang="">
   <div class="content" id="purify">
-    
-    <ModuleScedule/>
+    <ModuleScedule :module="module" />
     <div class="right_content">
       <div>
         <div class="power_3col">
@@ -94,9 +93,9 @@
   </div>
 </template>
 <script>
-import ModuleScedule from '@/components/device/module/ModuleScedule.vue';
+import ModuleScedule from "@/components/device/module/ModuleScedule.vue";
 export default {
-  components:{ModuleScedule}
+  components: { ModuleScedule },
 };
 </script>
 <style lang=""></style>

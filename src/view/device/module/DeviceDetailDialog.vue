@@ -127,21 +127,7 @@ export default {
     },
 
     isValidModule(moduleCd) {
-      console.log("call valid mod moduleCd : ", moduleCd);
-      console.log(
-        "isValid 01 : ",
-        moduleCd,
-        this.list,
-        this.list.find(
-          (v) => v.moduleCd === moduleCd && v.moduleId === this.selectedModuleId
-        )
-      );
-      console.log(
-        "isValid 02: ",
-        this.list.find(
-          (v) => v.moduleCd === moduleCd && v.moduleId === this.selectedModuleId
-        ).moduleCd === moduleCd
-      );
+     
       return (
         this.list.find((v) => v.moduleCd === moduleCd).moduleCd === moduleCd
       );
@@ -150,15 +136,15 @@ export default {
       this.$emit("onClose");
     },
     fnChangeModuleId(moduleId) {
+      console.log(moduleId);
       this.selectedModuleId = moduleId;
-
+      
       this.moduleCd = this.list.find((v) => v.moduleId === moduleId).moduleCd;
     },
     async fnSearchModuleList() {
       const { data } = await ComApi.post("/device/module/list", {
         deviceId: this.$route.params.deviceId,
       });
-      console.log(data);
       this.list = data;
       this.moduleCd = this.list.find(
         (v) => v.moduleId === this.moduleId

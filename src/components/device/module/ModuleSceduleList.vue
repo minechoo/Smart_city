@@ -1,35 +1,17 @@
 <template lang="">
   <div class="dialog-dim" v-if="isShowDialog">
-    <div class="login_box bg_white radius_15">
-      <h5>간편 예약시간 설정</h5>
-      <button @click="fnHideDialog">X</button>
-      <input
-        type="text"
-        placeholder="시작시간"
-        id="start"
-        v-model="popup.start"
-        class="input_login"
-      />
-      <label for="start" class="offscreen">시작시간</label>
-      <input
-        type="text"
-        placeholder="종료시간"
-        id="end"
-        class="input_login"
-        v-model="popup.end"
-      />
-      <label for="end" class="offscreen">종료시간</label>
-
-      <button type="submit" class="btn_login bg_green" @click="fnSaveSchedule">
-        저장
-      </button>
-    </div>
+    <ScheduleAdd
+      @onClose="fnHideDialog"
+      :datFlag="datFlag"
+      :targetObj="targetObj"
+      @onSave="fnSaveSchedule"
+    />
   </div>
   <div class="right_content">
     <div class="setting">
-      <div>
-        <h4>간편 예약시간 설정</h4>
-        <button @click="fnShowDialog">+</button>
+      <div class="flex">
+        <h4 class="mr_10">간편 예약시간 설정</h4>
+        <button class="btn_add_time" @click="() => fnShowDialog()"></button>
       </div>
       <ul class="setting_list">
         <li
@@ -38,8 +20,14 @@
           v-bind:key="idx"
         >
           <span class="square" @click="() => fnChangeSchele(idx)"></span>
-          {{ v.start }} ~ {{ v.end }}
-          <img src="@/style/images/ico_setting.png" alt="" id="settingTime" />
+          {{ v.start.replace(/^(\d{2})(\d{2})$/, "$1:$2") }} ~
+          {{ v.end.replace(/^(\d{2})(\d{2})$/, "$1:$2") }}
+          <img
+            src="@/style/images/ico_setting.png"
+            alt=""
+            id="settingTime"
+            @click="() => fnShowDialogModify(idx)"
+          />
         </li>
         <!-- <li>
           <span class="square"></span>
@@ -56,7 +44,9 @@
   </div>
 </template>
 <script>
+import ScheduleAdd from "@/components/device/module/SheduleAdd.vue";
 export default {
+  components: { ScheduleAdd },
   data: () => ({
     list: [
       { start: "0000", end: "0000", useYn: "Y" },
@@ -64,14 +54,15 @@ export default {
       { start: "0800", end: "1900", useYn: "N" },
     ],
     popup: {
-      start: "0000",
-      end: "0000",
+      start: { hour: "00", minute: "00" },
+      end: { hour: "00", minute: "00" },
     },
+    targetObj: null,
     isShowDialog: false,
     datFlag: "I",
   }),
   props: {
-    module: { type: Object },
+    module: { type: Object, default: () => ({ start: "0000", end: "2300" }) },
   },
   watch: {},
   mounted() {},
@@ -84,18 +75,42 @@ export default {
     fnHideDialog() {
       this.isShowDialog = false;
     },
+    fnShowDialogModify(idx) {
+      this.datFlag = "U";
+      this.isShowDialog = true;
+      const selectedObj = { ...this.list[idx], idx };
+      console.log(selectedObj);
+      this.targetObj = selectedObj;
+    },
     fnChangeSchele(pIdx) {
+      
       const rtnList = this.list.map((v, idx) => {
         v.useYn = idx === pIdx ? "Y" : "N";
         return v;
       });
 
       this.list = rtnList;
+      const { start, end } = this.list.find((v) => v.useYn === "Y");
+      this.$emit("changeSchedule", start, end);
     },
-    fnSaveSchedule() {
+    fnSaveSchedule(payLoad) {
+      console.log(payLoad);
       this.isShowDialog = false;
-      const param = { ...this.popup, useYn: "N" };
-      this.list.push(param);
+      if (payLoad.datFlag === "I") {
+        const param = { ...payLoad, useYn: "N" };
+        this.list.push(param);
+      } else {
+        const modifydList = this.list.map((v, idx) => {
+          return payLoad.idx === idx ? payLoad : v;
+        });
+
+        this.list = modifydList;
+
+        if(payLoad.useYn === 'Y'){
+          this.$emit("changeSchedule", payLoad.start, payLoad.end);
+        }
+
+      }
     },
   },
 };
