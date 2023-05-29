@@ -527,9 +527,9 @@ select::-ms-expand {
 	font-size: 20px;
 }
 .btn_add_time {
-	width: 25.5px;
-	height: 25.5px;
-	background: url(../images/ico_plus.png) no-repeat center;
+	width: 24px;
+	height: 24px;
+	background: url(../images/ico_add.png) no-repeat center;
 	background-size: 100% 100%;
 	border: none;
 }
