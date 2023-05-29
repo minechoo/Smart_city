@@ -136,10 +136,12 @@ export default {
       this.$emit("onClose");
     },
     fnChangeModuleId(moduleId) {
-      console.log(moduleId);
+      
       this.selectedModuleId = moduleId;
       
       this.moduleCd = this.list.find((v) => v.moduleId === moduleId).moduleCd;
+
+      console.log( moduleId , this.moduleCd );
     },
     async fnSearchModuleList() {
       const { data } = await ComApi.post("/device/module/list", {

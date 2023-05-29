@@ -8,6 +8,7 @@
     />
   </div>
   <div class="right_content">
+    <slot></slot>
     <div class="setting">
       <div class="flex">
         <h4 class="mr_10">간편 예약시간 설정</h4>
@@ -29,16 +30,6 @@
             @click="() => fnShowDialogModify(idx)"
           />
         </li>
-        <!-- <li>
-          <span class="square"></span>
-          08:00 ~ 22:00
-          <span class="space"></span>
-        </li>
-        <li>
-          <span class="square"></span>
-          06:00 ~ 24:00
-          <span class="space"></span>
-        </li> -->
       </ul>
     </div>
   </div>
@@ -64,6 +55,7 @@ export default {
   props: {
     module: { type: Object, default: () => ({ start: "0000", end: "2300" }) },
   },
+  emits: ['changeSchedule'],
   watch: {},
   mounted() {},
   computed: {},

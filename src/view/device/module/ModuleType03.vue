@@ -1,6 +1,7 @@
 <template lang="">
   <div class="content" id="purify">
-    <ModuleScedule :module="module" />
+    <ModuleScedule :module="module"  
+      @changeSchedule="fnChangeSchele"/>
     <div class="right_content">
       <div>
         <div class="power_3col">
@@ -93,9 +94,23 @@
   </div>
 </template>
 <script>
+import ComApi from '@/service/ComApi';
 import ModuleScedule from "@/components/device/module/ModuleScedule.vue";
 export default {
   components: { ModuleScedule },
+  props: { module: { type: Object } },
+  methods: {
+    fnChangeSchele(start, end) {
+      this.currentModule.start = start;
+      this.currentModule.end = end;
+    },
+    async fnSave(){
+      const param =  { ...this.currentModule , datFlag :'U'};
+      console.log('call save : ' , param);
+      const {data} = await ComApi.post('/device/module/process', param);
+      console.log(data);
+    }
+  },
 };
 </script>
 <style lang=""></style>

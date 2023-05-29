@@ -8,6 +8,8 @@
         :name="device.moduleNm"
         :type="device.moduleCd"
         :deviceId="device.deviceId"
+        :start="device.start"
+        :end="device.end"
         @click="()=>fnShowDetail(device.moduleId)"
       />
       <div class="go add" @click="showAddDialog">
@@ -22,7 +24,7 @@
   </transition>
   <transition>
     <div class="dialog-dim" v-if="isShowDetail">
-      <DeviceDetailDialog @onClose="()=>isShowDetail = false" :deviceId="deviceId" :moduleId="selectedModuleId" />
+      <DeviceDetailDialog @onClose="fnHideDetail" :deviceId="deviceId" :moduleId="selectedModuleId" />
     </div>
   </transition>
 </template>
@@ -69,9 +71,12 @@ export default {
       this.showDeviceAdd = true;
     },
     fnShowDetail(moduleId){
-      console.log(moduleId);
       this.selectedModuleId = moduleId; 
       this.isShowDetail = true;
+    },
+    fnHideDetail(){
+      this.isShowDetail = false;
+      this.fnSearchModuleList();
     },
     async fnSearchModuleList() {
       const { data } = await ComApi.post("/device/module/list", {

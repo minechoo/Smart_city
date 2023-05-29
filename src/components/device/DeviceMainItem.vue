@@ -18,7 +18,7 @@
           class="svg_top"
         />
       </div>
-      <slot></slot>
+      <p v-if="start">자동설정<br>{{start}}- {{end}}</p>
       <div>
         <img
           src="@/style/images/svg/ico_menu_bottom.svg"
@@ -36,6 +36,8 @@ export default {
     stat: { type: Boolean },
     name: { type: String },
     type: { type: String },
+    start: { type: String },
+    end: { type: String },
   },
   computed: {
     statNm: function () {

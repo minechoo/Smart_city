@@ -15,6 +15,7 @@ export default {
   data: () => ({
     currentModule: {},
   }),
+  emits: ['changeSchedule'],
   props: { module: { type: Object } },
   components: { ModuleScedule, ModuleSceduleList },
   watch: {
