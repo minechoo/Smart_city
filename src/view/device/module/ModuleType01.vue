@@ -8,6 +8,7 @@
   </div>
 </template>
 <script>
+import ComApi from '@/service/ComApi';
 import ModuleScedule from "@/components/device/module/ModuleScedule.vue";
 import ModuleSceduleList from "@/components/device/module/ModuleSceduleList.vue";
 export default {
@@ -18,21 +19,30 @@ export default {
   components: { ModuleScedule, ModuleSceduleList },
   watch: {
     module() {
-      const { moduleId, moduleCd, moduleNm, deviceId } = this.module;
-      const moduleInfo = { moduleNm, moduleCd, deviceId, moduleId };
-      console.log(moduleInfo);
+    
+      this.currentModule = {...this.module};
+      this.currentModule.start = this.module.start || "0900";
+      this.currentModule.end = this.module.end || "2300";
+     
     },
   },
   mounted() {
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
-    this.currentModule.end = this.module.start || "2300";
+    this.currentModule.end = this.module.end || "2300";
   },
   methods: {
     fnChangeSchele(start, end) {
       this.currentModule.start = start;
       this.currentModule.end = end;
+      this.fnSave();
     },
+    async fnSave(){
+      const param =  { ...this.currentModule , datFlag :'U'};
+      console.log('call save : ' , param);
+      const {data} = await ComApi.post('/device/module/process', param);
+      console.log(data);
+    }
   },
 };
 </script>

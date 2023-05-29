@@ -5,7 +5,7 @@
         <circle cx="300" cy="275" r="170" class="circle"></circle>
       </svg>
       <svg class="svg_02">
-        <path :d="getPath" fill="#7dc183"  />
+        <path :d="getPath" fill="#7dc183" />
         <circle cx="300" cy="275" r="158" fill="white"></circle>
         <!-- <circle cx="300" cy="275" r="170" class="circle_green"></circle> -->
       </svg>
@@ -29,7 +29,6 @@ export default {
   mounted() {},
   computed: {
     starDtm() {
-      console.log(this.module);
       return this.module.start
         ? this.module.start.replace(/^(\d{2})(\d{2})$/, "$1:$2")
         : "";
@@ -40,8 +39,6 @@ export default {
         : "";
     },
     getPath() {
-
-       
       const convertHHMMToNumber = (hhmm) => {
         if (!hhmm) {
           return 0;
