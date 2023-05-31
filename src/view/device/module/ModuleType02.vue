@@ -13,7 +13,6 @@
                 id="on_green"
                 class="on_green"
                 value="ON"
-                @changed="fnSave"
                 v-model="light"
                 checked
               />
@@ -25,7 +24,6 @@
                 name="power"
                 id="off_grey"
                 class="off_grey"
-                @changed="fnSave"
                 v-model="light"
                 value="OFF"
               />
@@ -43,7 +41,6 @@
                 id="on_green_led"
                 class="on_green"
                 value="green"
-              
                 v-model="led"
               />
               <label for="on_green_led">냉방</label>
@@ -55,7 +52,6 @@
                 id="on_green_led_02"
                 class="on_green"
                 value="blue"
-              
                 v-model="led"
                 checked
               />
@@ -68,7 +64,6 @@
                 id="on_green_led_03"
                 class="on_green"
                 value="grey"
-               
                 v-model="led"
                 checked
               />
@@ -86,16 +81,8 @@
                 >℃
               </div>
             </div>
-            <button
-              class="tem_btn"
-              id="up"
-              @click="() => temp++"
-            ></button>
-            <button
-              class="tem_btn"
-              id="down"
-              @click="() => temp--"
-            ></button>
+            <button class="tem_btn" id="up" @click="() => temp++"></button>
+            <button class="tem_btn" id="down" @click="() => temp--"></button>
           </div>
         </div>
       </div>
@@ -113,9 +100,10 @@ const defaultVal = {
 };
 export default {
   data: () => ({
-    temp : 24,
-    light: '',
-    led : '',
+    temp: 24,
+    light: "",
+    led: "",
+    isMount: false,
     currentModule: {},
   }),
   props: { module: { type: Object } },
@@ -124,36 +112,56 @@ export default {
   components: { ModuleScedule, ModuleSceduleList },
   watch: {
     currentModule() {
-      console.log('on changed');
-      this.fnSave();
+      console.log("on changed");
+      if (this.isMount) {
+        this.fnSave();
+      }
     },
-    module() {
-      const { moduleId, moduleCd, moduleNm, deviceId } = this.module;
-      const moduleInfo = { moduleNm, moduleCd, deviceId, moduleId };
-      console.log(moduleInfo);
+    light() {
+      if (this.isMount) {
+        this.fnSave();
+      }
+    },
+    led() {
+      if (this.isMount) {
+        this.fnSave();
+      }
+    },
+    temp() {
+      if (this.isMount) {
+        this.fnSave();
+      }
     },
   },
   mounted() {
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
     this.currentModule.end = this.module.start || "2300";
-    this.currentModule.temp = this.module.temp || defaultVal.temp;
-    this.currentModule.light = this.module.light || defaultVal.light;
-    this.currentModule.led = this.module.led || defaultVal.led;
+    this.temp = this.module.temp || defaultVal.temp;
+    this.light = this.module.light || defaultVal.light;
+    this.led = this.module.led || defaultVal.led;
+    setTimeout(() => {
+      this.isMount = true;
+    }, 100);
   },
   methods: {
-    
     fnChangeSchele(start, end) {
       this.currentModule.start = start;
       this.currentModule.end = end;
       this.fnSave();
     },
+    fnAddTemp() {
+      this.temp = this.temp + 1;
+    },
+    fnSubTemp() {
+      this.temp = this.temp - 1;
+    },
     async fnSave() {
       const param = {
         ...this.currentModule,
-         light: this.light,
-         temp: this.temp,
-         led: this.led,
+        light: this.light,
+        temp: this.temp,
+        led: this.led,
         datFlag: "U",
       };
       console.log("call save : ", param);

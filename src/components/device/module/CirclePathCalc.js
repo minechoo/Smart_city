@@ -32,9 +32,6 @@ const describeArc = (x, y, radius, startAngle, endAngle) => {
     start.x,
     start.y,
   ].join(" ");
-
-  console.log(d);
-
   return d;
 };
 

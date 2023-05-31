@@ -9,7 +9,7 @@
   </header>
 
   <router-view v-slot="{ Component }">
-    <transition >
+    <transition>
       <component :is="Component" />
     </transition>
   </router-view>
@@ -31,6 +31,9 @@ export default {
     return {
       showDialog: false,
     };
+  },
+  created() {
+
   },
   computed: {
     ...mapGetters(["isLogin", "getUserInfo"]),

@@ -6,7 +6,7 @@ const codeStore = {
   },
   mutations: {
     setCodeList(state, codeList) {  
-      console.log('save codes : ' , codeList);
+     
       state.codeList = codeList;
     },
   },
@@ -23,10 +23,10 @@ const codeStore = {
       return state.codeList;
     },
     getComDeviceType(state) {
-      console.log(state.codeList);
+     
       const deviceTypeList = state.codeList.filter((v) => v.comGrpCd === "DEVICE_TYPE_CD");
-      console.log(deviceTypeList);
-      return state.codeList.filter((v) => v.comGrpCd === "DEVICE_TYPE_CD");
+     
+      return deviceTypeList;
     },
   },
 };

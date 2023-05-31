@@ -46,7 +46,6 @@ export default {
     icoUrl: function () {
    
       const currTypes = this.type.split("_")[1];
-      console.log(currTypes);
       return require(`@/style/images/svg/ico_menu_${currTypes}.svg`);
     },
   },

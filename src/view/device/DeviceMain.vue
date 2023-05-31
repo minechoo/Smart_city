@@ -10,7 +10,7 @@
         :deviceId="device.deviceId"
         :start="device.start"
         :end="device.end"
-        @click="()=>fnShowDetail(device.moduleId)"
+        @click="() => fnShowDetail(device.moduleId)"
       />
       <div class="go add" @click="showAddDialog">
         <button>추가하기</button>
@@ -24,15 +24,20 @@
   </transition>
   <transition>
     <div class="dialog-dim" v-if="isShowDetail">
-      <DeviceDetailDialog @onClose="fnHideDetail" :deviceId="deviceId" :moduleId="selectedModuleId" />
+      <DeviceDetailDialog
+        @onClose="fnHideDetail"
+        :deviceId="deviceId"
+        :moduleId="selectedModuleId"
+      />
     </div>
   </transition>
 </template>
 <script>
 import DeviceMainItem from "@/components/device/DeviceMainItem.vue";
 import DeviceModuleAdd from "@/view/device/DeviceModuleAdd.vue";
-import DeviceDetailDialog from '@/view/device/module/DeviceDetailDialog.vue';
+import DeviceDetailDialog from "@/view/device/module/DeviceDetailDialog.vue";
 import ComApi from "@/service/ComApi";
+import { mapGetters } from "vuex";
 export default {
   components: {
     DeviceMainItem,
@@ -43,7 +48,7 @@ export default {
     return {
       showDeviceAdd: false,
       isShowDetail: false,
-      selectedModuleId : '',
+      selectedModuleId: "",
       list: [],
     };
   },
@@ -55,12 +60,32 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["getUserInfo"]),
     deviceId() {
       return this.$route.params.deviceId;
     },
   },
   mounted() {
     this.fnSearchModuleList();
+
+    const socket = new WebSocket(
+      `ws://localhost:8180/ws/device/${this.deviceId}`
+    );
+
+    const { userId } = this.getUserInfo;
+
+    socket.onopen = () => {
+      socket.send(
+        JSON.stringify({
+          msgType: "getStatus",
+          userId,
+          deviceId: this.deviceId,
+        })
+      );
+    };
+    socket.onmessage = (e) => {
+      console.log(e);
+    };
   },
   methods: {
     fnAddClosed() {
@@ -70,11 +95,11 @@ export default {
     showAddDialog() {
       this.showDeviceAdd = true;
     },
-    fnShowDetail(moduleId){
-      this.selectedModuleId = moduleId; 
+    fnShowDetail(moduleId) {
+      this.selectedModuleId = moduleId;
       this.isShowDetail = true;
     },
-    fnHideDetail(){
+    fnHideDetail() {
       this.isShowDetail = false;
       this.fnSearchModuleList();
     },

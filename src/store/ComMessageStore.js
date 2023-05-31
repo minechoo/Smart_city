@@ -16,6 +16,11 @@ const messageStore = {
     }, actions: {
 
         showAlert(context, { msg, cb }) {
+            if(!cb){
+                cb = function(){
+                    
+                };
+            }
             context.commit('addMessage', {
                 type: 'Alert',
                 title: 'Alert', msg, cb
@@ -30,6 +35,9 @@ const messageStore = {
         },
 
         showError(context, { msg , cb} , ) {
+            if(!cb){
+                cb = ()=>{};
+            }
             context.commit('addMessage', {
                 type: 'Error',
                 title: 'Error', msg, cb
