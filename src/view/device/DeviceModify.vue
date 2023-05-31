@@ -65,7 +65,6 @@
 <script>
 import ComApi from "@/service/ComApi";
 import { mapGetters , mapActions} from "vuex";
-import comApi from "@/service/ComApi";
 import msgConf from "@/message/msgConf";
 export default {
   data: () => ({
@@ -98,7 +97,7 @@ export default {
     // 서버에 저장 된 Device 정보 조회 
     async searchDeviceInfo() {
       const image = await this.getImages();
-      const { data } = await await ComApi.post("/device/list", {});
+      const { data } = await await ComApi.post("/api/device/list", {});
       const recvDevice = data.filter((v) => v.deviceId === this.deviceId)[0];
       
       this.device = { ...recvDevice, deviceImg: image };
@@ -108,7 +107,7 @@ export default {
 
     async getImages() {
       console.log("/device/images/" + this.deviceId);
-      const { data } = await ComApi.get("/device/images/" + this.deviceId);
+      const { data } = await ComApi.get("/api/device/images/" + this.deviceId);
       return data;
     },
 
@@ -128,7 +127,7 @@ export default {
       const param = { ...this.device , datFlag :'U' };
 
       console.log(param);
-      const { data } = await comApi.post("/device/save", param);
+      const { data } = await ComApi.post("/api/device/save", param);
       console.log(data);
       await this.getServDeviceList();
       this.fnClose();

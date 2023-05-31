@@ -88,7 +88,7 @@ export default {
 
     async fnSaveUserInfo() {
       const param = { ...this.userInfo };
-      const { data } = await this.$axios.post("/user/modify", param);
+      const { data } = await this.$axios.post("/api/user/modify", param);
       console.log(data);
 
       this.$store.dispatch("showAlert", {

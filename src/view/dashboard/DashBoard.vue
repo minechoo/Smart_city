@@ -5,9 +5,10 @@
     </div>
   </Transition>
   <main class="system_wrap">
-    <section v-for="(type, idx) in usedDeviceType" v-bind:key="idx">
-      <button class="same">이 제품설정 동일하게 적용하기</button>
-      <img
+    <section v-for="(type, idx) in usedDeviceType" v-bind:key="idx" style="">
+      <!-- <button class="same" >이 제품설정 동일하게 적용하기</button> -->
+      <img 
+        style="padding-top: 50px;"
         :src="fnGetDeviceCdImg(type)"
         @click="
           () =>

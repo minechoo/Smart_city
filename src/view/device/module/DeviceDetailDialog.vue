@@ -2,7 +2,7 @@
   <div class="stop_wrap">
     <div class="menu_box">
       <header class="group">
-        <h2>{{ deviceNm }}</h2>
+        <h2>{{ deviceNm }} {{moduleCd}}</h2>
         <button class="btn_close" @click="fnClose"></button>
       </header>
 
@@ -144,7 +144,7 @@ export default {
       console.log( moduleId , this.moduleCd );
     },
     async fnSearchModuleList() {
-      const { data } = await ComApi.post("/device/module/list", {
+      const { data } = await ComApi.post("/api/device/module/list", {
         deviceId: this.$route.params.deviceId,
       });
       this.list = data;

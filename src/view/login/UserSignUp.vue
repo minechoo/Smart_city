@@ -91,7 +91,7 @@ export default {
     },
     async fnSignUp() {
       const param = { ...this.userInfo };
-      const { data } = await this.$axios.post("/user/signUp", param);
+      const { data } = await this.$axios.post("/api/user/signUp", param);
       console.log(data);
       this.fnClose();
     },

@@ -19,7 +19,7 @@ const userStore = {
             
             try {
                 
-                const { data } = await comApi.post('/user/signIn', reqCredencial);
+                const { data } = await comApi.post('/api/user/signIn', reqCredencial);
                 if(data){
                     context.commit('loginSuccess', data);
                 }

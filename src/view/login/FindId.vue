@@ -49,7 +49,7 @@ export default {
   methods: {
     async fnSearch() {
       const param = { deptNm: this.deptNm, telNo: this.telNo };
-      const { data } = await this.$axios.post("/user/findMe", param);
+      const { data } = await this.$axios.post("/api/user/findMe", param);
       this.searchRtn = data;
     },
     fnCancel() {

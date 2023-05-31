@@ -88,7 +88,7 @@ export default {
     async fnSearchModuleList() {
       this.connectSocket(this.$route.params.deviceId);
 
-      const { data } = await ComApi.post("/device/module/list", {
+      const { data } = await ComApi.post("/api/device/module/list", {
         deviceId: this.$route.params.deviceId,
       });
       this.list = data;

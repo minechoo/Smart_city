@@ -107,7 +107,7 @@ export default {
     async fnSave(){
       const param =  { ...this.currentModule , datFlag :'U'};
       console.log('call save : ' , param);
-      const {data} = await ComApi.post('/device/module/process', param);
+      const {data} = await ComApi.post('/api/device/module/process', param);
       console.log(data);
     }
   },

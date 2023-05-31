@@ -81,7 +81,7 @@ export default {
     },
     async fnSearch() {
       const param = { userId: this.userId, telNo: this.telNo };
-      const { data } = await this.$axios.post("/user/findMe", param);
+      const { data } = await this.$axios.post("/api/user/findMe", param);
       this.searchRtn = data;
 
       if (this.searchRtn.userId) {
@@ -101,7 +101,7 @@ export default {
 
       const param = { ...this.searchRtn, userPwd: this.userPwd };
       console.log("newMessage", param);
-      const { data } = await this.$axios.post("/user/modify", param);
+      const { data } = await this.$axios.post("/api/user/modify", param);
 
       if (data.code === "200") {
         this.$store.dispatch("showAlert", {

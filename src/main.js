@@ -46,7 +46,7 @@ const comStore = createStore({
 app.use(comStore);
 
 const router = createRouter({
-  history: createWebHistory("/sample"),
+  history: createWebHistory("/"),
   routes: [
     { path: "/", component: MainPage },
     { path: "/dash", component: DashBoard },

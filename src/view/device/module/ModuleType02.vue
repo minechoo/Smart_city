@@ -93,6 +93,8 @@
 import ComApi from "@/service/ComApi";
 import ModuleScedule from "@/components/device/module/ModuleScedule.vue";
 import ModuleSceduleList from "@/components/device/module/ModuleSceduleList.vue";
+import { mapActions, mapGetters } from "vuex";
+
 const defaultVal = {
   temp: 26,
   led: "COLD",
@@ -119,7 +121,17 @@ export default {
     },
     light() {
       if (this.isMount) {
-        this.fnSave();
+        //this.fnSave();
+        const command = {
+          userId: this.getUserInfo.userId,
+          deviceId: this.currentModule.deviceId,
+          moduleId: this.currentModule.moduleId,
+        };
+        if (this.light === "ON") {
+          this.commandOn(command);
+        } else {
+          this.commandOff(command);
+        }
       }
     },
     led() {
@@ -133,6 +145,10 @@ export default {
       }
     },
   },
+  computed: {
+    ...mapGetters(["getUserInfo"]),
+  },
+
   mounted() {
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
@@ -140,14 +156,26 @@ export default {
     this.temp = this.module.temp || defaultVal.temp;
     this.light = this.module.light || defaultVal.light;
     this.led = this.module.led || defaultVal.led;
+    
     setTimeout(() => {
       this.isMount = true;
     }, 100);
   },
   methods: {
+
+    ...mapActions(["commandOn", "commandOff" , "commandCron"]),
+
     fnChangeSchele(start, end) {
+    
       this.currentModule.start = start;
       this.currentModule.end = end;
+      const command = {
+          userId: this.getUserInfo.userId,
+          deviceId: this.currentModule.deviceId,
+          moduleId: this.currentModule.moduleId,
+          start , end
+      };
+      this.commandCron(command);
       this.fnSave();
     },
     fnAddTemp() {
@@ -165,7 +193,7 @@ export default {
         datFlag: "U",
       };
       console.log("call save : ", param);
-      const { data } = await ComApi.post("/device/module/process", param);
+      const { data } = await ComApi.post("/api/device/module/process", param);
       console.log(data);
     },
   },

@@ -70,7 +70,7 @@ export default {
     ...mapGetters(["getDeviceList", "getComDeviceType"]),
     async getImages() {
       const { data } = await ComApi.get(
-        "/device/images/" + this.$route.params.deviceId
+        "/api/device/images/" + this.$route.params.deviceId
       );
 
       this.deviceImg = data;

@@ -17,7 +17,7 @@ const deviceStore = {
     },
     async getServDeviceList(context){
 
-      const {data}  = await comApi.post('/device/list');
+      const {data}  = await comApi.post('/api/device/list');
 
       if(!data.code){
         context.commit('setDeviceList', data);

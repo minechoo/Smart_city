@@ -91,7 +91,7 @@ export default {
     },
     async fnSave() {
       const param = { ...this.device, datFlag: "I" };
-      const { data } = await comApi.post("/device/save", param);
+      const { data } = await comApi.post("/api/device/save", param);
       console.log(data);
       this.$emit('onClose');
     },

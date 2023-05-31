@@ -523,7 +523,7 @@ select::-ms-expand {
 	border-top: 0;
 }
 .btn_a_02 .btn {
-	line-height: 40px;
+	/* line-height: 40px; */
 	font-size: 20px;
 }
 .btn_add_time {
@@ -1033,7 +1033,7 @@ main {
 	display: flex;
 	justify-content: space-between;
 	width: 406px;
-	padding: 22px 34px;
+	padding: 22px 22px 22px 30px;
 	background: #add8ae;
 	border-radius: 15px;
 	box-sizing: border-box;
@@ -1135,18 +1135,22 @@ main {
 	filter: none;
 }
 .menu_box .go .flex_col_bet .svg_top,
-.menu_box .go .flex_col_bet .svg_bottom {
+.menu_box .go .flex_col_bet .svg_bottom,
+.menu_box .go .flex_col_bet .svg_delete {
 	width: 40px;
 	height: 40px;
 }
 .menu_box .go .flex_col_bet .svg_top,
-.menu_box .go .flex_col_bet .svg_bottom {
+.menu_box .go .flex_col_bet .svg_bottom,
+.menu_box .go .flex_col_bet .svg_delete {
 	filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(243deg) brightness(102%) contrast(103%);
 }
 .menu_box .go.off .flex_col_bet .svg_top,
 .menu_box .go.off .flex_col_bet .svg_bottom,
+.menu_box .go.off .flex_col_bet .svg_delete,
 .menu_box .go.caution .flex_col_bet .svg_top,
-.menu_box .go.caution .flex_col_bet .svg_bottom {
+.menu_box .go.caution .flex_col_bet .svg_bottom,
+.menu_box .go.caution .flex_col_bet .svg_delete {
 	filter: none;
 }
 .ab_caution {
@@ -1188,12 +1192,13 @@ main {
 .ad_module_area {
 	width: 100%;
 	height: 440px;
+	padding: 10px 0;
 	display: flex;
 	-moz-column-count: 5;
 	column-count: 5;
 	text-align: center;
-	align-content: center;
-	justify-content: center;
+	align-content: flex-start;
+	justify-content: flex-start;
 	align-items: center;
 	flex-wrap: wrap;
 	flex-direction: row;
@@ -1201,10 +1206,20 @@ main {
 	border-bottom: 1px solid #aaa;
 	overflow: hidden;
 	gap: 10px;
+	overflow-y: scroll;
+}
+.ad_module_area::-webkit-scrollbar {
+	width: 10px;
+}
+.ad_module_area::-webkit-scrollbar-thumb {
+	background-color: #bbb;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
 }
 .btnArea {
 	display: flex;
-	min-width: 185px;
+	min-width: 182px;
 	height: 200px;
 	border: 1px solid rgb(218, 217, 217);
 	border-radius: 10px;

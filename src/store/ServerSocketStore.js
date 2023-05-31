@@ -16,7 +16,10 @@ const socketStore = {
   },
   actions: {
     connectSocket({ commit }, deviceId) {
-      const socket = new WebSocket(`ws://localhost:8180/ws/device/${deviceId}`);
+
+      const host = location.host.includes('localhost') ?'localhost:8180' : location.host;
+      console.log('host : ' , host);
+      const socket = new WebSocket(`ws://${host}/ws/device/${deviceId}`);
 
       socket.addEventListener("open", () => {
         console.log("connection open ");
@@ -41,13 +44,16 @@ const socketStore = {
     getStatus({ state }, { userId, deviceId }) {
       state.socket.send(JSON.stringify(CmdMsg.status(userId, deviceId)));
     },
-    onModule({ state }, module) {
-      const command = {...module}
-      state.socket.send(JSON.stringify(command));
+    commandOn({ state }, { userId, deviceId, moduleId }) {
+      state.socket.send(JSON.stringify(CmdMsg.on(userId, deviceId, moduleId)));
     },
-    offModule({ state }, module) {
-      const command = {...module}
-      state.socket.send(JSON.stringify(command));
+    commandOff({ state }, { userId, deviceId, moduleId }) {
+      state.socket.send(JSON.stringify(CmdMsg.off(userId, deviceId, moduleId)));
+    },
+    commandCron({ state }, { userId, deviceId, moduleId, start, end }) {
+      state.socket.send(
+        JSON.stringify(CmdMsg.cron(userId, deviceId, moduleId, start, end))
+      );
     },
   },
   getters: {

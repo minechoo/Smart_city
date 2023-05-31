@@ -12,7 +12,7 @@ const codeStore = {
   },
   actions: {
     async getCodeList(context) {
-      const { data } = await comApi.post("/code/list");
+      const { data } = await comApi.post("/api/code/list");
       console.log(data);
       context.commit("setCodeList", data);
       return true

@@ -66,7 +66,7 @@ export default {
         });
     },
     async fnSearchModuleList() {
-      const { data } = await comApi.post("/device/module/list", {
+      const { data } = await comApi.post("/api/device/module/list", {
         deviceId: this.deviceId,
       });
       this.list = data;
@@ -76,7 +76,7 @@ export default {
     },
     async fnAdd(moduleCd) {
       const param = { deviceId: this.deviceId, moduleCd, datFlag: "I" };
-      const { data } = await comApi.post("/device/module/process", param);
+      const { data } = await comApi.post("/api/device/module/process", param);
       console.log(data);
       this.$emit('onClose');
     },
