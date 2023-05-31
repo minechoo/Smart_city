@@ -37,7 +37,7 @@ import DeviceMainItem from "@/components/device/DeviceMainItem.vue";
 import DeviceModuleAdd from "@/view/device/DeviceModuleAdd.vue";
 import DeviceDetailDialog from "@/view/device/module/DeviceDetailDialog.vue";
 import ComApi from "@/service/ComApi";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     DeviceMainItem,
@@ -67,27 +67,9 @@ export default {
   },
   mounted() {
     this.fnSearchModuleList();
-
-    const socket = new WebSocket(
-      `ws://localhost:8180/ws/device/${this.deviceId}`
-    );
-
-    const { userId } = this.getUserInfo;
-
-    socket.onopen = () => {
-      socket.send(
-        JSON.stringify({
-          msgType: "getStatus",
-          userId,
-          deviceId: this.deviceId,
-        })
-      );
-    };
-    socket.onmessage = (e) => {
-      console.log(e);
-    };
   },
   methods: {
+    ...mapActions(["connectSocket", "getStatus"]),
     fnAddClosed() {
       this.showDeviceAdd = false;
       this.fnSearchModuleList();
@@ -104,10 +86,16 @@ export default {
       this.fnSearchModuleList();
     },
     async fnSearchModuleList() {
+      this.connectSocket(this.$route.params.deviceId);
+
       const { data } = await ComApi.post("/device/module/list", {
         deviceId: this.$route.params.deviceId,
       });
       this.list = data;
+      this.getStatus({
+        userId: this.getUserInfo.userId,
+        deviceId: this.deviceId,
+      });
     },
   },
 };

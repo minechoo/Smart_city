@@ -64,6 +64,10 @@ export default {
   },
   mounted() {
     this.getServDeviceList();
+
+    setTimeout( ()=>{
+      this.showAddDialog = this.areaList.length !== 0
+    })
   },
   computed: {
     mergedList() {
@@ -90,7 +94,7 @@ export default {
       return mergedList;
     },
     showAddVisible() {
-      return this.usedDeviceType.length === 0 || this.showAddDialog;
+      return this.showAddDialog;
     },
     ...mapGetters(["isLogin", "getDeviceList", "getComDeviceType"]),
   },

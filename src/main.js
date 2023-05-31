@@ -22,6 +22,7 @@ import messageStore from "./store/ComMessageStore.js";
 import userStore from "./store/UserInfoStore";
 import deviceStore from "./store/DeviceStore";
 import codeStore from "./store/ComCodeStore";
+import socketStore from "./store/ServerSocketStore";
 
 import { createStore } from "vuex";
 
@@ -33,6 +34,7 @@ const comStore = createStore({
     messageStore,
     deviceStore,
     codeStore,
+    socketStore,
   },
   plugins: [
     createPersistedState({
@@ -80,10 +82,10 @@ comApi.interceptors.response.use(
     return response;
   },
   (error) => {
-    comStore.dispatch("showError", {
-      msg: error?.response?.data?.message,
-      cb: () => {},
-    });
+    // comStore.dispatch("showError", {
+    //   msg: error?.response?.data?.message,
+    //   cb: () => {},
+    // });
     return Promise.reject(error);
   }
 );
