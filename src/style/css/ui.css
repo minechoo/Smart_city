@@ -11,10 +11,6 @@
     --nav-text: #222;
 }
 
-@import url('./common.css');
-@import url('./reset.css');
-
-
 .v-enter-active,
 .v-leave-active {
 	transition: opacity .6s ;

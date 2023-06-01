@@ -2,7 +2,10 @@ import comApi from "./service/ComApi";
 import { createApp } from "vue";
 import App from "./App.vue";
 
-import "./style/css/ui.css";
+import "@/style/css/reset.css";
+import "@/style/css/common.css";
+import "@/style/css/ui.css";
+
 
 import { createWebHistory, createRouter } from "vue-router";
 

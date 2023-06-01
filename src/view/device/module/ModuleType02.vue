@@ -4,7 +4,7 @@
     <ModuleSceduleList :module="currentModule" @changeSchedule="fnChangeSchele">
       <div>
         <div class="power_3col">
-          <h4>실내조명 전원</h4>
+          <h4>전원</h4>
           <div class="power_line">
             <div class="on_green">
               <input
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="power_3col mt_20">
-          <h4>LED 라인조명 전원</h4>
+          <h4>운전선택</h4>
           <div class="power_line">
             <div class="on_green">
               <input

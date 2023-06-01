@@ -17,7 +17,7 @@ const socketStore = {
   actions: {
     connectSocket({ commit }, deviceId) {
 
-      const host = location.host.includes('localhost') ?'localhost:8180' : location.host;
+      const host = location.host.includes('localhost') ?'localhost' : location.host;
       console.log('host : ' , host);
       const socket = new WebSocket(`ws://${host}/ws/device/${deviceId}`);
 
