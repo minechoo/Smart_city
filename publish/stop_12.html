@@ -67,7 +67,7 @@
 
               <div>
                 <div class="power_3col">
-                  <h4>실내조명 전원</h4>
+                  <h4>공기정화시스템 전원</h4>
                   <div class="power_line">
                     <div class="on_green">
                       <input type="radio" name="power" id="on_green" class="on_green" value="green" checked />
@@ -79,7 +79,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="power_3col mt_20">
+                <!-- <div class="power_3col mt_20">
                   <h4>운전선택</h4>
                   <div class="power_line">
                     <div class="on_green">
@@ -91,17 +91,24 @@
                       <label for="on_green_led_02">ON</label>
                     </div>
                   </div>
-                </div>
-                <div class="power_3col mt_20">
-                  <h4>대기질</h4>
-                  <div class="power_line w_427">
-                    <dl class="quality">
-                      <dt>상태</dt>
-                      <dd class="bar c_01"><span>좋음</span></dd>
-                      <dd class="bar c_02 on"><span>보통</span></dd>
-                      <dd class="bar c_03"><span>나쁨</span></dd>
-                      <dd class="bar c_04"><span>매우나쁨</span></dd>
-                    </dl>
+                </div> -->
+                <div class="power_3col status_air q_02">
+                  <!-- 
+                    상태 : 클래스명
+                    좋음 : q_01
+                    보통 : q_02
+                    나쁨 : q_03
+                    매우 나쁨 : q_04
+                   -->
+                  <div class="quality">
+                    <h4>좋음</h4>
+                    <p>일상적인 실외활동이<br>가능합니다.</p>
+                  </div>
+                  <div class="status_graph">
+                    <img src="images/svg/ico_status.svg" alt="대기질 상태 그래프">
+                    <div class="ab_arrow">
+                      <img src="images/svg/ico_status_arrow.svg" alt="대기질 상태 그래프">
+                    </div>
                   </div>
                 </div>
               </div>

@@ -141,11 +141,30 @@ $setting.forEach((set, idx) => {
 });
 
 //대기질
-const $quality = document.querySelectorAll('.power_line .quality dd');
+// const $quality = document.querySelectorAll('.power_line .quality dd');
 
-$quality.forEach((q, idx) => {
-	q.addEventListener('click', () => {
-		for (const el of $quality) el.classList.remove('on');
-		$quality[idx].classList.add('on');
-	});
-});
+// $quality.forEach((q, idx) => {
+// 	q.addEventListener('click', () => {
+// 		for (const el of $quality) el.classList.remove('on');
+// 		$quality[idx].classList.add('on');
+// 	});
+// });
+
+const $status_air = document.querySelector('.status_air');
+const $status_air_h4 = document.querySelector('.status_air h4');
+const $status_air_p = document.querySelector('.status_air p');
+
+if ($status_air.classList.contains('q_01')) {
+	$status_air_h4.innerHTML = '좋음';
+	$status_air_p.innerHTML = '일상적인 실외활동이<br>가능합니다.';
+} else if ($status_air.classList.contains('q_02')) {
+	$status_air_h4.innerHTML = '보통';
+	$status_air_p.innerHTML = '일상적인 실외 활동이<br>가능합니다.';
+} else if ($status_air.classList.contains('q_03')) {
+	$status_air_h4.innerHTML = '나쁨';
+	$status_air_p.innerHTML = '무리한 실외 활동을 줄이거나 다른<br>날로 일정을 잡는것이 좋습니다.';
+} else if ($status_air.classList.contains('q_04')) {
+	$status_air_h4.innerHTML = '매우나쁨';
+	$status_air_p.innerHTML =
+		'실내 활동이 좋으며 어린이, 노인은<br> 실외 활동을 피하는것을 권합니다.';
+}
