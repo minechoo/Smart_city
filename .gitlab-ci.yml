@@ -6,9 +6,8 @@ build:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker build -t vue-tempate:1.0.0 .
+  
 deploy:
   stage: deploy
   script:
-    - docker rm -f vue-template
-    - docker run -d -p 38080:80 --restart="always" --name vue-template vue-tempate:1.0.0
+    - echo "deploy"
