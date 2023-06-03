@@ -1,24 +1,15 @@
 
 stages:
-- libs
+
 - build
 - deploy
 
-npm:
-  stage: libs
-
-  #캐시에 필요한 정보 작업  
-  cache:
-    paths:
-      - node_modules
-  script:
-    - npm install
 
 build:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - npm install
+    - pwd
   
 deploy:
   stage: deploy
