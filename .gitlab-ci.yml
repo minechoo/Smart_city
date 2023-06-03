@@ -14,4 +14,4 @@ build:
 deploy:
   stage: deploy
   script:
-    - echo "deploy"
+    - whoami
