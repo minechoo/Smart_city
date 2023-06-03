@@ -4,10 +4,12 @@ stages:
 - build
 - deploy
 
+ 
 
 build:
-  stage: build
-  BASH_ENV: ~/.nvm/nvm.sh
+  environment:
+        BASH_ENV: ~/.nvm/nvm.sh
+  stage: build  
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - pwd
