@@ -7,6 +7,7 @@ stages:
 
 build:
   stage: build
+  BASH_ENV: ~/.nvm/nvm.sh
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - pwd
