@@ -1,7 +1,9 @@
 <template lang="">
-  <div class="dialog-dim" v-if="isModify">
-    <DeviceModify @onClose="() => (isModify = false)" :deviceId="deviceId" />
-  </div>
+  <Teleport to="#app">
+    <div class="dialog-dim" v-if="isModify">
+      <DeviceModify @onClose="() => (isModify = false)" :deviceId="deviceId" />
+    </div>
+  </Teleport>
   <section class="ab_spot">
     <div class="img_wrap">
       <img

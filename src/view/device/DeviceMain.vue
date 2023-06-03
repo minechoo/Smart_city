@@ -18,18 +18,22 @@
     </div>
   </div>
   <transition>
+    <Teleport to="#app">
     <div class="dialog-dim" v-if="showDeviceAdd">
       <DeviceModuleAdd @onClose="fnAddClosed" :deviceId="deviceId" />
     </div>
+    </Teleport>
   </transition>
   <transition>
-    <div class="dialog-dim" v-if="isShowDetail">
-      <DeviceDetailDialog
-        @onClose="fnHideDetail"
-        :deviceId="deviceId"
-        :moduleId="selectedModuleId"
-      />
-    </div>
+    <Teleport to="#app">
+      <div class="dialog-dim" v-if="isShowDetail">
+        <DeviceDetailDialog
+          @onClose="fnHideDetail"
+          :deviceId="deviceId"
+          :moduleId="selectedModuleId"
+        />
+      </div>
+    </Teleport>
   </transition>
 </template>
 <script>
