@@ -6,7 +6,7 @@ build:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - npm run build
+    - npm -version
   
 deploy:
   stage: deploy
