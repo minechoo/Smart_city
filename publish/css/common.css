@@ -32,12 +32,6 @@
 	src: url('../font/NotoSans-Thin.woff2') format('woff2');
 }
 
-@media screen and (max-width: 2560px) {
-	.stop_wrap {
-		transform: scale(1.2);
-	}
-}
-
 .offscreen {
 	position: absolute;
 	clip: rect(1px 1px 1px 1px); /* for Internet Explorer */
@@ -1901,6 +1895,18 @@ h5 {
 	background-size: 27px 23px;
 }
 
+@media screen and (max-width: 2560px) {
+	.stop_wrap {
+		transform: scale(1.2);
+	}
+}
+
+@media screen and (max-width: 1920px) {
+	.stop_wrap {
+		transform: scale(1);
+	}
+}
+
 @media screen and (max-width: 1280px) {
 	.system_wrap {
 		flex-wrap: wrap;
@@ -2310,7 +2316,7 @@ h5 {
 		width: auto !important;
 	}
 }
-@media screen and (max-width: 639px) {
+@media screen and (max-width: 320px) {
 	header h1 a {
 		font-size: 17px;
 	}
