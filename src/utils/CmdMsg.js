@@ -15,7 +15,7 @@ export default {
   },
   on: (userId, deviceId, moduleId) => {
     return {
-      command: COMMAND.OFF,
+      command: COMMAND.ON,
       userId,
       deviceId,
       moduleId,
