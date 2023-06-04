@@ -29,26 +29,7 @@
       </div>
 
       <div class="flex_column">
-        <div class="input_area w_100" v-if="searched">
-          <label for="new_pw">새로운 비밀번호</label>
-          <input
-            type="password"
-            id="new_pw"
-            class="input_style"
-            v-model="userPwd"
-            placeholder="새로운 비밀번호를 입력하세요"
-          />
-        </div>
-        <div class="input_area w_100" v-if="searched">
-          <label for="new_pw_c">새로운 비밀번호 확인</label>
-          <input
-            type="password"
-            id="new_pw_c"
-            v-model="userPwdRe"
-            class="input_style"
-            placeholder="새로운 비밀번호를 확인해주세요"
-          />
-        </div>
+        
       </div>
       <!-- 왼쪽 패널 입력하면 뜨는 섹션 -->
     </div>
@@ -58,9 +39,7 @@
       <button class="btn bg_grren" v-if="!searched" @click="fnSearch">
         비밀번호 찾기
       </button>
-      <button class="btn bg_grren" v-if="searched" @click="fnSignUp">
-        수정하기
-      </button>
+    
     </div>
   </div>
 </template>
@@ -76,7 +55,7 @@ export default {
   }),
   methods: {
     fnCancel() {
-      console.log("click btn");
+    
       this.$emit("onCloseDialog");
     },
     async fnSearch() {
@@ -86,9 +65,24 @@ export default {
 
       if (this.searchRtn.userId) {
         this.searched = true;
+        const rtnCode = await this.fnSendPassword();
+        console.log(rtnCode);
+
+        if(rtnCode === '200'){
+          this.$store.dispatch("showAlert", {
+          msg: "이메일을 확인해주세요. ",
+          cb: this.fnCancel,
+        });
+        }
       } else {
         this.searched = false;
       }
+    },
+    async fnSendPassword() {
+      const param = { userId: this.userId };
+      const { data } = await this.$axios.post("/api/user/findPassword", param);
+      console.log(data) ;
+      return data.code;
     },
     async fnSignUp() {
       if (!this.userPwd || this.userPwd !== this.userPwdRe) {
