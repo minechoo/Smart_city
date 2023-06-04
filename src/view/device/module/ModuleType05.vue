@@ -1,78 +1,191 @@
 <template lang="">
- <div class="content" id="purify">
-
-<div class="left_time">
-  <svg class="svg">
-    <circle cx="300" cy="275" r="170" class="circle"></circle>
-  </svg>
-  <svg class="svg_02">
-    <circle cx="300" cy="275" r="170" class="circle_green"></circle>
-  </svg>
-  <div class="circle_inner">
-    <p>06:00 ~ 22:00</p>
+  <div class="content" id="purify">
+    <ModuleScedule :module="currentModule" />
+    <ModuleSceduleList :module="currentModule" @changeSchedule="fnChangeSchele">
+      <div>
+        <div class="power" id="inside">
+          <h4>실내조명 전원</h4>
+          <div class="power_line">
+            <div class="on_green">
+              <input
+                type="radio"
+                name="power"
+                id="on_green"
+                class="on_green"
+                v-model="power"
+                value="ON"
+                checked
+              />
+              <label for="on_green">ON</label>
+            </div>
+            <div class="off_grey">
+              <input
+                type="radio"
+                name="power"
+                id="off_grey"
+                v-model="power"
+                class="off_grey"
+                value="OFF"
+              />
+              <label for="off_grey">OFF</label>
+            </div>
+          </div>
+        </div>
+        <div class="power mt_20" id="led">
+          <h4>LED 조명 전원</h4>
+          <div class="power_line">
+            <div class="on_green">
+              <input
+                type="radio"
+                name="power_led"
+                id="on_green_led"
+                class="on_green"
+                v-model="led"
+                value="ON"
+              />
+              <label for="on_green_led">ON</label>
+            </div>
+            <div class="off_grey">
+              <input
+                type="radio"
+                name="power_led"
+                id="off_grey_led"
+                class="off_grey"
+                v-model="led"
+                value="OFF"
+                checked
+              />
+              <label for="off_grey_led">OFF</label>
+            </div>
+          </div>
+        </div>
+      </div> </ModuleSceduleList
+    >/
   </div>
-  <span class="time q_0">0</span>
-  <span class="time q_6">6</span>
-  <span class="time q_12">12</span>
-  <span class="time q_18">18</span>
-  <span class="time q_end">22</span>
-</div>
-
-<div class="right_content">
-
-  <div>
-    <div class="power" id="inside">
-      <h4>실내조명 전원</h4>
-      <div class="power_line">
-        <div class="on_green">
-          <input type="radio" name="power" id="on_green" class="on_green" value="green" checked />
-          <label for="on_green">ON</label>
-        </div>
-        <div class="off_grey">
-          <input type="radio" name="power" id="off_grey" class="off_grey" value="grey" />
-          <label for="off_grey">OFF</label>
-        </div>
-      </div>
-    </div>
-    <div class="power mt_20" id="led">
-      <h4>LED 조명 전원</h4>
-      <div class="power_line">
-        <div class="on_green">
-          <input type="radio" name="power_led" id="on_green_led" class="on_green" value="green" />
-          <label for="on_green_led">ON</label>
-        </div>
-        <div class="off_grey">
-          <input type="radio" name="power_led" id="off_grey_led" class="off_grey" value="grey" checked />
-          <label for="off_grey_led">OFF</label>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="setting">
-    <h4>간편 예약시간 설정</h4>
-    <ul class="setting_list">
-      <li class="on">
-        <span class="square"></span>
-        06:00 ~ 22:00
-        <img src="@/style/images/ico_setting.png" alt="" id="settingTime">
-      </li>
-      <li>
-        <span class="square"></span>
-        08:00 ~ 22:00
-        <span class="space"></span>
-      </li>
-      <li>
-        <span class="square"></span>
-        06:00 ~ 24:00
-        <span class="space"></span>
-      </li>
-    </ul>
-  </div>
-</div>
-</div>
 </template>
 <script>
-export default {};
+import ComApi from "@/service/ComApi";
+import ModuleScedule from "@/components/device/module/ModuleScedule.vue";
+import ModuleSceduleList from "@/components/device/module/ModuleSceduleList.vue";
+import { mapActions, mapGetters } from "vuex";
+
+const defaultVal = {
+  led: "COLD",
+};
+export default {
+  data: () => ({
+    power: "OFF",
+    led: "OFF",
+    isMount: false,
+    currentModule: {},
+  }),
+  props: { module: { type: Object } },
+
+  emits: ["changeSchedule"],
+  components: { ModuleScedule, ModuleSceduleList },
+  watch: {
+    currentModule() {
+      console.log("on changed");
+      if (this.isMount) {
+        this.fnSave();
+      }
+    },
+    light() {
+      if (this.isMount) {
+        //this.fnSave();
+        const command = {
+          userId: this.getUserInfo.userId,
+          deviceId: this.currentModule.deviceId,
+          moduleId: this.currentModule.moduleId,
+        };
+        if (this.light === "ON") {
+          this.commandOn(command);
+        } else {
+          this.commandOff(command);
+        }
+      }
+    },
+    led() {
+      if (this.isMount) {
+        this.fnSave();
+      }
+    },
+    temp() {
+      if (this.isMount) {
+        this.fnSave();
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(["getUserInfo"]),
+  },
+
+  mounted() {
+    this.currentModule = { ...this.module };
+    this.currentModule.start = this.module.start || "0900";
+    this.currentModule.end = this.module.start || "2300";
+
+    this.led = this.module.led || defaultVal.led;
+
+    setTimeout(() => {
+      this.isMount = true;
+    }, 100);
+  },
+  methods: {
+    ...mapActions(["commandOn", "commandOff", "commandCron"]),
+    fnOnPowerChanged() {
+      const command = {
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+      };
+    
+      if (this.power === "ON") {
+        this.commandOn(command);
+      } else {
+        this.commandOff(command);
+      }
+    },
+    fnOnLedChanged() {
+      const command = {
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+      };
+    
+      if (this.led === "ON") {
+        this.commandOn(command);
+      } else {
+        this.commandOff(command);
+      }
+    },
+    fnChangeSchele(start, end) {
+      this.currentModule.start = start;
+      this.currentModule.end = end;
+      const command = {
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+        start,
+        end,
+      };
+      this.commandCron(command);
+      this.fnSave();
+    },
+
+    async fnSave() {
+      const param = {
+        ...this.currentModule,
+        light: this.light,
+        temp: this.temp,
+        led: this.led,
+        datFlag: "U",
+      };
+      console.log("call save : ", param);
+      const { data } = await ComApi.post("/api/device/module/process", param);
+      console.log(data);
+    },
+  },
+};
 </script>
 <style lang=""></style>
