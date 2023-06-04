@@ -6,6 +6,13 @@ String.prototype.lpad = function (padLength, padString) {
   while (arrTxt.length < padLength) arrTxt = padString + arrTxt;
   return arrTxt;
 };
+ 
+
+String.prototype.rpad = function (padLength, padString) {
+  let arrTxt = this;
+  while (arrTxt.length < padLength) arrTxt = arrTxt + padString;
+  return arrTxt;
+};
 
 const ENCRYPTION_KEY = "secumade"; // Must be 256 bits (32 characters)
 const IV_LENGTH = 16; // For AES, this is always 16

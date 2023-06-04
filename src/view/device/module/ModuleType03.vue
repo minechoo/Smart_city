@@ -1,11 +1,11 @@
 <template lang="">
   <div class="content" id="purify">
-    <ModuleScedule :module="module"  
-      @changeSchedule="fnChangeSchele"/>
-    <div class="right_content">
+    <ModuleScedule :module="currentModule" @changeSchedule="fnChangeSchele" />
+
+    <ModuleSceduleList :module="currentModule" @changeSchedule="fnChangeSchele">
       <div>
         <div class="power_3col">
-          <h4>실내조명 전원</h4>
+          <h4>공기정화시스템 전원</h4>
           <div class="power_line">
             <div class="on_green">
               <input
@@ -13,7 +13,8 @@
                 name="power"
                 id="on_green"
                 class="on_green"
-                value="green"
+                value="ON"
+                v-model="power"
                 checked
               />
               <label for="on_green">ON</label>
@@ -24,92 +25,108 @@
                 name="power"
                 id="off_grey"
                 class="off_grey"
-                value="grey"
+                v-model="power"
+                value="OFF"
               />
               <label for="off_grey">OFF</label>
             </div>
           </div>
         </div>
-        <div class="power_3col mt_20">
-          <h4>운전선택</h4>
-          <div class="power_line">
-            <div class="on_green">
-              <input
-                type="radio"
-                name="power_led"
-                id="on_green_led"
-                class="on_green"
-                value="green"
+        <div class="power_3col status_air q_04">
+          <!-- 
+                    상태 : 클래스명
+                    좋음 : q_01
+                    보통 : q_02
+                    나쁨 : q_03
+                    매우 나쁨 : q_04
+                   -->
+          <div class="quality">
+            <h4>좋음</h4>
+            <p>일상적인 실외활동이<br />가능합니다.</p>
+          </div>
+          <div class="status_graph">
+            <img
+              src="@/style/images/svg/ico_status.svg"
+              alt="대기질 상태 그래프"
+            />
+            <div class="ab_arrow">
+              <img
+                src="@/style/images/svg/ico_status_arrow.svg"
+                alt="대기질 상태 그래프"
               />
-              <label for="on_green_led">AUTO</label>
-            </div>
-            <div class="on_green">
-              <input
-                type="radio"
-                name="power_led"
-                id="on_green_led_02"
-                class="on_green"
-                value="grey"
-                checked
-              />
-              <label for="on_green_led_02">ION</label>
             </div>
           </div>
         </div>
-        <div class="power_3col mt_20">
-          <h4>대기질</h4>
-          <div class="power_line w_427">
-            <dl class="quality">
-              <dt>상태</dt>
-              <dd class="bar c_01"><span>좋음</span></dd>
-              <dd class="bar c_02 on"><span>보통</span></dd>
-              <dd class="bar c_03"><span>나쁨</span></dd>
-              <dd class="bar c_04"><span>매우나쁨</span></dd>
-            </dl>
-          </div>
-        </div>
       </div>
-
-      <div class="setting">
-        <h4>간편 예약시간 설정</h4>
-        <ul class="setting_list">
-          <li class="on">
-            <span class="square"></span>
-            06:00 ~ 22:00
-            <img src="@/style/images/ico_setting.png" alt="" id="settingTime" />
-          </li>
-          <li>
-            <span class="square"></span>
-            08:00 ~ 22:00
-            <span class="space"></span>
-          </li>
-          <li>
-            <span class="square"></span>
-            06:00 ~ 24:00
-            <span class="space"></span>
-          </li>
-        </ul>
-      </div>
-    </div>
+    </ModuleSceduleList>
   </div>
 </template>
 <script>
-import ComApi from '@/service/ComApi';
+import ComApi from "@/service/ComApi";
 import ModuleScedule from "@/components/device/module/ModuleScedule.vue";
+import ModuleSceduleList from "@/components/device/module/ModuleSceduleList.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
-  components: { ModuleScedule },
+  components: { ModuleScedule, ModuleSceduleList },
   props: { module: { type: Object } },
+  data: () => ({
+    power: "OFF",
+    isMount: false,
+    currentModule: {},
+  }),
+  watch: {
+    power() {
+      if (this.isMount) {
+        //this.fnSave();
+        const command = {
+          userId: this.getUserInfo.userId,
+          deviceId: this.currentModule.deviceId,
+          moduleId: this.currentModule.moduleId,
+        };
+        if (this.light === "ON") {
+          this.commandOn(command);
+        } else {
+          this.commandOff(command);
+        }
+      }
+    },
+  },
+  mounted() {
+    this.currentModule = { ...this.module };
+    this.currentModule.start = this.module.start || "0900";
+    this.currentModule.end = this.module.start || "2300";
+    setTimeout(() => {
+      this.isMount = true;
+    }, 100);
+  },
+
+  computed: {
+    ...mapGetters(["getUserInfo"]),
+  },
+
   methods: {
+    ...mapActions(["commandOn", "commandOff", "commandCron"]),
     fnChangeSchele(start, end) {
       this.currentModule.start = start;
       this.currentModule.end = end;
+
+      this.currentModule.start = start;
+      this.currentModule.end = end;
+      const command = {
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+        start,
+        end,
+      };
+      this.commandCron(command);
     },
-    async fnSave(){
-      const param =  { ...this.currentModule , datFlag :'U'};
-      console.log('call save : ' , param);
-      const {data} = await ComApi.post('/api/device/module/process', param);
+    async fnSave() {
+      const param = { ...this.currentModule, datFlag: "U" };
+      console.log("call save : ", param);
+      const { data } = await ComApi.post("/api/device/module/process", param);
       console.log(data);
-    }
+    },
   },
 };
 </script>
