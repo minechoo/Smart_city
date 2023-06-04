@@ -9,13 +9,22 @@
               type="radio"
               name="power"
               id="on_green"
-              value="green"
+              value="ON"
+              v-model="power"
+              @click="fnOnPowerChanged('ON')"
               checked
             />
             <label for="on_green">ON</label>
           </div>
           <div class="off_grey">
-            <input type="radio" name="power" id="off_grey" value="grey" />
+            <input
+              type="radio"
+              name="power"
+              id="off_grey"
+              value="OFF"
+              v-model="power"
+              @click="fnOnPowerChanged('OFF')"
+            />
             <label for="off_grey">OFF</label>
           </div>
         </div>
@@ -25,13 +34,51 @@
       <img src="@/style/images/img_dust.png" alt="" id="cctv_img" />
     </div>
     <div class="ab_a">
-      <a href="https://www.airn.co.kr/stations"
+      <a href="https://www.airn.co.kr" class="a_link" target="_blank"
         >미세먼지 대기질 정보 보러가기</a
       >
     </div>
   </div>
 </template>
 <script>
-export default {};
+import { mapActions, mapGetters } from "vuex";
+export default {
+  data: () => ({
+    power: "OFF",
+    isMount: false,
+    currentModule: {},
+  }),
+  props: { module: { type: Object } },
+  computed: {
+    ...mapGetters(["getUserInfo"]),
+   
+  },
+  created() {
+    this.currentModule = { ...this.module };
+    this.currentModule.start = this.module.start || "0900";
+    this.currentModule.end = this.module.start || "2300";
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isMount = true;
+    }, 100);
+  },
+  methods: {
+    ...mapActions(["commandOn", "commandOff", "commandCron"]),
+    fnOnPowerChanged(status) {
+      const command = {
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+      };
+      console.log(status);
+      if (status === "ON") {
+        this.commandOn(command);
+      } else {
+        this.commandOff(command);
+      }
+    },
+  },
+};
 </script>
 <style lang=""></style>

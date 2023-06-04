@@ -41,7 +41,7 @@
         <!-- 비상벨  -->
         <ModuleType09 v-if="moduleCd === 'MOD_09'" :module="selectedModule" />
         <!-- 미세먼지 -->
-        <ModuleType10 v-if="moduleCd === 'MOD_10'" />
+        <ModuleType10 v-if="moduleCd === 'MOD_10'" :module="selectedModule" />
       </div>
     </div>
   </div>

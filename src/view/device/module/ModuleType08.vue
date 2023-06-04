@@ -10,7 +10,7 @@
             id="on_green"
             value="ON"
             v-model="power"
-            @click="fnOnPowerChanged"
+            @click="fnOnPowerChanged('ON')"
             checked
           />
           <label for="on_green">ON</label>
@@ -22,7 +22,7 @@
             id="off_grey"
             value="OFF"
             v-model="power"
-            @click="fnOnPowerChanged"
+            @click="fnOnPowerChanged('OFF')"
           />
           <label for="off_grey">OFF</label>
         </div>
@@ -31,7 +31,9 @@
     <div class="img_box mt_250">
       <img :src="getPowerStatusImg" alt="" id="el" />
     </div>
-    <div class="ab_info"> {{ power === 'ON' ? '전동어닝이 펼쳐집니다.' :'전동어닝이 닫혀집니다.' }}</div>
+    <div class="ab_info">
+      {{ power === "ON" ? "전동어닝이 펼쳐집니다." : "전동어닝이 닫혀집니다." }}
+    </div>
   </div>
 </template>
 <script>
@@ -63,14 +65,14 @@ export default {
   },
   methods: {
     ...mapActions(["commandOn", "commandOff", "commandCron"]),
-    fnOnPowerChanged() {
+    fnOnPowerChanged(status) {
       const command = {
         userId: this.getUserInfo.userId,
         deviceId: this.currentModule.deviceId,
         moduleId: this.currentModule.moduleId,
       };
-
-      if (this.power === "ON") {
+      console.log(status);
+      if (status === "ON") {
         this.commandOn(command);
       } else {
         this.commandOff(command);

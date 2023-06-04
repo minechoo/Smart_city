@@ -10,7 +10,7 @@
             id="on_green"
             value="ON"
             v-model="power"
-            @click="fnOnPowerChanged"
+            @click="fnOnPowerChanged('ON')"
           />
           <label for="on_green">ON</label>
         </div>
@@ -21,20 +21,14 @@
             id="off_grey"
             value="OFF"
             v-model="power"
-            @click="fnOnPowerChanged"
+            @click="fnOnPowerChanged('OFF')"
           />
           <label for="off_grey">OFF</label>
         </div>
       </div>
     </div>
     <div class="left_time flex_center mt_70">
-      <img
-        :src="getPowerStatusImg"
-       
-        alt=""
-        id="bell_img"
-        class="mt_42"
-      />
+      <img :src="getPowerStatusImg" alt="" id="bell_img" class="mt_42" />
       <div class="ab_caution bottom">비상벨 점검이 필요합니다.</div>
       <!-- <div class="wrap">
                 
@@ -70,14 +64,14 @@ export default {
   },
   methods: {
     ...mapActions(["commandOn", "commandOff", "commandCron"]),
-    fnOnPowerChanged() {
+    fnOnPowerChanged(status) {
       const command = {
         userId: this.getUserInfo.userId,
         deviceId: this.currentModule.deviceId,
         moduleId: this.currentModule.moduleId,
       };
-
-      if (this.power === "ON") {
+      console.log(status);
+      if (status === "ON") {
         this.commandOn(command);
       } else {
         this.commandOff(command);

@@ -13,7 +13,7 @@
                 id="on_green"
                 class="on_green"
                 v-model="power"
-                @click="fnOnPowerChanged"
+                @click="fnOnPowerChanged('ON')"
                 value="ON"
                 checked
               />
@@ -25,7 +25,7 @@
                 name="power"
                 id="off_grey"
                 v-model="power"
-                @click="fnOnPowerChanged"
+                @click="fnOnPowerChanged('OFF')"
                 class="off_grey"
                 value="OFF"
               />
@@ -43,7 +43,7 @@
                 id="on_green_led"
                 class="on_green"
                 v-model="led"
-                @click="fnOnLedChanged"
+                @click="fnOnLedChanged('ON')"
                 value="ON"
               />
               <label for="on_green_led">ON</label>
@@ -55,7 +55,7 @@
                 id="off_grey_led"
                 class="off_grey"
                 v-model="led"
-                @click="fnOnLedChanged"
+                @click="fnOnLedChanged('OFF')"
                 value="OFF"
                 checked
               />
@@ -112,21 +112,20 @@ export default {
   },
   methods: {
     ...mapActions(["commandOn", "commandOff", "commandCron"]),
-    fnOnPowerChanged() {
-      console.log("on power changed!");
+    fnOnPowerChanged(status) {
       const command = {
         userId: this.getUserInfo.userId,
         deviceId: this.currentModule.deviceId,
         moduleId: this.currentModule.moduleId,
       };
-
-      if (this.power === "ON") {
+      console.log(status);
+      if (status === "ON") {
         this.commandOn(command);
       } else {
         this.commandOff(command);
       }
     },
-    fnOnLedChanged() {
+    fnOnLedChanged(status) {
       console.log("fnOnLedChanged changed!");
       const command = {
         userId: this.getUserInfo.userId,
@@ -134,7 +133,7 @@ export default {
         moduleId: this.currentModule.moduleId,
       };
 
-      if (this.led === "ON") {
+      if (status === "ON") {
         this.commandOn(command);
       } else {
         this.commandOff(command);

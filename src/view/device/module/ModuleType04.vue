@@ -14,7 +14,7 @@
                 name="power"
                 id="on_green"
                 value="ON"
-                @click="fnChangePower"
+                @click="fnOnPowerChanged('ON')"
                 v-model="power"
                 checked
               />
@@ -26,7 +26,7 @@
                 name="power"
                 id="off_grey"
                 value="OFF"
-                @click="fnChangePower"
+                @click="fnOnPowerChanged('OFF')"
                 v-model="power"
               />
               <label for="off_grey">OFF</label>
@@ -60,20 +60,18 @@ export default {
   },
   methods: {
     ...mapActions(["commandOn", "commandOff"]),
-    fnChangePower() {
-      console.log("on power clicked !!!");
+    fnOnPowerChanged(status) {
       const command = {
-          userId: this.getUserInfo.userId,
-          deviceId: this.currentModule.deviceId,
-          moduleId: this.currentModule.moduleId,
-        };
-
-        console.log('command : ', command);
-        if (this.light === "ON") {
-          this.commandOn(command);
-        } else {
-          this.commandOff(command);
-        }
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+      };
+      
+      if (status === "ON") {
+        this.commandOn(command);
+      } else {
+        this.commandOff(command);
+      }
     },
   },
 };
