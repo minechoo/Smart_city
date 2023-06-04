@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <div class="power_3col status_air q_04">
+        <div :class="getStatClass">
           <!-- 
                     상태 : 클래스명
                     좋음 : q_01
@@ -41,8 +41,8 @@
                     매우 나쁨 : q_04
                    -->
           <div class="quality">
-            <h4>좋음</h4>
-            <p>일상적인 실외활동이<br />가능합니다.</p>
+            <h4>{{ getStatNm }}</h4>
+            <p v-html="getStatComment"></p>
           </div>
           <div class="status_graph">
             <img
@@ -62,6 +62,26 @@
   </div>
 </template>
 <script>
+const airCondition = {
+  "01": {
+    statNm: "좋음",
+    comment: "일상적인 실외활동이<br />가능합니다.",
+  },
+  "02": {
+    statNm: "보통",
+    comment: "일상적인 실외활동이<br />가능합니다.",
+  },
+  "03": {
+    statNm: "나쁨",
+    comment:
+      "무리한 실외 활동을 줄이거나 <br />다른 날로 일정을 잡는것이 좋습니다.",
+  },
+  "04": {
+    statNm: "매우 나쁨",
+    comment:
+      "실내 활동이 좋으며 어린이, <br /> 노인은 실외 활동을 피하는것을 권합니다.",
+  },
+};
 import ComApi from "@/service/ComApi";
 import ModuleScedule from "@/components/device/module/ModuleScedule.vue";
 import ModuleSceduleList from "@/components/device/module/ModuleSceduleList.vue";
@@ -95,6 +115,7 @@ export default {
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
     this.currentModule.end = this.module.start || "2300";
+    this.currentModule.stat = this.module.stat || "01";
     setTimeout(() => {
       this.isMount = true;
     }, 100);
@@ -102,6 +123,27 @@ export default {
 
   computed: {
     ...mapGetters(["getUserInfo"]),
+    getStatClass() {
+      const currStat = this.currentModule.stat || "02";
+
+      let rtnClass = {
+        power_3col: true,
+        status_air: true,
+        q_01: currStat === "01",
+        q_02: currStat === "02",
+        q_03: currStat === "03",
+        q_04: currStat === "04",
+      };
+      return rtnClass;
+    },
+    getStatNm() {
+      const currStat = this.currentModule.stat || "02";
+      return airCondition[currStat].statNm;
+    },
+    getStatComment() {
+      const currStat = this.currentModule.stat || "02";
+      return airCondition[currStat].comment;
+    },
   },
 
   methods: {
