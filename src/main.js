@@ -85,10 +85,10 @@ comApi.interceptors.response.use(
     return response;
   },
   (error) => {
-    // comStore.dispatch("showError", {
-    //   msg: error?.response?.data?.message,
-    //   cb: () => {},
-    // });
+    comStore.dispatch("showError", {
+      msg: error?.response?.data?.message || error.response.statusText,
+      cb: () => {},
+    });
     return Promise.reject(error);
   }
 );

@@ -22,15 +22,15 @@ const messageStore = {
                 };
             }
             context.commit('addMessage', {
-                type: 'Alert',
-                title: 'Alert', msg, cb
+                type: 'Alert',                
+                title: '알림', msg, cb
             });
         },
 
         showWarning(context, { msg }) {
             context.commit('addMessage', {
                 type: 'Warning',
-                title: 'Warning', msg, cb: () => { }
+                title: '경고', msg, cb: () => { }
             });
         },
 
@@ -40,14 +40,14 @@ const messageStore = {
             }
             context.commit('addMessage', {
                 type: 'Error',
-                title: 'Error', msg, cb
+                title: '에러', msg, cb
             });
         },
 
         showConfirm(context, { msg , cb }) {
             context.commit('addMessage', {
                 type: 'Confirm',
-                title: 'Confirm', msg, cb
+                title: '확인', msg, cb
             });
         },
 
