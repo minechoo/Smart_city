@@ -13,6 +13,7 @@
                 id="on_green"
                 class="on_green"
                 v-model="power"
+                @click="fnOnPowerChanged"
                 value="ON"
                 checked
               />
@@ -24,6 +25,7 @@
                 name="power"
                 id="off_grey"
                 v-model="power"
+                @click="fnOnPowerChanged"
                 class="off_grey"
                 value="OFF"
               />
@@ -41,6 +43,7 @@
                 id="on_green_led"
                 class="on_green"
                 v-model="led"
+                @click="fnOnLedChanged"
                 value="ON"
               />
               <label for="on_green_led">ON</label>
@@ -52,6 +55,7 @@
                 id="off_grey_led"
                 class="off_grey"
                 v-model="led"
+                @click="fnOnLedChanged"
                 value="OFF"
                 checked
               />
@@ -59,8 +63,8 @@
             </div>
           </div>
         </div>
-      </div> </ModuleSceduleList
-    >/
+      </div>
+    </ModuleSceduleList>
   </div>
 </template>
 <script>
@@ -90,31 +94,6 @@ export default {
         this.fnSave();
       }
     },
-    light() {
-      if (this.isMount) {
-        //this.fnSave();
-        const command = {
-          userId: this.getUserInfo.userId,
-          deviceId: this.currentModule.deviceId,
-          moduleId: this.currentModule.moduleId,
-        };
-        if (this.light === "ON") {
-          this.commandOn(command);
-        } else {
-          this.commandOff(command);
-        }
-      }
-    },
-    led() {
-      if (this.isMount) {
-        this.fnSave();
-      }
-    },
-    temp() {
-      if (this.isMount) {
-        this.fnSave();
-      }
-    },
   },
   computed: {
     ...mapGetters(["getUserInfo"]),
@@ -134,12 +113,13 @@ export default {
   methods: {
     ...mapActions(["commandOn", "commandOff", "commandCron"]),
     fnOnPowerChanged() {
+      console.log("on power changed!");
       const command = {
         userId: this.getUserInfo.userId,
         deviceId: this.currentModule.deviceId,
         moduleId: this.currentModule.moduleId,
       };
-    
+
       if (this.power === "ON") {
         this.commandOn(command);
       } else {
@@ -147,12 +127,13 @@ export default {
       }
     },
     fnOnLedChanged() {
+      console.log("fnOnLedChanged changed!");
       const command = {
         userId: this.getUserInfo.userId,
-        deviceId: this.currentModule.deviceId,
+        deviceId: this.currentModule.deviceId + 'LED',
         moduleId: this.currentModule.moduleId,
       };
-    
+
       if (this.led === "ON") {
         this.commandOn(command);
       } else {
