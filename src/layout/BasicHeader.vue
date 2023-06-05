@@ -38,6 +38,7 @@ export default {
     }, []);
 
     const tabMenu = convertedList.map((v, idx) => {
+      console.log(v);
       const tab = {
         id: idx,
         url: `/device/${v.deviceCd.toLowerCase()}/${v.deviceId}`,
