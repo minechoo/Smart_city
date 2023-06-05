@@ -44,7 +44,8 @@ export default {
       return this.stat ? "정상작동" : "점검필요";
     },
     icoUrl: function () {
-   
+
+      console.log(this.type);
       const currTypes = this.type.split("_")[1];
       return require(`@/style/images/svg/ico_menu_${currTypes}.svg`);
     },

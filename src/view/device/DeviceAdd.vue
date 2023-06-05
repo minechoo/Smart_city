@@ -1,53 +1,57 @@
 <template lang="">
-  <div class="ab_membership" @keyup.esc="fnClose">
-    <div class="header">
-      <h1>신규 장비 등록</h1>
-      <p>스마트 시설물을 등록해주세요.</p>
+  <div class="stop_wrap" @keyup.esc="fnClose">
+    <div class="menu_box bg_gray"  v-if="!device.deviceCd">
+      <button class="btn_close" @click="fnClose"></button>
+      <div class="facility">
+        <figure v-for="v in getComDeviceType" v-bind:key="v.comCd">
+          <img
+            :src="fnGetDeviceCdImg(v)"
+            :alt="v.comCdNm"
+            @click="fnOnDeviceCodeSelected(v.comCd)"
+          />
+          <figcaption>{{ v.comCdNm }}</figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="input_box">
-      <div class="input_area">
-        <label for="id_e">장비유형 </label>
-        <select id="id_e" class="input_style" v-model="device.deviceCd">
-          <option
-            v-for="code in deviceTypeList"
-            v-bind:key="code.comCd"
-            :value="code.comCd"
+    <div class="menu_box bg_gray flex_between w_1153" v-if="device.deviceCd">
+      <div class="map_area" >
+        <img :src="device.imgSrc" />
+      </div>
+      <div class="right_write">
+        <div class="write">
+          <label for="f_name"
+            >스마트 시설물 이름(설치위치를 알아보기 쉽도록)을 입력하세요</label
           >
-            {{ code.comCdNm }} ({{ code.comCd }})
-          </option>
-        </select>
-      </div>
-      <div class="input_area">
-        <label for="pw_c">장비명</label>
-        <input
-          type="text"
-          id="pw_c"
-          v-model="device.deviceNm"
-          class="input_style"
-          placeholder="비밀번호를 확인해주세요"
-        />
-      </div>
+          <input
+            type="text"
+            id="f_name"
+            v-model="device.deviceNm"
+            placeholder="ex) ㅇㅇ우체국 스마트 정류장"
+          />
 
-      <div class="input_area">
-        <label for="pw_d">첨부파일</label>
-        <input
-          v-if="!device.imgSrc"
-          type="file"
-          id="pw_d"
-          class="input_style"
-          @change="imageChanged"
-          placeholder="첨부 파일을 선택해주세요"
-        />
-        <img :src="device.imgSrc" class="device-preview" />
+          <div class="file_input mt_70">
+            <label for="file_route"
+              >스마트 시설물이 설치된 지도 이미지를 업로드 하세요</label
+            >
+            <input
+              type="text"
+              readonly="readonly"
+              title="File Route"
+              id="file_route"
+            />
+            <label for="upload" class="btn_up">화일업로드</label>
+            <input
+              type="file"
+              id="upload"
+              @change="imageChanged"
+            />
+          </div>
+        </div>
+        <div class="btn_area bd_none">
+          <button class="btn grey_line mr_17" @click="$emit('onClose')">취소하기</button>
+          <button class="btn btn_green"  @click="fnSave">등록하기</button>
+        </div>
       </div>
-    </div>
-    <div class="btn_area">
-      <button class="btn grey_line mr_17" @click="$emit('onClose')">
-        취소하기
-      </button>
-      <button class="btn bg_grren" @click="fnSave">
-        {{ msgConf.SAVE }}
-      </button>
     </div>
   </div>
 </template>
@@ -59,27 +63,35 @@ export default {
   data: () => ({
     list: [],
     msgConf,
-    device: { deviceNm: "", deviceCd: "POLL", imgSrc: "" },
+    device: { deviceNm: "", deviceCd: "", imgSrc: "" },
   }),
   computed: {
-    ...mapGetters(["getComCode"]),
+    ...mapGetters(["getComCode", "getComDeviceType"]),
     deviceTypeList() {
       return this.getComCode.filter((v) => v.comGrpCd === "DEVICE_TYPE_CD");
     },
   },
-  mounted(){
-    window.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape'){
+  mounted() {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
         this.fnClose();
       }
     });
   },
   methods: {
-    fnClose(){
-      this.$emit('onClose');
+    fnClose() {
+      this.$emit("onClose");
+    },
+    fnOnDeviceCodeSelected(selectedCode) {
+      this.device.deviceCd = selectedCode;
+    },
+
+    fnGetDeviceCdImg(code) {
+      const imgPath = code.refVal01;
+
+      return require(`@/style/images/${imgPath}.png`);
     },
     imageChanged(e) {
-     
       var input = e.target;
       if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -93,7 +105,7 @@ export default {
       const param = { ...this.device, datFlag: "I" };
       const { data } = await comApi.post("/api/device/save", param);
       console.log(data);
-      this.$emit('onClose');
+      this.$emit("onClose");
     },
   },
 };

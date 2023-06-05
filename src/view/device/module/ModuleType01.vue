@@ -4,7 +4,38 @@
     <ModuleSceduleList
       :module="currentModule"
       @changeSchedule="fnChangeSchele"
-    />
+    >
+    <div class="power">
+        <h4 class="mr_25 li_55 mb_0">전원</h4>
+        <div>
+          <div class="power_line">
+            <div class="on_green">
+              <input
+                type="radio"
+                name="power"
+                id="on_green"
+                value="ON"
+                @click="fnOnPowerChanged('ON')"
+                v-model="power"
+                checked
+              />
+              <label for="on_green">ON</label>
+            </div>
+            <div class="off_grey">
+              <input
+                type="radio"
+                name="power"
+                id="off_grey"
+                value="OFF"
+                @click="fnOnPowerChanged('OFF')"
+                v-model="power"
+              />
+              <label for="off_grey">OFF</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ModuleSceduleList>
   </div>
 </template>
 <script>
@@ -14,6 +45,7 @@ import ModuleSceduleList from "@/components/device/module/ModuleSceduleList.vue"
 import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
+    power : 'OFF',
     currentModule: {},
   }),
   emits: ['changeSchedule'],
@@ -51,6 +83,19 @@ export default {
       this.commandCron(command);
 
       this.fnSave();
+    },
+    fnOnPowerChanged(status) {
+      const command = {
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+      };
+      
+      if (status === "ON") {
+        this.commandOn(command);
+      } else {
+        this.commandOff(command);
+      }
     },
     async fnSave(){
       const param =  { ...this.currentModule , datFlag :'U'};
