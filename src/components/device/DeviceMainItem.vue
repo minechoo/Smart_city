@@ -6,7 +6,12 @@
           <span class="status"></span>
           <span class="sign">{{ statNm }}</span>
         </div>
-        <img :src="icoUrl" :alt="name" class="svg_color" />
+        <img
+          :src="icoUrl"
+          :alt="name"
+          class="svg_color"
+          @click="$emit('showDetails', moduleId)"
+        />
         <h2>{{ name }}</h2>
       </a>
     </div>
@@ -20,6 +25,7 @@
         <img
           src="@/style/images/svg/ico_menu_delete.svg"
           alt="버튼"
+          @click="showDeleteDialog"
           class="svg_delete"
         />
       </div>
@@ -35,8 +41,12 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
+import ComApi from "@/service/ComApi";
+
 export default {
   props: {
+    moduleId: { type: String },
     deviceId: { type: String },
     stat: { type: Boolean },
     name: { type: String },
@@ -55,8 +65,35 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["showConfirm"]),
     goDetail: function () {
       this.$router.push(`/device/stop/${this.deviceId}`);
+    },
+
+    showDeleteDialog() {
+      console.log("click delete dialog");
+
+      const dialogArgs = {
+        msg: "삭제하시겟습니까?",
+        cb: (rtn) => {
+          console.log(rtn);
+          if (rtn) {
+            this.fnDeleteModule();
+          }
+        },
+      };
+      this.showConfirm(dialogArgs);
+    },
+    async fnDeleteModule() {
+      const param = {
+        deviceId: this.deviceId,
+        moduleId: this.moduleId,
+        datFlag: "D",
+      };
+      const { data } = await ComApi.post("/api/device/module/process", param);
+
+      console.log(data);
+      this.$emit('fnReflesh')
     },
   },
 };

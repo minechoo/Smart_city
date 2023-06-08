@@ -8,9 +8,12 @@
         :name="device.moduleNm"
         :type="device.moduleCd"
         :deviceId="device.deviceId"
+        :moduleId="device.moduleId"
         :start="device.start"
         :end="device.end"
-        @click="() => fnShowDetail(device.moduleId)"
+        @fnReflesh="fnSearchModuleList"
+        @showDetails="(moduleId)=>fnShowDetail(moduleId)"
+       
       />
       <div class="go add" @click="showAddDialog">
         <button>추가하기</button>
@@ -82,6 +85,7 @@ export default {
       this.showDeviceAdd = true;
     },
     fnShowDetail(moduleId) {
+      console.log('called moduleId : ', moduleId);
       this.selectedModuleId = moduleId;
       this.isShowDetail = true;
     },
@@ -95,6 +99,9 @@ export default {
       const { data } = await ComApi.post("/api/device/module/list", {
         deviceId: this.$route.params.deviceId,
       });
+
+      console.log('received moduel List : ', data);
+
       this.list = data;
       this.getStatus({
         userId: this.getUserInfo.userId,

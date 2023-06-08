@@ -15,18 +15,19 @@
       <div class="btn_area m_none">
         <button
           type="button"
-          class="btn bg_grren"
-          @click="fnClose(row.msgId, true)"
-        >
-          {{ getBtnText(row.type) }}
-        </button>
-        <button
-          type="button"
-          class="btn bg_grren"
+          class="btn grey_line mr_17"
           @click="fnClose(row.msgId, false)"
           v-if="row.type === 'Confirm'"
         >
-          Cancel
+          취소하기
+        </button>
+
+        <button
+          type="button"
+          class="btn bg_green"
+          @click="fnClose(row.msgId, true)"
+        >
+          {{ getBtnText(row.type) }}
         </button>
       </div>
     </div>
