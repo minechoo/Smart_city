@@ -85,6 +85,19 @@ comApi.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.log( error?.response?.data?.code , error?.response?.data?.code === '-403'); 
+  
+    
+    if(error?.response?.data?.code === '-403'){
+
+      comStore.dispatch("showError", {
+        msg: '세션이 종료 되엇습니다. ',
+        cb: () => {comStore.dispatch('doLogout', {});},
+      });
+
+      
+      return;
+    }
     comStore.dispatch("showError", {
       msg: error?.response?.data?.message || error.response.statusText,
       cb: () => {},

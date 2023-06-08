@@ -29,6 +29,7 @@ const userStore = {
         },
 
         doLogout(context){
+            console.log('calll logout actions ')
             context.commit('logout');
         },
 
