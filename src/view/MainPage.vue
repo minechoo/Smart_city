@@ -33,7 +33,13 @@ export default {
     };
   },
   created() {
-
+      console.log('>>>>>>', this.isLogin);
+      if(this.isLogin === true){
+          // todo go main!!!
+          this.goMain();
+      }else{
+         this.doLogout();
+      }
   },
   computed: {
     ...mapGetters(["isLogin", "getUserInfo"]),
