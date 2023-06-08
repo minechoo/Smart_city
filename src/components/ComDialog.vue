@@ -8,8 +8,9 @@
             <slot></slot>
 
             <footer>
-                <button type="button" @click="onClose(true)">Confirm</button>
                 <button type="button" @click="onClose(false)">Cancel</button>
+                <button type="button" @click="onClose(true)">Confirm</button>
+               
             </footer>
         </div>
 
