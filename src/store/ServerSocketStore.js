@@ -26,6 +26,7 @@ const socketStore = {
       });
 
       socket.addEventListener("message", (event) => {
+        console.log('got message ,', event.data);
         const message = JSON.parse(event.data);
         commit("ADD_MESSAGE", message);
       });
