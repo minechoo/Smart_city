@@ -38,6 +38,7 @@
         />
       </div>
     </div>
+ 
   </div>
 </template>
 <script>
@@ -45,6 +46,7 @@ import { mapActions } from "vuex";
 import ComApi from "@/service/ComApi";
 
 export default {
+
   props: {
     moduleId: { type: String },
     deviceId: { type: String },

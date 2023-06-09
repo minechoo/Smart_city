@@ -38,11 +38,23 @@
       </div>
     </Teleport>
   </transition>
+  <transition>
+    <Teleport to="#app">
+      <div class="dialog-dim" v-if="isShowModify">
+        <ModuleModify
+        @onClose="hideModify"
+        />
+      </div>
+    </Teleport>
+  </transition>
+
+
 </template>
 <script>
 import DeviceMainItem from "@/components/device/DeviceMainItem.vue";
 import DeviceModuleAdd from "@/view/device/DeviceModuleAdd.vue";
 import DeviceDetailDialog from "@/view/device/module/DeviceDetailDialog.vue";
+import ModuleModify from "@/components/device/ModuleModify.vue";
 import ComApi from "@/service/ComApi";
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -50,11 +62,13 @@ export default {
     DeviceMainItem,
     DeviceModuleAdd,
     DeviceDetailDialog,
+    ModuleModify,
   },
   data() {
     return {
       showDeviceAdd: false,
       isShowDetail: false,
+      isShowModify: false,
       selectedModuleId: "",
       list: [],
     };
@@ -83,6 +97,12 @@ export default {
     },
     showAddDialog() {
       this.showDeviceAdd = true;
+    },
+    showModify(){
+      this.isShowModify = true;
+    },
+    hideModify(){
+      this.isShowModify = false;
     },
     fnShowDetail(moduleId) {
       console.log('called moduleId : ', moduleId);

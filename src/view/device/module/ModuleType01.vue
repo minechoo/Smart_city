@@ -63,9 +63,12 @@ export default {
     ...mapGetters(["getUserInfo"]),
   },
   mounted() {
+
+    console.log(this.module.status);
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
     this.currentModule.end = this.module.end || "2300";
+    this.power = this.module.status;
   },
   methods: {
     ...mapActions(["commandOn", "commandOff" , "commandCron"]),
