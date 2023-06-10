@@ -11,9 +11,9 @@
         :moduleId="device.moduleId"
         :start="device.start"
         :end="device.end"
+        @showModifyDialog="showModifyDialog"
         @fnReflesh="fnSearchModuleList"
-        @showDetails="(moduleId)=>fnShowDetail(moduleId)"
-       
+        @showDetails="(moduleId) => fnShowDetail(moduleId)"
       />
       <div class="go add" @click="showAddDialog">
         <button>추가하기</button>
@@ -22,9 +22,9 @@
   </div>
   <transition>
     <Teleport to="#app">
-    <div class="dialog-dim" v-if="showDeviceAdd">
-      <DeviceModuleAdd @onClose="fnAddClosed" :deviceId="deviceId" />
-    </div>
+      <div class="dialog-dim" v-if="showDeviceAdd">
+        <DeviceModuleAdd @onClose="fnAddClosed" :deviceId="deviceId" />
+      </div>
     </Teleport>
   </transition>
   <transition>
@@ -41,14 +41,10 @@
   <transition>
     <Teleport to="#app">
       <div class="dialog-dim" v-if="isShowModify">
-        <ModuleModify
-        @onClose="hideModify"
-        />
+        <ModuleModify :module="selectModuleObj" @onClose="hideModify" />
       </div>
     </Teleport>
   </transition>
-
-
 </template>
 <script>
 import DeviceMainItem from "@/components/device/DeviceMainItem.vue";
@@ -70,6 +66,7 @@ export default {
       isShowDetail: false,
       isShowModify: false,
       selectedModuleId: "",
+      selectModuleObj :{},
       list: [],
     };
   },
@@ -98,14 +95,23 @@ export default {
     showAddDialog() {
       this.showDeviceAdd = true;
     },
-    showModify(){
+    showModify() {
       this.isShowModify = true;
     },
-    hideModify(){
+    hideModify() {
       this.isShowModify = false;
+      this.fnSearchModuleList();
+    },
+    showModifyDialog(moduleId) {
+      console.log('call modify module id : ' , moduleId);
+      this.isShowModify = true;
+      this.selectedModuleId = moduleId;
+      this.selectModuleObj =  this.list.find(v => v.moduleId === this.selectedModuleId);
+
+
     },
     fnShowDetail(moduleId) {
-      console.log('called moduleId : ', moduleId);
+      console.log("called moduleId : ", moduleId);
       this.selectedModuleId = moduleId;
       this.isShowDetail = true;
     },
@@ -120,7 +126,7 @@ export default {
         deviceId: this.$route.params.deviceId,
       });
 
-      console.log('received moduel List : ', data);
+      console.log("received moduel List : ", data);
 
       this.list = data;
       this.getStatus({

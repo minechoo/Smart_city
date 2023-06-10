@@ -20,6 +20,7 @@
         <img
           src="@/style/images/svg/ico_menu_top.svg"
           alt="버튼"
+          @click="showModifyDialog"
           class="svg_top"
         />
         <img
@@ -71,7 +72,9 @@ export default {
     goDetail: function () {
       this.$router.push(`/device/stop/${this.deviceId}`);
     },
-
+    showModifyDialog(){
+      this.$emit('showModifyDialog' , this.moduleId); 
+    },
     showDeleteDialog() {
       console.log("click delete dialog");
 
