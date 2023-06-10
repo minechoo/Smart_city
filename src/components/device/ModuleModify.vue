@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="btnArea set_del">
+  <div class="set_del">
     <header class="header p_none">
       <h1>등록기기 설정</h1>
       <button class="btn_close" @click="fnClose"></button>
@@ -37,6 +37,8 @@ export default {
   },
   methods: {
     fnClose() {
+
+      console.log('module modify dialog c')
       this.$emit("onClose");
     },
     async fnSave() {

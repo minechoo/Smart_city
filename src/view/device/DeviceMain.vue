@@ -84,26 +84,34 @@ export default {
     },
   },
   mounted() {
+
+    // 화면 로드 이후 모듈 정보 조회 
     this.fnSearchModuleList();
   },
   methods: {
     ...mapActions(["connectSocket", "getStatus"]),
+
+    // 기기추가 팝업 닫기 
     fnAddClosed() {
       this.showDeviceAdd = false;
       this.fnSearchModuleList();
     },
+    // 기기 추가 팝업 표시 
     showAddDialog() {
       this.showDeviceAdd = true;
     },
+    // 모듈 수정 팝업 열기
     showModify() {
       this.isShowModify = true;
     },
+    // 모듈 수정 팝업 닫기 
     hideModify() {
       this.isShowModify = false;
       this.fnSearchModuleList();
     },
+    // 모듈 정보 수정 팝업 
     showModifyDialog(moduleId) {
-      console.log('call modify module id : ' , moduleId);
+     
       this.isShowModify = true;
       this.selectedModuleId = moduleId;
       this.selectModuleObj =  this.list.find(v => v.moduleId === this.selectedModuleId);
@@ -111,14 +119,17 @@ export default {
 
     },
     fnShowDetail(moduleId) {
-      console.log("called moduleId : ", moduleId);
+     
       this.selectedModuleId = moduleId;
       this.isShowDetail = true;
     },
     fnHideDetail() {
+      
       this.isShowDetail = false;
       this.fnSearchModuleList();
     },
+
+    // 모듈 정보 조회 
     async fnSearchModuleList() {
       this.connectSocket(this.$route.params.deviceId);
 
@@ -126,7 +137,7 @@ export default {
         deviceId: this.$route.params.deviceId,
       });
 
-      console.log("received moduel List : ", data);
+      
 
       this.list = data;
       this.getStatus({
