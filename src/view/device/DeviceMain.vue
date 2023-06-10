@@ -137,9 +137,9 @@ export default {
         deviceId: this.$route.params.deviceId,
       });
 
-      
-
       this.list = data;
+
+      // 모듈 정보 조회 이후 기기상태 vuex 전문 요청 호출 
       this.getStatus({
         userId: this.getUserInfo.userId,
         deviceId: this.deviceId,
