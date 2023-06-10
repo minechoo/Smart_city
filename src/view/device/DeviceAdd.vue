@@ -8,6 +8,8 @@
             :src="fnGetDeviceCdImg(v)"
             :alt="v.comCdNm"
             @click="fnOnDeviceCodeSelected(v.comCd)"
+            :class="{h_220:v.comCd === 'POLL'}"
+           
           />
           <figcaption>{{ v.comCdNm }}</figcaption>
         </figure>
@@ -113,5 +115,14 @@ export default {
 <style scoped>
 .device-preview {
   height: 200px;
+}
+.facility img{
+  max-width: 300px;
+  margin: auto;
+  align-items: center;
+}
+
+.facility figure:hover{
+  scale: .9;
 }
 </style>
