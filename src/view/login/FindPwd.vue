@@ -36,7 +36,7 @@
 
     <div class="btn_area">
       <button class="btn grey_line mr_17" @click="fnCancel">취소하기</button>
-      <button class="btn bg_grren" v-if="!searched" @click="fnSearch">
+      <button class="btn bg_green" v-if="!searched" @click="fnSearch">
         비밀번호 찾기
       </button>
     

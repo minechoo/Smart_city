@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="set_del">
+  <div class="btnArea set_del">
     <header class="header p_none">
       <h1>등록기기 설정</h1>
       <button class="btn_close" @click="fnClose"></button>

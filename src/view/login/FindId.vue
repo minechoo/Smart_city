@@ -32,7 +32,7 @@
     </div>
     <div class="btn_area">
       <button class="btn grey_line mr_17" @click="fnCancel">취소하기</button>
-      <button class="btn bg_grren" @click="fnSearch">아이디찾기</button>
+      <button class="btn bg_green" @click="fnSearch">아이디찾기</button>
     </div>
   </div>
 </template>

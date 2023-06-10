@@ -60,7 +60,7 @@
       <button class="btn grey_line mr_17" @click="fnClose">
         취소하기
       </button>
-      <button class="btn bg_grren" @click="fnSignUp">회원가입</button>
+      <button class="btn bg_green" @click="fnSignUp">회원가입</button>
     </div>
   </div>
 </template>

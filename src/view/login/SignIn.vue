@@ -66,7 +66,7 @@
                 <button class="btn grey_line mr_17" @click="fnCancel">
                   취소하기
                 </button>
-                <button class="btn bg_grren">아이디찾기</button>
+                <button class="btn bg_green">아이디찾기</button>
               </div>
             </div>
 

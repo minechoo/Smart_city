@@ -61,7 +61,7 @@
       <button class="btn grey_line mr_17" @click="$emit('onClose')">
         취소하기
       </button>
-      <button class="btn bg_grren" @click="fnSaveUserInfo">변경하기</button>
+      <button class="btn bg_green" @click="fnSaveUserInfo">변경하기</button>
     </div>
   </div>
 </template>
