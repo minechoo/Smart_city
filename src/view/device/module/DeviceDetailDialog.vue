@@ -2,7 +2,7 @@
   <div class="stop_wrap">
     <div class="menu_box">
       <header class="group">
-        <h2>{{ deviceNm }} {{moduleCd}}</h2>
+        <h2>{{ deviceNm }} {{moduleCd}} : {{moduleNo}}</h2>
         <button class="btn_close" @click="fnClose"></button>
       </header>
 
@@ -42,6 +42,9 @@
         <ModuleType09 v-if="moduleCd === 'MOD_09'" :module="selectedModule" />
         <!-- 미세먼지 -->
         <ModuleType10 v-if="moduleCd === 'MOD_10'" :module="selectedModule" />
+
+        <!-- 태양광 -->
+        <ModuleType11 v-if="moduleCd === 'MOD_11'" :module="selectedModule" />
       </div>
     </div>
   </div>
@@ -59,6 +62,7 @@ import ModuleType07 from "@/view/device/module/ModuleType07.vue";
 import ModuleType08 from "@/view/device/module/ModuleType08.vue";
 import ModuleType09 from "@/view/device/module/ModuleType09.vue";
 import ModuleType10 from "@/view/device/module/ModuleType10.vue";
+import ModuleType11 from "@/view/device/module/ModuleType11.vue";
 export default {
   components: {
     ModuleType01,
@@ -71,12 +75,13 @@ export default {
     ModuleType08,
     ModuleType09,
     ModuleType10,
+    ModuleType11
   },
   data() {
     return {
       selectedModuleId: "",
       moduleCd: "",
-
+      moduleNo:'',
       list: [],
     };
   },
@@ -139,7 +144,9 @@ export default {
       
       this.selectedModuleId = moduleId;
       
-      this.moduleCd = this.list.find((v) => v.moduleId === moduleId).moduleCd;
+      const selectedModule  = this.list.find((v) => v.moduleId === moduleId);
+      this.moduleCd = selectedModule.moduleCd;
+      this.moduleNo = selectedModule.moduleNo;
 
       console.log( moduleId , this.moduleCd );
     },
