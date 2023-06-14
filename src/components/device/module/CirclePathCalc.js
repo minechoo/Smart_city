@@ -8,10 +8,19 @@ const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
 };
 
 const describeArc = (x, y, radius, startAngle, endAngle) => {
+  console.log(startAngle , endAngle);
   var start = polarToCartesian(x, y, radius, endAngle);
+  
   var end = polarToCartesian(x, y, radius, startAngle);
 
-  var arcSweep = endAngle - startAngle <= 180 ? "0" : "1";
+  const getSheep = (val) => {
+    if(val < 0 ){
+      return "1"
+    }else{
+      return val <= 180 ? "0" : "1";
+    }
+  }
+  var arcSweep = getSheep(endAngle - startAngle)
 
   var d = [
     "M",
