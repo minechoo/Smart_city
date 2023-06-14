@@ -114,7 +114,7 @@ export default {
   mounted() {
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
-    this.currentModule.end = this.module.start || "2300";
+    this.currentModule.end = this.module.end || "2300";
     this.currentModule.stat = this.module.stat || "01";
     setTimeout(() => {
       this.isMount = true;

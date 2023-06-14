@@ -36,14 +36,11 @@
 </template>
 <script>
 import ScheduleAdd from "@/components/device/module/SheduleAdd.vue";
+import ComApi from "@/service/ComApi";
 export default {
   components: { ScheduleAdd },
   data: () => ({
-    list: [
-      { start: "0000", end: "0000", useYn: "Y" },
-      { start: "0600", end: "0800", useYn: "N" },
-      { start: "0800", end: "1900", useYn: "N" },
-    ],
+    list: [],
     popup: {
       start: { hour: "00", minute: "00" },
       end: { hour: "00", minute: "00" },
@@ -76,9 +73,22 @@ export default {
   mounted() {
     console.log("hit scheduleList", this.module.moduleId);
     console.log(this.list);
+    this.fnSearchSchedule();
   },
   computed: {},
   methods: {
+    async fnSearchSchedule() {
+      const { data } = await ComApi.post("/api/schedule/list", {});
+
+      this.list = data.map((v) => {
+        if (v.start === this.module.start && v.end === this.module.end) {
+          v.useYn = "Y";
+        } else {
+          v.useYn = "N";
+        }
+        return v;
+      });
+    },
     fnShowDialog() {
       this.datFlag = "I";
       this.isShowDialog = true;
@@ -103,22 +113,17 @@ export default {
       const { start, end } = this.list.find((v) => v.useYn === "Y");
       this.$emit("changeSchedule", start, end);
     },
-    fnSaveSchedule(payLoad) {
+    async fnSaveSchedule(payLoad) {
       console.log(payLoad);
       this.isShowDialog = false;
-      if (payLoad.datFlag === "I") {
-        const param = { ...payLoad, useYn: "N" };
-        this.list.push(param);
-      } else {
-        const modifydList = this.list.map((v, idx) => {
-          return payLoad.idx === idx ? payLoad : v;
-        });
 
-        this.list = modifydList;
+      const param = { ...payLoad, useYn: "N" , datFlag : this.datFlag  };
 
-        if (payLoad.useYn === "Y") {
-          this.$emit("changeSchedule", payLoad.start, payLoad.end);
-        }
+      const { data } = await ComApi.post("/api/schedule/process", param);
+      console.log(data);
+      this.fnSearchSchedule();
+      if (payLoad.useYn === "Y") {
+        this.$emit("changeSchedule", payLoad.start, payLoad.end);
       }
     },
   },
