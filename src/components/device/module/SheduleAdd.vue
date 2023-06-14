@@ -20,7 +20,7 @@
     </div>
     <div class="flex_between">
       <HourSelect
-        title="시작시간"
+        title="종료시간"
         :hour="end.hour"
         @updateHour="(val) => (end.hour = val)"
       />
