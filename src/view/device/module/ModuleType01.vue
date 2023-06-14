@@ -56,7 +56,7 @@ export default {
       this.currentModule = {...this.module};
       this.currentModule.start = this.module.start || "0900";
       this.currentModule.end = this.module.end || "2300";
-     
+      this.power = this.module.status;
     },
   },
   computed: {
@@ -68,7 +68,7 @@ export default {
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
     this.currentModule.end = this.module.end || "2300";
-    this.power = this.module.status;
+   
   },
   methods: {
     ...mapActions(["commandOn", "commandOff" , "commandCron"]),

@@ -55,9 +55,28 @@ export default {
   props: {
     module: { type: Object, default: () => ({ start: "0000", end: "2300" }) },
   },
-  emits: ['changeSchedule'],
-  watch: {},
-  mounted() {},
+  emits: ["changeSchedule"],
+  watch: {
+    module() {
+      if (this.module) {
+        this.list = this.list.map((v) => {
+          console.log(
+            v.start === this.module.start && v.end === this.module.end
+          );
+          if (v.start === this.module.start && v.end === this.module.end) {
+            v.useYn = "Y";
+          } else {
+            v.useYn = "N";
+          }
+          return v;
+        });
+      }
+    },
+  },
+  mounted() {
+    console.log("hit scheduleList", this.module.moduleId);
+    console.log(this.list);
+  },
   computed: {},
   methods: {
     fnShowDialog() {
@@ -75,7 +94,6 @@ export default {
       this.targetObj = selectedObj;
     },
     fnChangeSchele(pIdx) {
-      
       const rtnList = this.list.map((v, idx) => {
         v.useYn = idx === pIdx ? "Y" : "N";
         return v;
@@ -98,10 +116,9 @@ export default {
 
         this.list = modifydList;
 
-        if(payLoad.useYn === 'Y'){
+        if (payLoad.useYn === "Y") {
           this.$emit("changeSchedule", payLoad.start, payLoad.end);
         }
-
       }
     },
   },
