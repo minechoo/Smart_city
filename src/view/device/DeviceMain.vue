@@ -5,7 +5,7 @@
         <DeviceMainItem
           v-for="device in list"
           v-bind:key="device.id"
-          :stat="device.stat"
+          :stat="device.status"
           :name="device.moduleNm"
           :type="device.moduleCd"
           :deviceId="device.deviceId"

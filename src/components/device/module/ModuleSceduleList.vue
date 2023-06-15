@@ -21,8 +21,8 @@
           v-bind:key="idx"
         >
           <span class="square" @click="() => fnChangeSchele(idx)"></span>
-          {{ v.start.replace(/^(\d{2})(\d{2})$/, "$1:$2") }} ~
-          {{ v.end.replace(/^(\d{2})(\d{2})$/, "$1:$2") }}
+          <p  @click="() => fnShowDialogModify(idx)">{{ v.start.replace(/^(\d{2})(\d{2})$/, "$1:$2") }} ~
+          {{ v.end.replace(/^(\d{2})(\d{2})$/, "$1:$2") }}</p>
           <img
             src="@/style/images/ico_setting.png"
             alt=""
@@ -56,7 +56,7 @@ export default {
   watch: {
     module() {
       if (this.module) {
-        this.list = this.list.map((v) => {
+          this.list = this.list.map((v) => {
           console.log(
             v.start === this.module.start && v.end === this.module.end
           );
@@ -66,19 +66,27 @@ export default {
             v.useYn = "N";
           }
           return v;
+
+
         });
+
+        this.fnSearchSchedule();
       }
     },
   },
   mounted() {
     console.log("hit scheduleList", this.module.moduleId);
     console.log(this.list);
-    this.fnSearchSchedule();
+    //this.fnSearchSchedule();
   },
   computed: {},
   methods: {
     async fnSearchSchedule() {
-      const { data } = await ComApi.post("/api/schedule/list", {});
+
+      console.log( ' >>>> call module ', this.module.deviceId);
+      const param = { deviceId : this.module.deviceId};
+
+      const { data } = await ComApi.post("/api/schedule/list", param);
 
       this.list = data.map((v) => {
         if (v.start === this.module.start && v.end === this.module.end) {
@@ -117,7 +125,7 @@ export default {
       console.log(payLoad);
       this.isShowDialog = false;
 
-      const param = { ...payLoad, useYn: "N" , datFlag : this.datFlag  };
+      const param = { ...payLoad, useYn: "N" , datFlag : this.datFlag , deviceId : this.module.deviceId };
 
       const { data } = await ComApi.post("/api/schedule/process", param);
       console.log(data);

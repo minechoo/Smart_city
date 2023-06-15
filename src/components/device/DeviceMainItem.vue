@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     statNm: function () {
-      return this.stat ? "정상작동" : "점검필요";
+      return this.stat === 'ON' ? "정상작동" : "점검필요";
     },
     icoUrl: function () {
       console.log(this.type);
