@@ -1,6 +1,7 @@
 import CmdMsg from "@/utils/CmdMsg";
 const socketStore = {
   state() {
+
     return { socket: null, messages: [] , connected: false};
   },
   mutations: {
