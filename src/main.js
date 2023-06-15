@@ -26,6 +26,7 @@ import userStore from "./store/UserInfoStore";
 import deviceStore from "./store/DeviceStore";
 import codeStore from "./store/ComCodeStore";
 import socketStore from "./store/ServerSocketStore";
+import moduleStore from "@/store/ModuleStore";
 
 import { createStore } from "vuex";
 
@@ -38,6 +39,7 @@ const comStore = createStore({
     deviceStore,
     codeStore,
     socketStore,
+    moduleStore
   },
   plugins: [
     createPersistedState({

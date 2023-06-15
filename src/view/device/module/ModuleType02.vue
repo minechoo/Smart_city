@@ -13,7 +13,8 @@
                 id="on_green"
                 class="on_green"
                 value="ON"
-                v-model="light"
+                @click="fnOnPowerChanged('ON')"
+                v-model="power"
                 checked
               />
               <label for="on_green">ON</label>
@@ -24,7 +25,8 @@
                 name="power"
                 id="off_grey"
                 class="off_grey"
-                v-model="light"
+                @click="fnOnPowerChanged('OFF')"
+                v-model="power"
                 value="OFF"
               />
               <label for="off_grey">OFF</label>
@@ -104,7 +106,7 @@ export default {
   data: () => ({
     temp: 24,
     light: "",
-    led: "",
+    power: "",
     isMount: false,
     currentModule: {},
   }),
@@ -156,7 +158,7 @@ export default {
     this.temp = this.module.temp || defaultVal.temp;
     this.light = this.module.light || defaultVal.light;
     this.led = this.module.led || defaultVal.led;
-    
+    this.power = this.module.status;
     setTimeout(() => {
       this.isMount = true;
     }, 100);
@@ -177,6 +179,19 @@ export default {
       };
       this.commandCron(command);
       this.fnSave();
+    },
+    fnOnPowerChanged(status) {
+      const command = {
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+      };
+      
+      if (status === "ON") {
+        this.commandOn(command);
+      } else {
+        this.commandOff(command);
+      }
     },
     fnAddTemp() {
       this.temp = this.temp + 1;

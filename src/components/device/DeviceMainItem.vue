@@ -30,7 +30,7 @@
           class="svg_delete"
         />
       </div>
-      <p v-if="start">자동설정<br />{{ start }}- {{ end }}</p>
+      <p v-if="stat && start+end !== '00000000'">자동설정<br />{{ start }}- {{ end }}</p>
       <div>
         <img
           src="@/style/images/svg/ico_menu_bottom.svg"
@@ -62,7 +62,7 @@ export default {
       return this.stat === 'ON' ? "정상작동" : "점검필요";
     },
     icoUrl: function () {
-      console.log(this.type);
+    
       const currTypes = this.type.split("_")[1];
       return require(`@/style/images/svg/ico_menu_${currTypes}.svg`);
     },
@@ -95,9 +95,9 @@ export default {
         moduleId: this.moduleId,
         datFlag: "D",
       };
-      const { data } = await ComApi.post("/api/device/module/process", param);
+     await ComApi.post("/api/device/module/process", param);
 
-      console.log(data);
+    
       this.$emit('fnReflesh')
     },
   },

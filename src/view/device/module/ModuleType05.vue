@@ -103,7 +103,7 @@ export default {
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
     this.currentModule.end = this.module.end || "2300";
-
+    this.power = this.module.status;
     this.led = this.module.led || defaultVal.led;
 
     setTimeout(() => {

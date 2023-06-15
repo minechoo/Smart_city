@@ -2,7 +2,7 @@
   <div class="stop_wrap">
     <div class="menu_box">
       <header class="group">
-        <h2>{{ deviceNm }} {{moduleCd}} : {{moduleNo}}</h2>
+        <h2>{{ deviceNm }} {{ moduleCd }} : {{ moduleNo }}</h2>
         <button class="btn_close" @click="fnClose"></button>
       </header>
 
@@ -11,7 +11,7 @@
           <ul ref="selectedLi">
             <li
               :class="{ on: v.moduleId === selectedModuleId }"
-              v-for="v in list"
+              v-for="v in getModuleList"
               v-bind:key="v.moduleId"
               :ref="'li_' + v.moduleId"
               @click="() => fnChangeModuleId(v.moduleId)"
@@ -19,7 +19,7 @@
               <a href="#">{{ v.moduleNm }}</a>
             </li>
           </ul>
-          <button class="arrow" v-if="list.length > 6"></button>
+          <button class="arrow" v-if="getModuleList.length > 6"></button>
         </nav>
 
         <!-- 자동문  -->
@@ -51,7 +51,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import ComApi from "@/service/ComApi";
+
 import ModuleType01 from "@/view/device/module/ModuleType01.vue";
 import ModuleType02 from "@/view/device/module/ModuleType02.vue";
 import ModuleType03 from "@/view/device/module/ModuleType03.vue";
@@ -75,14 +75,14 @@ export default {
     ModuleType08,
     ModuleType09,
     ModuleType10,
-    ModuleType11
+    ModuleType11,
   },
   data() {
     return {
       selectedModuleId: "",
       moduleCd: "",
-      moduleNo:'',
-      list: [],
+      moduleNo: "",
+      list: this.getModuleList,
     };
   },
   props: {
@@ -90,16 +90,17 @@ export default {
   },
   watch: {},
   created() {
-    this.fnSearchModuleList();
+  
   },
   mounted() {
     this.selectedModuleId = this.moduleId;
-
+    
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         this.fnClose();
       }
     });
+    this.searchModuleList();
   },
   computed: {
     deviceId() {
@@ -113,10 +114,13 @@ export default {
       return deviceInfo.deviceNm;
     },
     selectedModule() {
-      return this.list.find((v) => v.moduleId === this.selectedModuleId);
+    
+      return this.getModuleList.find(
+        (v) => v.moduleId === this.selectedModuleId
+      );
     },
 
-    ...mapGetters(["getDeviceList"]),
+    ...mapGetters(["getDeviceList", "getModuleList"]),
   },
 
   methods: {
@@ -124,38 +128,40 @@ export default {
       const el = this.$refs.selectedLi;
 
       setTimeout(() => {
-        const selectedIdx = this.list.findIndex(
-          (v) => v.moduleId === this.selectedModuleId
-        );
-        el.scrollTop = selectedIdx * 64;
+        try {
+          const selectedIdx = this.getModuleList.findIndex(
+            (v) => v.moduleId === this.selectedModuleId
+          );
+          el.scrollTop = selectedIdx * 64;
+        } catch (e) {
+          console.log('');
+        }
       }, 200);
     },
 
     isValidModule(moduleCd) {
-     
       return (
-        this.list.find((v) => v.moduleCd === moduleCd).moduleCd === moduleCd
+        this.getModuleList.find((v) => v.moduleCd === moduleCd).moduleCd ===
+        moduleCd
       );
     },
     fnClose() {
       this.$emit("onClose");
     },
     fnChangeModuleId(moduleId) {
-      
+
       this.selectedModuleId = moduleId;
-      
-      const selectedModule  = this.list.find((v) => v.moduleId === moduleId);
+      const selectedModule = this.getModuleList.find(
+        (v) => v.moduleId === moduleId
+      );
       this.moduleCd = selectedModule.moduleCd;
       this.moduleNo = selectedModule.moduleNo;
 
-      console.log( moduleId , this.moduleCd );
+      
     },
-    async fnSearchModuleList() {
-      const { data } = await ComApi.post("/api/device/module/list", {
-        deviceId: this.$route.params.deviceId,
-      });
-      this.list = data;
-      this.moduleCd = this.list.find(
+    searchModuleList() {
+      
+      this.moduleCd = this.getModuleList.find(
         (v) => v.moduleId === this.moduleId
       ).moduleCd;
 

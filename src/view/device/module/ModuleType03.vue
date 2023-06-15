@@ -14,6 +14,7 @@
                 id="on_green"
                 class="on_green"
                 value="ON"
+                @click="fnOnPowerChanged('ON')"
                 v-model="power"
                 checked
               />
@@ -25,6 +26,7 @@
                 name="power"
                 id="off_grey"
                 class="off_grey"
+                @click="fnOnPowerChanged('OFF')"
                 v-model="power"
                 value="OFF"
               />
@@ -95,27 +97,28 @@ export default {
     currentModule: {},
   }),
   watch: {
-    power() {
-      if (this.isMount) {
-        //this.fnSave();
-        const command = {
-          userId: this.getUserInfo.userId,
-          deviceId: this.currentModule.deviceId,
-          moduleId: this.currentModule.moduleId,
-        };
-        if (this.light === "ON") {
-          this.commandOn(command);
-        } else {
-          this.commandOff(command);
-        }
-      }
-    },
+    // power() {
+    //   if (this.isMount) {
+    //     //this.fnSave();
+    //     const command = {
+    //       userId: this.getUserInfo.userId,
+    //       deviceId: this.currentModule.deviceId,
+    //       moduleId: this.currentModule.moduleId,
+    //     };
+    //     if (this.light === "ON") {
+    //       this.commandOn(command);
+    //     } else {
+    //       this.commandOff(command);
+    //     }
+    //   }
+    // },
   },
   mounted() {
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
     this.currentModule.end = this.module.end || "2300";
     this.currentModule.stat = this.module.stat || "01";
+    this.power = this.module.status;
     setTimeout(() => {
       this.isMount = true;
     }, 100);
@@ -162,6 +165,19 @@ export default {
         end,
       };
       this.commandCron(command);
+    },
+    fnOnPowerChanged(status) {
+      const command = {
+        userId: this.getUserInfo.userId,
+        deviceId: this.currentModule.deviceId,
+        moduleId: this.currentModule.moduleId,
+      };
+      
+      if (status === "ON") {
+        this.commandOn(command);
+      } else {
+        this.commandOff(command);
+      }
     },
     async fnSave() {
       const param = { ...this.currentModule, datFlag: "U" };

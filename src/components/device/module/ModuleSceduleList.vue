@@ -57,9 +57,7 @@ export default {
     module() {
       if (this.module) {
           this.list = this.list.map((v) => {
-          console.log(
-            v.start === this.module.start && v.end === this.module.end
-          );
+         
           if (v.start === this.module.start && v.end === this.module.end) {
             v.useYn = "Y";
           } else {
@@ -75,15 +73,13 @@ export default {
     },
   },
   mounted() {
-    console.log("hit scheduleList", this.module.moduleId);
-    console.log(this.list);
-    //this.fnSearchSchedule();
+   
   },
   computed: {},
   methods: {
     async fnSearchSchedule() {
 
-      console.log( ' >>>> call module ', this.module.deviceId);
+     
       const param = { deviceId : this.module.deviceId};
 
       const { data } = await ComApi.post("/api/schedule/list", param);
@@ -122,13 +118,12 @@ export default {
       this.$emit("changeSchedule", start, end);
     },
     async fnSaveSchedule(payLoad) {
-      console.log(payLoad);
       this.isShowDialog = false;
 
       const param = { ...payLoad, useYn: "N" , datFlag : this.datFlag , deviceId : this.module.deviceId };
 
-      const { data } = await ComApi.post("/api/schedule/process", param);
-      console.log(data);
+      await ComApi.post("/api/schedule/process", param);
+    
       this.fnSearchSchedule();
       if (payLoad.useYn === "Y") {
         this.$emit("changeSchedule", payLoad.start, payLoad.end);

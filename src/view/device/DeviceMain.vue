@@ -3,7 +3,7 @@
     <div class="menu_box p_40_140">
       <div class="menu_box_inner">
         <DeviceMainItem
-          v-for="device in list"
+          v-for="device in getModuleList"
           v-bind:key="device.id"
           :stat="device.status"
           :name="device.moduleNm"
@@ -51,7 +51,7 @@ import DeviceMainItem from "@/components/device/DeviceMainItem.vue";
 import DeviceModuleAdd from "@/view/device/DeviceModuleAdd.vue";
 import DeviceDetailDialog from "@/view/device/module/DeviceDetailDialog.vue";
 import ModuleModify from "@/components/device/ModuleModify.vue";
-import ComApi from "@/service/ComApi";
+
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
@@ -67,33 +67,38 @@ export default {
       isShowModify: false,
       selectedModuleId: "",
       selectModuleObj: {},
-      list: [],
     };
   },
   watch: {
     $route(to, form) {
       if (to.path !== form.path) {
-        this.fnSearchModuleList();
+        this.searchModuleList();
+        //  this.fnSearchModuleList({deviceId :this.deviceId});
       }
     },
   },
   computed: {
-    ...mapGetters(["getUserInfo"]),
+    ...mapGetters(["getUserInfo", "getModuleList"]),
     deviceId() {
       return this.$route.params.deviceId;
     },
   },
   mounted() {
     // 화면 로드 이후 모듈 정보 조회
-    this.fnSearchModuleList();
+    this.searchModuleList();
   },
   methods: {
-    ...mapActions(["connectSocket", "getStatus"]),
+    ...mapActions([
+      "connectSocket",
+      "getStatus",
+      "getModuleList",
+      "fnSearchModuleList",
+    ]),
 
     // 기기추가 팝업 닫기
     fnAddClosed() {
       this.showDeviceAdd = false;
-      this.fnSearchModuleList();
+      this.searchModuleList();
     },
     // 기기 추가 팝업 표시
     showAddDialog() {
@@ -106,13 +111,13 @@ export default {
     // 모듈 수정 팝업 닫기
     hideModify() {
       this.isShowModify = false;
-      this.fnSearchModuleList();
+      this.searchModuleList();
+      // 모듈 정보 수정 팝업
     },
-    // 모듈 정보 수정 팝업
     showModifyDialog(moduleId) {
       this.isShowModify = true;
       this.selectedModuleId = moduleId;
-      this.selectModuleObj = this.list.find(
+      this.selectModuleObj = this.getModuleList.find(
         (v) => v.moduleId === this.selectedModuleId
       );
     },
@@ -122,25 +127,26 @@ export default {
     },
     fnHideDetail() {
       this.isShowDetail = false;
-      this.fnSearchModuleList();
     },
 
-    // 모듈 정보 조회
-    async fnSearchModuleList() {
-      this.list = [];
+    async searchModuleList() {
+      this.deviceId = this.$route.params.deviceId;
+      if (!this.deviceId) {
+        return;
+      }
+
+      await this.fnSearchModuleList({ deviceId: this.deviceId });
       this.connectSocket(this.$route.params.deviceId);
-
-      const { data } = await ComApi.post("/api/device/module/list", {
-        deviceId: this.$route.params.deviceId,
-      });
-
-      this.list = data;
-
-      // 모듈 정보 조회 이후 기기상태 vuex 전문 요청 호출
-      this.getStatus({
-        userId: this.getUserInfo.userId,
-        deviceId: this.deviceId,
-      });
+      setTimeout(() => {
+        try {
+          this.getStatus({
+            userId: this.getUserInfo.userId,
+            deviceId: this.deviceId,
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      }, 500);
     },
   },
 };

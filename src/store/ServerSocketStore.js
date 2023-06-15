@@ -15,20 +15,26 @@ const socketStore = {
     },
   },
   actions: {
-    connectSocket({ commit }, deviceId) {
-
-      const host = location.host.includes('localhost') ?'localhost' : location.host;
-      console.log('host : ' , host);
+    connectSocket({ commit , dispatch}, deviceId) {
+      const host = location.host.includes("localhost")
+        ? "localhost"
+        : location.host;
+   
       const socket = new WebSocket(`ws://${host}/ws/device/${deviceId}`);
 
-      socket.addEventListener("open", () => {
-        console.log("connection open ");
+      socket.addEventListener("open", () => { 
+      //  console.log("connection open ");
       });
 
       socket.addEventListener("message", (event) => {
-        console.log('got message ,', event.data);
-        const message = JSON.parse(event.data);
-        commit("ADD_MESSAGE", message);
+        const message = JSON.parse(JSON.parse(event.data));
+        if(message.msgType === 'STAT'){
+        
+          dispatch('reloadModuleInfo');
+        } else{
+          commit("ADD_MESSAGE", message);
+        }
+        
       });
 
       socket.addEventListener("close", () => {
@@ -43,6 +49,7 @@ const socketStore = {
       }
     },
     getStatus({ state }, { userId, deviceId }) {
+      
       state.socket.send(JSON.stringify(CmdMsg.status(userId, deviceId)));
     },
     commandOn({ state }, { userId, deviceId, moduleId }) {

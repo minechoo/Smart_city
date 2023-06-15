@@ -54,8 +54,8 @@ export default {
   mounted(){
 
     console.log('binded param :' , this.module);
-      this.currentModule = {...this.module};
-
+    this.currentModule = {...this.module};
+    this.power = this.module.status;
 
   },
   methods: {

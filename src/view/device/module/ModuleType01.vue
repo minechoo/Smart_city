@@ -56,7 +56,7 @@ export default {
       this.currentModule = {...this.module};
       this.currentModule.start = this.module.start || "0900";
       this.currentModule.end = this.module.end || "2300";
-      this.power = this.module.status;
+      this.power = this.currentModule.status;
     },
   },
   computed: {
@@ -64,10 +64,11 @@ export default {
   },
   mounted() {
 
-    console.log(this.module.status);
+   
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
     this.currentModule.end = this.module.end || "2300";
+    this.power = this.module.status;
    
   },
   methods: {
@@ -102,7 +103,7 @@ export default {
     },
     async fnSave(){
       const param =  { ...this.currentModule , datFlag :'U'};
-      console.log('call save : ' , param);
+     
       const {data} = await ComApi.post('/api/device/module/process', param);
       console.log(data);
     }
