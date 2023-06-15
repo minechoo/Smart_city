@@ -56,15 +56,13 @@ export default {
       this.currentModule = {...this.module};
       this.currentModule.start = this.module.start || "0900";
       this.currentModule.end = this.module.end || "2300";
-      this.power = this.currentModule.status;
+      this.power = this.module.status;
     },
   },
   computed: {
     ...mapGetters(["getUserInfo"]),
   },
   mounted() {
-
-   
     this.currentModule = { ...this.module };
     this.currentModule.start = this.module.start || "0900";
     this.currentModule.end = this.module.end || "2300";
@@ -86,7 +84,7 @@ export default {
       };
       this.commandCron(command);
 
-      this.fnSave();
+    //  this.fnSave();
     },
     fnOnPowerChanged(status) {
       const command = {

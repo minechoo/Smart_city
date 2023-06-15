@@ -1,7 +1,7 @@
 import CmdMsg from "@/utils/CmdMsg";
 const socketStore = {
   state() {
-    return { socket: null, messages: [] };
+    return { socket: null, messages: [] , connected: false};
   },
   mutations: {
     SET_SOCKET(state, socket) {
@@ -13,9 +13,14 @@ const socketStore = {
     ADD_MESSAGE(state, message) {
       state.messages.push(message);
     },
+    setConnect(state , connected){
+      state.connected = connected;
+    }
   },
   actions: {
     connectSocket({ commit , dispatch}, deviceId) {
+
+      commit('setConnect' , false);
       const host = location.host.includes("localhost")
         ? "localhost"
         : location.host;
@@ -23,7 +28,7 @@ const socketStore = {
       const socket = new WebSocket(`ws://${host}/ws/device/${deviceId}`);
 
       socket.addEventListener("open", () => { 
-      //  console.log("connection open ");
+        commit('setConnect' , true);
       });
 
       socket.addEventListener("message", (event) => {
@@ -68,6 +73,9 @@ const socketStore = {
     getMessages(state) {
       return state.getMessages();
     },
+    getSocketConnected(state){
+      return state.connected;
+    }
   },
 };
 

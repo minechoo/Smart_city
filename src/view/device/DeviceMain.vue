@@ -76,17 +76,25 @@ export default {
         //  this.fnSearchModuleList({deviceId :this.deviceId});
       }
     },
-    isShowDetail(){
-      if(this.isShowDetail){
+    isShowDetail() {
+      if (this.isShowDetail) {
         //window.overflow = 'hidden'
-        document.body.style.overflow = 'hidden';
-      }else{
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
       }
-    }
+    },
+    getSocketConnected() {
+      if (this.getSocketConnected) {
+        this.getStatus({
+          userId: this.getUserInfo.userId,
+          deviceId: this.deviceId,
+        });
+      }
+    },
   },
   computed: {
-    ...mapGetters(["getUserInfo", "getModuleList"]),
+    ...mapGetters(["getUserInfo", "getModuleList", "getSocketConnected"]),
     deviceId() {
       return this.$route.params.deviceId;
     },
@@ -145,16 +153,7 @@ export default {
 
       await this.fnSearchModuleList({ deviceId: this.deviceId });
       this.connectSocket(this.$route.params.deviceId);
-      setTimeout(() => {
-        try {
-          this.getStatus({
-            userId: this.getUserInfo.userId,
-            deviceId: this.deviceId,
-          });
-        } catch (e) {
-          console.log(e);
-        }
-      }, 500);
+      
     },
   },
 };
