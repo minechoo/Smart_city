@@ -76,6 +76,14 @@ export default {
         //  this.fnSearchModuleList({deviceId :this.deviceId});
       }
     },
+    isShowDetail(){
+      if(this.isShowDetail){
+        //window.overflow = 'hidden'
+        document.body.style.overflow = 'hidden';
+      }else{
+        document.body.style.overflow = 'auto';
+      }
+    }
   },
   computed: {
     ...mapGetters(["getUserInfo", "getModuleList"]),
