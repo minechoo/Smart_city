@@ -2,7 +2,7 @@
   <div class="stop_wrap">
     <div class="menu_box">
       <header class="group">
-        <h2>{{ deviceNm }} {{ moduleCd }} : {{ moduleNo }}</h2>
+        <h2>{{ deviceNm }}</h2>
         <button class="btn_close" @click="fnClose"></button>
       </header>
 
