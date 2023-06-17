@@ -779,7 +779,7 @@ header .right_section .login {
 	align-items: center;
 	flex-direction: column;
 	width: 86px;
-	height: 708px;
+	height: 729px;
 	border-radius: 25px;
 	text-align: center;
 	background: #f9f9f9;
@@ -1915,10 +1915,12 @@ h5 {
 		padding: 40px 0;
 	}
 	.system_wrap section {
+		width: 23%;
+		padding: 20px;
 		margin-bottom: 20px;
 	}
 	.system_wrap .add {
-		width: 90%;
+		width: 96.5%;
 	}
 	.system_wrap .add a {
 		width: 100%;
@@ -1974,6 +1976,18 @@ h5 {
 	.tab-panel .info {
 		width: 100%;
 		padding: 55px 0;
+	}
+}
+@media screen and (max-width: 1024px) {
+	.system_wrap section {
+		width: 348px;
+		padding: 40px;
+	}
+	.system_wrap .add {
+		width: 90%;
+	}
+	.btnArea {
+		min-width: calc(100% / 3 - 10px);
 	}
 }
 
@@ -2125,6 +2139,7 @@ h5 {
 	}
 	.set_del header {
 		border: none;
+		background: none;
 	}
 	.set_del header h1 {
 		border: none;
@@ -2142,13 +2157,14 @@ h5 {
 	}
 	.ab_membership .header {
 		border: none;
+		background: none;
 	}
 	.ab_membership .header h1 {
 		font-size: 22px !important;
 		border-bottom: none;
 	}
 	.btnArea {
-		min-width: 47%;
+		min-width: calc(100% / 2 - 10px);
 		height: 170px;
 	}
 	.stop_wrap {
@@ -2156,7 +2172,6 @@ h5 {
 		padding: 0 0 3%;
 		margin: 0 auto;
 		transform: scale(1);
-		background: #e9e9e9;
 	}
 	.menu_box .group {
 		background: #fff;
@@ -2377,6 +2392,11 @@ h5 {
 	}
 	.w_1153 {
 		width: 94% !important;
+	}
+}
+@media screen and (max-width: 375px) {
+	.btnArea {
+		min-width: 99%;
 	}
 }
 @media screen and (max-width: 320px) {
