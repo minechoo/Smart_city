@@ -1,42 +1,44 @@
 <template lang="">
-  <div class="content" id="dust">
-    <div class="power flex_between mr_25">
-      <h4 class="mr_25 li_55 mb_0">미세먼지 표출기 전원</h4>
-      <div>
-        <div class="power_line">
-          <div class="on_green">
-            <input
-              type="radio"
-              name="power"
-              id="on_green"
-              value="ON"
-              v-model="power"
-              @click="fnOnPowerChanged('ON')"
-              checked
-            />
-            <label for="on_green">ON</label>
-          </div>
-          <div class="off_grey">
-            <input
-              type="radio"
-              name="power"
-              id="off_grey"
-              value="OFF"
-              v-model="power"
-              @click="fnOnPowerChanged('OFF')"
-            />
-            <label for="off_grey">OFF</label>
+  <div class="content flex_between" id="dust">
+    <div class="left_time flex_center_c">
+      <img src="@/style/images/svg/img_dust.svg" alt="" id="cctv_img" />
+    </div>
+    <div class="right_content flex_center">
+      <div class="power">
+        <h4 class="mr_25 li_55 mb_0">미세먼지 표출기 전원</h4>
+        <div>
+          <div class="power_line">
+            <div class="on_green">
+              <input
+                type="radio"
+                name="power"
+                id="on_green"
+                value="ON"
+                v-model="power"
+                @click="fnOnPowerChanged('ON')"
+                checked
+              />
+              <label for="on_green">ON</label>
+            </div>
+            <div class="off_grey">
+              <input
+                type="radio"
+                name="power"
+                id="off_grey"
+                value="OFF"
+                v-model="power"
+                @click="fnOnPowerChanged('OFF')"
+              />
+              <label for="off_grey">OFF</label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="flex_center cl_both">
-      <img src="@/style/images/img_dust.png" alt="" id="cctv_img" />
-    </div>
-    <div class="ab_a">
-      <a href="https://www.airn.co.kr" class="a_link" target="_blank"
-        >미세먼지 대기질 정보 보러가기</a
-      >
+      <div class="ab_link">
+        <a href="https://www.airn.co.kr/" target="_blank" class="a_link"
+          >미세먼지 대기질 정보 보러가기</a
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -51,7 +53,6 @@ export default {
   props: { module: { type: Object } },
   computed: {
     ...mapGetters(["getUserInfo"]),
-   
   },
   created() {
     this.currentModule = { ...this.module };

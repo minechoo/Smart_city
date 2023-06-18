@@ -55,11 +55,26 @@
                 <div>
                   <div class="power_line">
                     <div class="on_green">
-                      <input type="radio" name="power" id="on_green" value="green" checked />
+                      <input
+                        type="radio"
+                        name="power"
+                        id="on_green"
+                        value="ON"
+                        v-model="power"
+                        @click="fnOnPowerChanged('ON')"
+                        checked
+                      />
                       <label for="on_green">ON</label>
                     </div>
                     <div class="off_grey">
-                      <input type="radio" name="power" id="off_grey" value="grey" />
+                      <input
+                        type="radio"
+                        name="power"
+                        id="off_grey"
+                        value="OFF"
+                        v-model="power"
+                        @click="fnOnPowerChanged('OFF')"
+                      />
                       <label for="off_grey">OFF</label>
                     </div>
                   </div>
