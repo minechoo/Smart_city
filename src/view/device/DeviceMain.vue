@@ -77,11 +77,14 @@ export default {
       }
     },
     isShowDetail() {
+      const el = document.querySelector('#app > div > main');
+      console.log(el);
       if (this.isShowDetail) {
         //window.overflow = 'hidden'
-        document.body.style.overflow = "hidden";
+        
+        el.style.overflow = "hidden";
       } else {
-        document.body.style.overflow = "auto";
+        el.style.overflow = "auto";
       }
     },
     getSocketConnected() {

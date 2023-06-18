@@ -1695,8 +1695,8 @@ h4.ab_h4 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 280px;
-	height: 280px;
+	width: 255px;
+	height: 255px;
 	background: #e4ede4;
 	border-radius: 50%;
 }
@@ -2283,12 +2283,11 @@ h5 {
 		
 		
 	}
-	/* .left_time .svg,
-	.left_time .svg_02,
-	.circle_inner,
-	.time {
-	
-	} */
+	.left_time.h_500{
+		display: none;
+		height: 0px;
+
+	}
 	.left_time img {
 		width: 90%;
 	}
@@ -2400,6 +2399,11 @@ h5 {
 	.btnArea {
 		min-width: 600px;
 	}
+	.left_time.h_500{
+		display: none;
+		height: 0px;
+
+	}
 }
 @media screen and (max-width: 320px) {
 	header h1 a {
@@ -2440,5 +2444,10 @@ h5 {
 	}
 	.value_box .value_inner .val_p .val {
 		width: 70px;
+	}
+	.left_time.h_500{
+		display: none;
+		height: 0px;
+
 	}
 }
