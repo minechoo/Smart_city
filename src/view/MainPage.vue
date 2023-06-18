@@ -39,6 +39,8 @@ export default {
           this.goMain();
       }else{
          this.doLogout();
+
+         
       }
   },
   computed: {

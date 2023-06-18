@@ -24,6 +24,7 @@ export default {
     };
   },
   watch: {
+    // 로그인 상태 변화에 따른 페이지 이동 처리 
     isLogin() {
       if (this.isLogin) {
         Promise.all([this.getCodeList()]).then(
