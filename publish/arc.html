@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<body>
+    <canvas width="500" height="500" id="time"></canvas>
+
+    <script>
+
+
+        var start = 20;
+        var end = 4;
+
+        var ctx = document.getElementById('time').getContext('2d');
+        
+        ctx.beginPath();
+        ctx.arc(250, 250, 100, 0, 360, false);
+        ctx.strokeStyle = 'gray';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+ 
+        ctx.beginPath();
+        ctx.strokeStyle = 'none';
+        ctx.lineWidth = 0;
+        ctx.arc(250, 250, 100, (Math.PI/180) * (start * 15 - 90), (Math.PI/180) * (end * 15 - 90), false);
+        ctx.strokeStyle = '#7dc183';
+        ctx.lineWidth = 14;
+        ctx.stroke();
+
+       
+
+
+     
+    </script>
+
+    <style>
+        canvas {
+            border: 1px solid gray;
+        }
+    </style>
+</body>

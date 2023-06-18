@@ -1,14 +1,12 @@
 <template lang="">
   <div>
-    <div class="left_time">
+    <div class="left_time h_500">
       <svg class="svg">
-        <circle cx="300" cy="275" r="170" class="circle"></circle>
+        <circle cx="300" cy="275" r="170" class="circle" ></circle>
       </svg>
-      <svg class="svg_02">
-        <path :d="getPath" fill="#7dc183" />
-        <circle cx="300" cy="275" r="158" fill="white"></circle>
-        <!-- <circle cx="300" cy="275" r="170" class="circle_green"></circle> -->
-      </svg>
+      <canvas width="600" height="550"  id="timeCanvas"></canvas>
+      <!-- <svg class="svg_02">
+      </svg> -->
       <div class="circle_inner">
         <p>{{ starDtm }} ~ {{ endDtm }}</p>
       </div>
@@ -20,13 +18,23 @@
   </div>
 </template>
 <script>
-import pathUtils from "./CirclePathCalc";
+// import pathUtils from "./CirclePathCalc";
 export default {
   props: {
     module: { type: Object, default: () => ({ start: "0000", end: "2300" }) },
   },
-  watch: {},
-  mounted() {},
+  watch: {
+    starDtm(){
+      this.drawTimeArc()
+    },
+
+    endDtm(){
+      this.drawTimeArc()
+    }
+  },
+  mounted() {
+    
+  },
   computed: {
     starDtm() {
       return this.module.start
@@ -38,29 +46,41 @@ export default {
         ? this.module.end.replace(/^(\d{2})(\d{2})$/, "$1:$2")
         : "";
     },
-    getPath() {
+    
+  },
+  methods:{
+    drawTimeArc() {
       const convertHHMMToNumber = (hhmm) => {
         if (!hhmm) {
           return 0;
         }
         var hours = parseInt(hhmm.substring(0, 2), 10);
         var minutes = parseInt(hhmm.substring(2), 10);
-        var decimalHours = hours + minutes / 60;
+        var decimalHours = hours + minutes / 60; 
         return decimalHours;
       };
 
-      const perHourAxis = Math.floor(360 / 24);
-      return this.module.start
-        ? pathUtils(
-            300,
-            275,
-            178,
-            perHourAxis * convertHHMMToNumber(this.module.start),
-            perHourAxis * convertHHMMToNumber(this.module.end)
-          )
-        : "";
+      const canvas = document.getElementById('timeCanvas');
+      const ctx = document.getElementById('timeCanvas').getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.beginPath();
+      ctx.arc(300, 275, 156, (Math.PI/180) * (convertHHMMToNumber(this.module.start) * 15 - 90), (Math.PI/180) * (convertHHMMToNumber(this.module.end) * 15 - 90), false);
+      ctx.strokeStyle = '#7dc183';
+      ctx.lineWidth = 22;
+      ctx.stroke();
+
+
+      //  ctx.beginPath();
+      //  ctx.arc(300, 275, 145, (Math.PI/180) * (0 * 15 - 90), (Math.PI/180) * (360* 15 - 90), false);
+      //  ctx.strokeStyle = 'gray';
+      //  ctx.lineWidth = .8;
+      //  ctx.stroke();
+
+
+     
     },
-  },
+  }
 };
 </script>
 <style scoped>
