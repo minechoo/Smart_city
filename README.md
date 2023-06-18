@@ -1,4 +1,31 @@
-# confirm-project-vue
+
+# chocolatey 설치 (powershell 관리자 모드)
+```
+Set-ExecutionPolicy Bypass -Scope Process -Force; iwr https://community.chocolatey.org/install.ps1 -UseBasicParsing | iex
+```
+
+
+# powershell 실행 권한 변경
+
+```
+
+PS > Set-ExecutionPolicy RemoteSigned
+PS > Get-ExecutionPolicy
+
+```
+# install node
+```
+choco install nodejs
+node -v
+```
+
+# install yarn
+
+```
+npm i -g yarn 
+yarn -v
+
+```
 
 ## Ignore yarn engine check
 ```
